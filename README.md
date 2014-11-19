@@ -1,3 +1,4 @@
 ChamberCrawler
 ==============
-This is the first commit
+This is a text based dungeon crawler.
+To be updated with features
