@@ -2,6 +2,8 @@
 #define ___FLOOR_H___
 #include <string>
 #include <cstdlib>
+#include "tile.h"
+#include "chamber.h"
 
 class Enemy;
 class Player;
@@ -14,16 +16,26 @@ class Floor {
 	const string defaultFile;
 
 	// Private Fields
+	// The current level
 	int lvl;
-	Cell ***cells;
+	// The maximum number of enemies, potions, and treasures 
+	int maxEnemies, maxPotions, maxTreasures;
 	// Stores the probability of spawning a specific mob
 	map<string, int> eSpawnProb;
 	map<string, int> pSpawnProb;
 	map<string, int> tSpawnProb;
+	
+	Chamber **chambers;
+	Tile ***tiles;
 
 	// Private Methods
 	string rand(map<string, int>);	
-
+	// Generate a random Enemy, Potion or Treasure based on their respective spawn probabilities
+	Enemy getEnemy();
+	Potion getPotion();
+	Treasure getTreasure();
+	Stairs getStairs();
+	
 	public:
 	// Constructors
 	Floor();
@@ -32,11 +44,6 @@ class Floor {
 	void loadFloor();
 	// Load the floor pattern from a specific input file
 	void loadFloor(string fileName);
-	// Generate a "random" enemy based on a set 
-	Enemy getEnemy();
-	Potion getPotion();
-	Treasure getTreasure();
-	Stairs getStairs();
 	// Destructor
 	~Floor();
 }
