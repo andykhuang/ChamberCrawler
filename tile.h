@@ -6,16 +6,18 @@ class Player;
 class Item;
 
 class Tile {
+	protected:
 	Item *item;
 	Character *character;
+	char tileSymbol;
 
 	public:
 	// Constructors
 	Tile();
-	Tile(Character *c);
-	Tile(Item *i);
+
 	// Returns whether this Tile has something "on" it
-	virtual bool isOccupied();
+	virtual bool isOccupied(Player *p);
+	virtual bool isOccupied(Enemy *e);
 	// Tries to place a Character on this Tile and return whether it succeeded
 	virtual bool placeCharacter(Character *c);
 	// Tries to place an Item on this Tile and return whether it succeeded
@@ -23,5 +25,8 @@ class Tile {
 	// Try to step on this Tile and return whether it succeeded
 	virtual bool isSteppedOn(Player *p);
 	virtual bool isSteppedOn(Enemy *e);
+
+	// Destructor
+	virtual ~Tile() = 0;
 };
 #endif
