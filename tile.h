@@ -1,5 +1,6 @@
 #ifndef ___TILE_H___
 #define ___TILE_H___
+#include <iostream>
 
 class Character;
 class Player;
@@ -7,6 +8,8 @@ class Item;
 
 class Tile {
 	protected:
+	Tile *neighbours;
+
 	Item *item;
 	Character *character;
 	char tileSymbol;
@@ -28,5 +31,7 @@ class Tile {
 
 	// Destructor
 	virtual ~Tile() = 0;
+
+	friend std::ostream &operator<<(std::ostream &out, const Tile &t);
 };
 #endif

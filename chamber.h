@@ -12,7 +12,7 @@ class Chamber {
 	public:
 	Chamber(Tile **tiles);
 	// Place an entity with the given name on a random tile
-	void place(string name);
+	void place(std::string name);
 	~Chamber();
 ;
 #endif

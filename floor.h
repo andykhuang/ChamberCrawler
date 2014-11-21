@@ -2,6 +2,7 @@
 #define ___FLOOR_H___
 #include <string>
 #include <cstdlib>
+#include <iostream>
 #include "tile.h"
 #include "chamber.h"
 
@@ -21,15 +22,15 @@ class Floor {
 	// The maximum number of enemies, potions, and treasures 
 	int maxEnemies, maxPotions, maxTreasures;
 	// Stores the probability of spawning a specific mob
-	map<string, int> eSpawnProb;
-	map<string, int> pSpawnProb;
-	map<string, int> tSpawnProb;
+	map<std::string, int> eSpawnProb;
+	map<std::string, int> pSpawnProb;
+	map<std::string, int> tSpawnProb;
 	
 	Chamber **chambers;
 	Tile ***tiles;
 
 	// Private Methods
-	string rand(map<string, int>);	
+	string rand(map<std::string, int>);	
 	// Generate a random Enemy, Potion or Treasure based on their respective spawn probabilities
 	Enemy getEnemy();
 	Potion getPotion();
@@ -40,11 +41,15 @@ class Floor {
 	// Constructors
 	Floor();
 	Floor(int seed);
+	
 	// Load the default floor pattern
 	void loadFloor();
 	// Load the floor pattern from a specific input file
-	void loadFloor(string fileName);
+	void loadFloor(std::string fileName);	
+
 	// Destructor
 	~Floor();
+
+	friend std::ostream &operator<<(std::ostream &out, const Floor &f);
 }
 #endif

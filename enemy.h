@@ -1,14 +1,20 @@
 #ifndef ___ENEMY_H___
 #define ___ENEMY_H___
+#include <string>
+#include "character.h"
+
+class Treasure;
 
 class Enemy: public Character {
-	void move();
-	void dropItems();
-	void die();
-	void attack(Character *c);
+	bool onDeath(Character *c);
+
+	protected:
+	Treasure *t;
+
 	public:
-	void performAction();
-	bool isDead();
-	bool isAttacked(Character *c);
+	std::string performAction(std::string command, std::string dir);
+
+	// Destructor
+	~Enemy();
 };
 #endif

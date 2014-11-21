@@ -1,5 +1,6 @@
 #ifndef ___WALL_H___
 #define ___WALL_H___
+#include "tile.h"
 
 class Player;
 class Enemy;

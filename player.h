@@ -2,7 +2,7 @@
 #define ___PLAYER_H___
 
 class Player: public Character {
-	void die();	
+	bool onDeath(Character *c);	
 
 	public:
 	void move(int dir);

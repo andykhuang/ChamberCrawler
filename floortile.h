@@ -1,5 +1,6 @@
 #ifndef ___FLOORTILE_H___
 #define ___FLOORTILE_H___
+#include "tile.h"
 
 class Character;
 
