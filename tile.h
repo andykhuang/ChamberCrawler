@@ -5,10 +5,11 @@
 class Character;
 class Player;
 class Item;
+class Enemy;
 
 class Tile {
 	protected:
-	Tile *neighbours;
+	Tile **neighbours;
 
 	Item *item;
 	Character *character;
@@ -17,6 +18,8 @@ class Tile {
 	public:
 	// Constructors
 	Tile();
+	Tile(Character *c);
+	Tile(Item *i);
 
 	// Returns whether this Tile has something "on" it
 	virtual bool isOccupied(Player *p);

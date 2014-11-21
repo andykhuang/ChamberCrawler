@@ -1,9 +1,8 @@
 #ifndef ___GAME_H___
 #define ___GAME_H___
 #include <string>
-
-class Player;
-class Floor;
+#include "player.h"
+#include "floor.h"
 
 class Game {
 	// Private fields
