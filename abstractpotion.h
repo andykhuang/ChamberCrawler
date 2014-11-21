@@ -11,5 +11,5 @@ class AbstractPotion: public Item {
 	virtual int getDef() = 0;
 	virtual bool isUsed(Player *p);
 	virtual bool isUsed(Enemy *e);
-}
+};
 #endif
