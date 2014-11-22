@@ -23,11 +23,11 @@ Game::~Game(){
 	delete gameFloor;
 }
 
-Game::void playGame(){
+void Game::playGame(){
 	cout << "Potato" << endl;
 }
 
-Game::void descendFloor(){
+void Game::descendFloor(){
 	// delete gameFloor
 	// makes a new floor
 	// increments the floor lvl

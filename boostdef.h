@@ -4,6 +4,7 @@
 
 class BoostDef:public Potion {
 	public:
+	BoostDef(Potion *p);
 	int getDef();
 };
 #endif

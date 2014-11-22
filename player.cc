@@ -4,21 +4,10 @@
 using namespace std;
 
 bool Player::onDeath(Character *c){
+	// End game and stuff
 	return false;
 }
 
-void Player::move(int dir){
-	return;
-}
-
-bool Player::isDead(){
-	return hp <= 0;
-}
-
-void Player::use(int dir){
-	return;
-}
-
-void Player::pickup(int dir){
-	return;
+int Player::getScore(){
+	return moneyCoins;
 }

@@ -4,6 +4,7 @@
 
 class BoostAtk:public Potion {
 	public:
+	BoostAtk(Potion *p);
 	int getAtk();
 };
 #endif

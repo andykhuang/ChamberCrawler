@@ -4,6 +4,9 @@
 
 class Potion: public AbstractPotion {
 	protected:
-	AbstractPotion *p;	
+	AbstractPotion *p;
+	
+	Potion(AbstractPotion *p);
+	~Potion();
 };
 #endif

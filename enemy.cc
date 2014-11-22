@@ -5,7 +5,7 @@
 
 using namespace std;
 
-bool Enemy onDeath(Character *c){
+bool Enemy::onDeath(Character *c){
 	return true;
 }
 

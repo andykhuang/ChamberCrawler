@@ -5,7 +5,7 @@
 class Player;
 class Enemy;
 
-class BoostAtk:public Potion {
+class PoisonHealth:public Potion {
 	public:
 	bool isUsed(Player *p);
 	bool isUsed(Enemy *e);

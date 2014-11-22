@@ -11,7 +11,7 @@ bool FloorTile::isAttacked(Character *c){
 	return false;
 }
 
-bool FloorTile::iUsed(Character *c){
+bool FloorTile::isUsed(Character *c){
 	return false;
 }
 
