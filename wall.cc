@@ -7,10 +7,10 @@ Wall::Wall(bool isVertical){
 	tileSymbol = isVertical ? '|' : '-';
 }
 
-Wall::isOccupied(Character *c){
+bool Wall::isOccupied(Player *p){
 	return true;
 }
 
-Wall::isOccupied(Enemy *e){
+bool Wall::isOccupied(Enemy *e){
 	return true;
 }

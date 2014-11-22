@@ -4,6 +4,7 @@
 
 class WoundDef:public Potion {
 	public:
+	WoundDef(Potion *p);
 	int getDef();
 };
 #endif

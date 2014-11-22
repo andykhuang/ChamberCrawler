@@ -4,6 +4,7 @@
 
 class WoundAtk:public Potion {
 	public:
+	WoundAtk(Potion *p);
 	int getAtk();
 };
 #endif

@@ -3,8 +3,9 @@
 
 using namespace std;
 
+bool Merchant::isFriendly = true;
+
 Merchant::Merchant(){
-	isFriendly = true;
 	// TODO: set stuff
 }
 
