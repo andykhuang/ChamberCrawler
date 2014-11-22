@@ -1,13 +1,15 @@
 #ifndef ___PLAYER_H___
 #define ___PLAYER_H___
+#include "character.h"
 
 class Player: public Character {
 	bool onDeath(Character *c);	
+	
+	protected:
+	int moneyCoins;
 
 	public:
-	void move(int dir);
-	bool isDead();
-	void use(int dir);
-	void pickup(int dir);
+	bool onDeath(Character *c);
+	virtual int getScore();		
 };
 #endif
