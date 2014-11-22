@@ -3,8 +3,6 @@
 #include "character.h"
 
 class Player: public Character {
-	bool onDeath(Character *c);	
-	
 	protected:
 	int moneyCoins;
 

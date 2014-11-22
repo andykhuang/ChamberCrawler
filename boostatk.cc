@@ -3,6 +3,6 @@
 
 using namespace std;
 
-int Boostatk::getAtk(){
+int BoostAtk::getAtk(){
 	return p->getAtk() + 5;
 }
