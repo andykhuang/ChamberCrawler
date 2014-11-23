@@ -1,2 +1,2 @@
-character.o: character.cc tile.h potion.h abstractpotion.h item.h \
- character.h
+character.o: character.cc tile.h abstractpotion.h item.h potion.h \
+ emptypotion.h character.h

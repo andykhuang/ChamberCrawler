@@ -63,6 +63,6 @@ bool Tile::isSteppedOn(Enemy *e){
 }
 
 ostream &operator<<(ostream &out, const Tile &t){
-	out << "Potato" << endl;
+	out << t.tileSymbol;
 	return out;
 }

@@ -91,9 +91,9 @@ void Game::playGame(){
 		
 		// At this point the player has selected a valid race, game will begin	
 		else {
-			isRestart = false;
 			// Initialize board and stuff here
-			cout << "Initialize board here" << endl;
+			gameFloor = new Floor(floorNum);
+			gameFloor->loadFloor();
 
 			// Output the Board and HUD
 			cout << "Board & HUD output" << endl;
@@ -120,13 +120,16 @@ void Game::playGame(){
 						cout << "Attack " << cOption << endl;
 					}
 				} else if(command == "r"){
+					// Restart Game
 					isRestart = true;
 				} else if(command == "q"){
+					// Quit Game
 					isQuit = true;
 				} else {
 					// Other wise check if it's a direction
 					if(isValidDirection(command)){
 						// Move
+						cout << "Move " << command << endl;
 					} else {
 						cout << "Invalid Command" << endl;
 					}
@@ -134,6 +137,11 @@ void Game::playGame(){
 			}
 			
 			// TODO: Free everything that needs freeing here
+			// reset all the variables
+			isRestart = false;
+			command = "";
+			cOption = "";
+			playerRace = "";
 		}
 
 	}

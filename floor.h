@@ -21,7 +21,7 @@ class Floor {
 	// The current level
 	int lvl;
 	// The maximum number of enemies, potions, and treasures 
-	int maxEnemies, maxPotions, maxTreasures;
+	int maxEnemies, maxPotions, maxTreasures, cSize, rSize;
 	// Stores the probability of spawning a specific mob
 	std::map<std::string, int> eSpawnProb;
 	std::map<std::string, int> pSpawnProb;
