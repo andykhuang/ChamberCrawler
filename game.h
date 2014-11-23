@@ -12,7 +12,7 @@ class Game {
 	int floorNum;
 
 	// Private methods
-	void setGamePlayer(std::string race);
+	bool setGamePlayer(std::string race);
 
 	public:
 	// Constructor

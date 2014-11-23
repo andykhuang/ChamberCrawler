@@ -3,7 +3,7 @@
 #include <string>
 
 class Tile;
-class Potion;
+class AbstractPotion;
 
 class Character {
 	virtual bool attack(std::string dir);
@@ -19,14 +19,15 @@ class Character {
 	std::string race;
 
 	int maxhp, hp, atk, def;
-	Potion *pot;
+	AbstractPotion *pot;
 
 	public:
 	// Constructor
 	Character();
+	Character(std::string race, int maxhp, int hp, int atk, int def);
 
 	virtual std::string performAction(std::string command, std::string dir);
-	virtual bool isAttacked(Character *c) = 0;
+	virtual bool isAttacked(Character *c);
 	virtual bool isDead();
 
 	// Destructor

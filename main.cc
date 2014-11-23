@@ -8,6 +8,8 @@ int main(){
 	cout << "Creating game" << endl;
 	Game *testGame = new Game;
 	cout << "Game Created" << endl;
+	cout << "Starting Game" << endl;
+	testGame->playGame();
 	delete testGame;
 	cout << "Game Ended" << endl;
 }

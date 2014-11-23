@@ -5,10 +5,10 @@
 
 using namespace std;
 
-bool AbstractPotion::isUsed(Player *p){
+/*bool AbstractPotion::isUsed(Player *p){
 	return false;
 }
 
 bool AbstractPotion::isUsed(Enemy *e){
 	return false;
-}
+}*/
