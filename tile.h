@@ -9,7 +9,7 @@ class Enemy;
 
 class Tile {
 	protected:
-	Tile **neighbours;
+	Tile *neighbours[8];
 
 	Item *item;
 	Character *character;

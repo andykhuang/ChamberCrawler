@@ -96,6 +96,7 @@ void Game::playGame(){
 			gameFloor->loadFloor();
 
 			// Output the Board and HUD
+			cout << *gameFloor << endl;
 			cout << "Board & HUD output" << endl;
 
 			// Begin command parsing
