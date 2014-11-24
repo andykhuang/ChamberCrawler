@@ -163,6 +163,7 @@ void Game::playGame(){
 			// TODO: Free everything that needs freeing here
 			delete gamePlayer;
 			delete gameFloor;
+			delete tempStair;
 			gamePlayer = NULL;
 			gameFloor = NULL;
 		
