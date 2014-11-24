@@ -7,9 +7,12 @@ class Player;
 class Item;
 class Enemy;
 
+const int MAX_NEIGHBOURS = 8;
+
 class Tile {
 	protected:
-	Tile *neighbours[8];
+	int numNeighbours;
+	Tile *neighbours[MAX_NEIGHBOURS];
 
 	Item *item;
 	Character *character;
@@ -31,6 +34,12 @@ class Tile {
 	// Try to step on this Tile and return whether it succeeded
 	virtual bool isSteppedOn(Player *p);
 	virtual bool isSteppedOn(Enemy *e);
+
+	// Add Neighbours
+	virtual void addNeighbour(Tile *neighbour);
+
+	// Get tileSymbol
+	char getTileSymbol();
 
 	// Destructor
 	virtual ~Tile() = 0;

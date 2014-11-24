@@ -35,7 +35,10 @@ Character::Character(string race, int maxhp, int hp, int atk, int def):race(race
 }
 
 Character::~Character(){
-	// delete stuff
+	delete t;
+	t = NULL;
+	delete pot;
+	pot = NULL;
 }
 
 string Character::performAction(string command, string dir){

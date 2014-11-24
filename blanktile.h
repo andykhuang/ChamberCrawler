@@ -6,7 +6,7 @@ class Player;
 class Enemy;
 
 class BlankTile: public Tile {
-	
+	void addNeighbour(Tile *t);
 	bool isOccupied(Player *p);
 	bool isOccupied(Enemy *e);
 };

@@ -8,6 +8,10 @@
 #include "floor.h"
 #include "vampire.h"
 #include "player.h"
+#include "shade.h"
+#include "drow.h"
+#include "troll.h"
+#include "goblin.h"
 
 using namespace std;
 
@@ -24,21 +28,33 @@ Game::~Game(){
 	delete gameFloor;
 }
 
+void Game::displayHUD(string action){
+	cout << "Race: " << gamePlayer->getRace() << " ";
+	cout << "Gold: " << setw(48) << left << gamePlayer->getGold();
+	cout << "Floor: " << floorNum << endl;
+	
+	cout << setw(5) << left << "HP: " << gamePlayer->gethp() << endl;
+	cout << setw(5) << left << "Atk: " << gamePlayer->getatk() << endl;
+	cout << setw(5) << left << "Def: " << gamePlayer->getdef() << endl;
+	cout << "Action: " << action << endl;
+}
+
+
 bool Game::setGamePlayer(string race){
 	if(race == "s" || race == "S"){
-		// TODO: make a new shade
+		gamePlayer = new Shade;
 		return true;
 	} else if(race == "d" || race == "D"){
-		// TODO: make a new drow
+		gamePlayer = new Drow;
 		return true;
 	} else if(race == "v" || race == "V"){
 		gamePlayer = new Vampire;
 		return true;
 	} else if(race == "g" || race == "G"){
-		// TODO: make a new goblin
+		gamePlayer = new Goblin;
 		return true;
 	} else if(race == "t" || race == "T"){
-		// TODO: make a new Troll
+		gamePlayer = new Troll;
 		return true;
 	} else {
 		// Not a valid class
@@ -73,7 +89,7 @@ void Game::playGame(){
 	string playerRace;
 
 	// Restart While loop
-	while(!isQuit){
+	while(!isQuit && !cin.eof()){
 		// Read Player Race
 		cout << "Choose a race to begin the game: ";
 		cin >> command;
@@ -97,10 +113,11 @@ void Game::playGame(){
 
 			// Output the Board and HUD
 			cout << *gameFloor << endl;
-			cout << "Board & HUD output" << endl;
-
+			displayHUD("Game Started");
+			
 			// Begin command parsing
-			while(!isQuit && !isRestart){
+			while(!isQuit && !isRestart && !cin.eof()){
+				cout << "Command: ";
 				cin >> command;
 
 				// USE Command performed
@@ -138,6 +155,11 @@ void Game::playGame(){
 			}
 			
 			// TODO: Free everything that needs freeing here
+			delete gamePlayer;
+			delete gameFloor;
+			gamePlayer = NULL;
+			gameFloor = NULL;
+		
 			// reset all the variables
 			isRestart = false;
 			command = "";

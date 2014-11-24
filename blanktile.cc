@@ -5,6 +5,9 @@
 
 using namespace std;
 
+void BlankTile::addNeighbour(Tile *t){
+	return;
+}
 
 bool BlankTile::isOccupied(Player *p){
 	return true;

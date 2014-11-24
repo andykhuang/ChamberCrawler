@@ -11,6 +11,7 @@ class Chamber {
 
 	public:
 	Chamber(Tile **tiles, int size);
+
 	// Place an entity with the given name on a random tile
 	void place(std::string name);
 	~Chamber();

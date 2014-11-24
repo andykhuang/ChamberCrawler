@@ -1,4 +1,5 @@
 #include <string>
+#include <iomanip>
 #include "character.h"
 #include "player.h"
 
@@ -18,5 +19,25 @@ bool Player::onDeath(Character *c){
 }
 
 int Player::getScore(){
+	return moneyCoins;
+}
+
+string Player::getRace(){
+	return race;
+}
+
+int Player::gethp(){
+	return hp;
+}
+
+int Player::getatk(){
+	return atk;
+}
+
+int Player::getdef(){
+	return def;
+}
+
+int Player::getGold(){
 	return moneyCoins;
 }

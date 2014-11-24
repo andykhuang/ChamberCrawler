@@ -8,7 +8,11 @@
 using namespace std;
 
 Tile::Tile(){
-	//TODO: Heap allocate an array of 8 neighbours pointers
+	numNeighbours = 0;
+	for(int i = 0; i < MAX_NEIGHBOURS; i++){
+		neighbours[i] = NULL;
+	}
+	
 	item = NULL;
 	character = NULL;
 	tileSymbol = ' ';
@@ -26,6 +30,17 @@ Tile::Tile(Item *i){
 	tileSymbol = 'i'; // TODO: get it from the item pointer
 }
 
+void Tile::addNeighbour(Tile *neighbour){
+	// Safety
+	if(numNeighbours >= MAX_NEIGHBOURS) return;
+	
+	neighbours[numNeighbours] = neighbour;
+	numNeighbours++;
+}
+
+char Tile::getTileSymbol(){
+	return tileSymbol;
+}
 
 bool Tile::isOccupied(Player *p){
 	return true;
@@ -52,6 +67,14 @@ bool Tile::isSteppedOn(Enemy *e){
 }
 
 ostream &operator<<(ostream &out, const Tile &t){
-	out << t.tileSymbol;
+	// TODO: If an item or charcter exists print that
+	if(t.character != NULL){
+		out << "@";
+	} else if (t.item != NULL){
+		out << t.item;
+	} else {
+	// Otherwise
+		out << t.tileSymbol;
+	}
 	return out;
 }

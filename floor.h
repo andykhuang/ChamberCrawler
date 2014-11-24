@@ -2,6 +2,7 @@
 #define ___FLOOR_H___
 #include <string>
 #include <cstdlib>
+#include <vector>
 #include <map>
 #include <iostream>
 #include "tile.h"
@@ -21,10 +22,18 @@ class Floor {
 	// The current level
 	int lvl;
 	// The maximum number of enemies, potions, and treasures 
-	int maxEnemies, maxPotions, maxTreasures, cSize, rSize;
+	int maxEnemies, maxPotions, maxTreasures;
+	// Column and row sizes of the floor
+	int cSize, rSize;
+	// Number of chambers
+	int numChambers;
+
 	// Stores the probability of spawning a specific mob
+	// Enemy Spawn
 	std::map<std::string, int> eSpawnProb;
+	// Potion Spawn
 	std::map<std::string, int> pSpawnProb;
+	// Treasure Spawn
 	std::map<std::string, int> tSpawnProb;
 	
 	Chamber **chambers;
@@ -37,6 +46,12 @@ class Floor {
 	Potion getPotion();
 	Treasure getTreasure();
 	Stairs getStairs();
+
+	// Validity check
+	bool validCheck (int r, int c);
+
+	// Recursive chamber association
+	void setChamber(int r, int c, std::vector<Tile *> &chamberTiles, bool **trackerGrid);
 	
 	public:
 	// Constructors

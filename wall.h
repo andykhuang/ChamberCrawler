@@ -10,6 +10,8 @@ class Wall: public Tile {
 	// Constructor
 	Wall(bool isVertical);
 
+	void addNeighbour(Tile *t);
+
 	// Overrides for the isOccupied methods
 	bool isOccupied(Player *p);
 	bool isOccupied(Enemy *e);

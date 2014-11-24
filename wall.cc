@@ -7,6 +7,10 @@ Wall::Wall(bool isVertical){
 	tileSymbol = isVertical ? '|' : '-';
 }
 
+void Wall::addNeighbour(Tile *t){
+	return;
+}
+
 bool Wall::isOccupied(Player *p){
 	return true;
 }

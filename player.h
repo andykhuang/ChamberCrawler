@@ -1,6 +1,7 @@
 #ifndef ___PLAYER_H___
 #define ___PLAYER_H___
 #include "character.h"
+#include <iostream>
 
 class Player: public Character {
 	protected:
@@ -10,7 +11,15 @@ class Player: public Character {
 	Player(); // REMOVE THIS WHEN DONE
 	Player(std::string race, int maxhp, int hp, int atk, int def);
 	bool onDeath(Character *c);
+
+	// Player Accessors
+	virtual std::string getRace();
+	virtual int gethp();
+	virtual int getatk();
+	virtual int getdef();
+	virtual int getGold();
 	virtual int getScore();
-	~Player() = 0; // for making this pure virtual only
+
+	virtual ~Player() = 0; // for making this pure virtual only
 };
 #endif
