@@ -8,7 +8,7 @@ class Stairs: public FloorTile {
 
 	public:
 	// Constructor
-	Stairs();	
+	Stairs(Game *g);	
 
 	bool isSteppedOn(Player *p);
 	bool isOccupied(Player *p);

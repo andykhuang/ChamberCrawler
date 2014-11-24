@@ -3,6 +3,9 @@
 #include <string>
 
 class Tile;
+class Character;
+class Item;
+class Stairs;
 
 class Chamber {
 	// Private fields
@@ -12,8 +15,10 @@ class Chamber {
 	public:
 	Chamber(Tile **tiles, int size);
 
-	// Place an entity with the given name on a random tile
-	void place(std::string name);
+	// Place an entity on a random tile in this chamber
+	bool place(Character *c);
+	bool place(Item *i);
+	bool place(Stairs *s);
 	~Chamber();
 };
 #endif

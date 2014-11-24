@@ -44,6 +44,11 @@ class Tile {
 	// Destructor
 	virtual ~Tile() = 0;
 
+	// TODO: Remove this
+	void setTileSymbol(char s){
+		tileSymbol = s;
+	}
+
 	friend std::ostream &operator<<(std::ostream &out, const Tile &t);
 };
 #endif

@@ -4,8 +4,7 @@
 
 using namespace std;
 
-Stairs::Stairs(){
-	g = NULL;
+Stairs::Stairs(Game *g):g(g){
 	// TODO: stairs mechanics
 }
 

@@ -6,6 +6,7 @@
 
 #include "game.h"
 #include "floor.h"
+#include "stairs.h"
 #include "vampire.h"
 #include "player.h"
 #include "shade.h"
@@ -26,6 +27,9 @@ Game::Game(){
 Game::~Game(){
 	delete gamePlayer;
 	delete gameFloor;
+
+	gamePlayer = NULL;
+	gameFloor = NULL;
 }
 
 void Game::displayHUD(string action){
@@ -107,9 +111,11 @@ void Game::playGame(){
 		
 		// At this point the player has selected a valid race, game will begin	
 		else {
-			// Initialize board and stuff here
+			// Initialize the floor
+			// Make a Stair for this floor
+			Stairs *tempStair = new Stairs(this);
 			gameFloor = new Floor(floorNum);
-			gameFloor->loadFloor();
+			gameFloor->loadFloor(gamePlayer, tempStair);
 
 			// Output the Board and HUD
 			cout << *gameFloor << endl;

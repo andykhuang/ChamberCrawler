@@ -2,6 +2,9 @@
 #include <iostream>
 #include "chamber.h"
 #include "tile.h"
+#include "character.h"
+#include "player.h"
+#include "item.h"
 
 using namespace std;
 
@@ -21,8 +24,17 @@ Chamber::~Chamber(){
 	delete [] tiles;
 	tiles = NULL;
 }
+bool Chamber::place(Stairs *s){
+	// TODO: place it on random tile
+	return true;
+}
 
+bool Chamber::place(Character *c){
+	// TODO: place it on a random tile
+	return true;
+}
 
-void Chamber::place(string name){
-	return;
+bool Chamber::place(Item *i){
+	// TODO: Place it on a random tile
+	return true;
 }

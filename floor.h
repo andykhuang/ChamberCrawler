@@ -23,6 +23,8 @@ class Floor {
 	int lvl;
 	// The maximum number of enemies, potions, and treasures 
 	int maxEnemies, maxPotions, maxTreasures;
+	// The actual number of enemies, potions, and treasures currently on the floor
+	int enemies, potions, treasures;
 	// Column and row sizes of the floor
 	int cSize, rSize;
 	// Number of chambers
@@ -40,12 +42,13 @@ class Floor {
 	Tile ***tiles;
 
 	// Private Methods
-	std::string rand(std::map<std::string, int>);	
+	static int random(int low, int high);
+	std::string random(std::map<std::string, int>&);
 	// Generate a random Enemy, Potion or Treasure based on their respective spawn probabilities
-	Enemy getEnemy();
-	Potion getPotion();
-	Treasure getTreasure();
-	Stairs getStairs();
+	Enemy* getEnemy();
+	Potion* getPotion();
+	Treasure* getTreasure();
+	Stairs* getStairs();
 
 	// Validity check
 	bool validCheck (int r, int c);
@@ -59,9 +62,9 @@ class Floor {
 	Floor(int lvl, int seed);
 	
 	// Load the default floor pattern
-	void loadFloor();
+	void loadFloor(Player *p, Stairs *s);
 	// Load the floor pattern from a specific input file
-	void loadFloor(std::string fileName);	
+	void loadFloor(Player *p, Stairs *s, std::string fileName);	
 
 	// Destructor
 	~Floor();

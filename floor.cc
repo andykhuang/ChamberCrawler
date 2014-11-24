@@ -10,16 +10,26 @@
 #include "wall.h"
 #include "doorway.h"
 #include "passage.h"
+#include "stairs.h"
 #include "floortile.h"
 #include "blanktile.h"
+#include "character.h"
+#include "player.h"
+#include "item.h"
+#include "potion.h"
 
 using namespace std;
 
 Floor::Floor(int lvl):defaultFile("defaultLayout.txt"){
+	// TODO: MOVE THIS BODY INTO ANOTHER METHOD AND HAVE THE CONSTRUCTORS CALL IT WITH CERTAIN PARAMETERS
 	this->lvl = lvl;
 	maxEnemies = 20;
 	maxPotions = 10;
 	maxTreasures = 10;
+	enemies = 0;
+	potions = 0;
+	treasures = 0;
+
 	rSize = 25;
 	cSize = 79;
 	numChambers = 5;
@@ -35,9 +45,31 @@ Floor::Floor(int lvl):defaultFile("defaultLayout.txt"){
 	for(int i = 0; i < numChambers; i++){
 		chambers[i] = NULL;
 	}
+
+	// Load the probability maps
+	// Enemy
+	eSpawnProb["Human"] = 4;
+	eSpawnProb["Dwarf"] = 3;
+	eSpawnProb["Halfling"] = 5;
+	eSpawnProb["Elf"] = 2;
+	eSpawnProb["Orc"] = 2;
+	eSpawnProb["Merchant"] = 2;
+
+	// Treasure
+	tSpawnProb["Normal"] = 5;
+	tSpawnProb["Dragon"] = 1;
+	tSpawnProb["Small"] = 2;
+
+	// Potions
+	pSpawnProb["RH"] = 1;
+	pSpawnProb["BA"] = 1;
+	pSpawnProb["BD"] = 1;
+	pSpawnProb["PH"] = 1;
+	pSpawnProb["WA"] = 1;
+	pSpawnProb["WD"] = 1;
 	
 	// TODO: Seed with system time
-	srand(1234);
+	srand(9001);
 }
 
 Floor::Floor(int lvl, int seed):defaultFile("defaultLayout.txt"){
@@ -67,15 +99,11 @@ Floor::~Floor(){
 
 }
 
-string Floor::rand(map<std::string, int> prob){
-	return "Randerp";
+void Floor::loadFloor(Player *p, Stairs *s){
+	loadFloor(p, s, defaultFile);
 }
 
-void Floor::loadFloor(){
-	loadFloor(defaultFile);
-}
-
-void Floor::loadFloor(string fileName){
+void Floor::loadFloor(Player *p, Stairs *stairs, string fileName){
 	// Set ifstream pointer
 	ifstream f(fileName.c_str());
 	string fLine;
@@ -225,6 +253,68 @@ void Floor::loadFloor(string fileName){
 	//		* EQUAL PROBABILITY FOR ALL CHAMBERS
 	// 	Remember that entity types can be generated with their respective functions
 	// TODO: BEGIN
+	// Randomly place into chambers (0 - numChambers-1)
+	int chamberIndex;
+	int playerChamberIndex;
+	bool placeSucceeded = false;
+	
+	while (!placeSucceeded){
+		// Generate Player Position
+		chamberIndex = random(0, numChambers-1);	// Which chamber
+
+		// Should only fail if chamber is full
+		if(chambers[chamberIndex]->place(static_cast<Character *>(p))){
+			placeSucceeded = true;
+			playerChamberIndex = chamberIndex;
+		}
+		cout << "Player Placed" << endl;
+	}
+	// Reset Flag
+	placeSucceeded = false;
+
+	// Randomly Generate and place Stairs
+	// Make sure not in the same chamber as player
+	while(!placeSucceeded){
+		chamberIndex = random(0, numChambers-1);
+		// If not in the same room as the player
+		if(chamberIndex != playerChamberIndex && chambers[chamberIndex]->place(stairs)){
+			// TODO: this
+			placeSucceeded = true;
+		}
+	}
+	
+	placeSucceeded = false;
+	
+}
+
+// Random generation given a map of integers
+// Sum of the map is the total probability
+// Each individual key, value pair has probability/total probability of being returned
+string Floor::random(map<string, int> &prob){
+	int total = 0;
+
+	// Calculate total probability
+	for(map<string, int>::iterator i = prob.begin(); i != prob.end(); i++){
+		total += i->second;
+	}
+
+	// Randomly generate between 0 and total
+	int randNum = random(0, total);
+	
+	// Tracking current total
+	int currentTotal = 0;
+	for(map<string,int>::iterator i = prob.begin(); i != prob.end(); i++){
+		currentTotal += i->second;
+		if(randNum <= currentTotal){
+			return i->first;
+		}
+	}
+	return "";
+}
+
+// Generate a random number between low to high inclusive
+int Floor::random(int low, int high){
+	return (rand() % (high-low + 1)) + low;
 }
 
 void Floor::setChamber(int r, int c, vector<Tile *> &chamberTiles, bool **trackerGrid){
