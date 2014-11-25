@@ -25,6 +25,7 @@ class Tile {
 	Tile(Item *i);
 
 	// Returns whether this Tile has something "on" it
+	virtual bool isOccupied();
 	virtual bool isOccupied(Player *p);
 	virtual bool isOccupied(Enemy *e);
 	// Tries to place a Character on this Tile and return whether it succeeded
@@ -36,7 +37,11 @@ class Tile {
 	virtual bool isSteppedOn(Enemy *e);
 
 	// Add Neighbours
-	virtual void addNeighbour(Tile *neighbour);
+	void addNeighbour(Tile *neighbour);
+	
+	// Get Neighbours
+	Tile* getNeighbour(std::string dir);
+	Tile** getNeighbour();
 
 	// Get tileSymbol
 	char getTileSymbol();

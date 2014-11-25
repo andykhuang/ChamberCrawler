@@ -42,7 +42,6 @@ class Floor {
 	Tile ***tiles;
 
 	// Private Methods
-	static int random(int low, int high);
 	std::string random(std::map<std::string, int>&);
 	// Generate a random Enemy, Potion or Treasure based on their respective spawn probabilities
 	Enemy* getEnemy();
@@ -61,6 +60,8 @@ class Floor {
 	Floor(int lvl);
 	Floor(int lvl, int seed);
 	
+	// Static function for generating random numbers
+	static int random(int low, int high);
 	// Load the default floor pattern
 	void loadFloor(Player *p, Stairs *s);
 	// Load the floor pattern from a specific input file

@@ -3,6 +3,7 @@
 #include <sstream>
 #include <fstream>
 #include <iomanip>
+#include <cstdlib>
 
 #include "game.h"
 #include "floor.h"
@@ -15,6 +16,20 @@
 #include "goblin.h"
 
 using namespace std;
+
+Game *Game::instance = NULL;
+
+Game* Game::getInstance(){
+	if(!instance){
+		instance = new Game();
+		atexit(cleanup);
+	}
+	return instance;
+}
+
+void Game::cleanup(){
+	delete instance;
+}
 
 Game::Game(){
 	gamePlayer = NULL;
@@ -163,7 +178,6 @@ void Game::playGame(){
 			// TODO: Free everything that needs freeing here
 			delete gamePlayer;
 			delete gameFloor;
-			delete tempStair;
 			gamePlayer = NULL;
 			gameFloor = NULL;
 		

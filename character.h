@@ -1,6 +1,7 @@
 #ifndef ___CHARACTER_H___
 #define ___CHARACTER_H___
 #include <string>
+#include <iostream>
 
 class Tile;
 class AbstractPotion;
@@ -32,5 +33,7 @@ class Character {
 
 	// Destructor
 	virtual ~Character();
+
+	friend std::ostream &operator<<(std::ostream &out, const Character &c);
 };
 #endif

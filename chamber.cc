@@ -5,6 +5,9 @@
 #include "character.h"
 #include "player.h"
 #include "item.h"
+#include "floor.h"
+#include "stairs.h"
+#include "floortile.h"
 
 using namespace std;
 
@@ -24,14 +27,45 @@ Chamber::~Chamber(){
 	delete [] tiles;
 	tiles = NULL;
 }
-bool Chamber::place(Stairs *s){
-	// TODO: place it on random tile
+
+bool Chamber::isFull(){
+	for(int i = 0; i < size; i++){
+		if(!tiles[i]->isOccupied()) return false;
+	}
 	return true;
+}
+
+bool Chamber::place(Stairs *s){
+	int successFlag = false;
+	
+	if(isFull()) return false;
+
+	while(!successFlag){
+		int tileIndex = Floor::random(0, size-1);
+		// If nothing on the tile (should never be anything on tile)
+		if(tiles[tileIndex]->placeItem(s)){
+			s->setHost(tiles[tileIndex]);
+			successFlag = true;
+			return true;
+		}
+	}
+	return false;
 }
 
 bool Chamber::place(Character *c){
 	// TODO: place it on a random tile
-	return true;
+	int successFlag = false;
+	
+	if(isFull()) return false;	
+
+	while(!successFlag){
+		int tileIndex = Floor::random(0, size-1);
+		if(tiles[tileIndex]->placeCharacter(c)){
+			successFlag = true;
+			return true;
+		}
+	}
+	return false;
 }
 
 bool Chamber::place(Item *i){

@@ -38,8 +38,31 @@ void Tile::addNeighbour(Tile *neighbour){
 	numNeighbours++;
 }
 
+Tile *Tile::getNeighbour(string dir){
+	if(dir == "nw") return neighbours[0];
+	else if(dir == "no") return neighbours[1];
+	else if(dir == "ne") return neighbours[2];
+	else if(dir == "we") return neighbours[3];
+	else if(dir == "ea") return neighbours[4];
+	else if(dir == "sw") return neighbours[5];
+	else if(dir == "so") return neighbours[6];
+	else if(dir == "se") return neighbours[7];
+	else return NULL;
+}
+
+
+Tile **Tile::getNeighbour(){
+	return neighbours;
+}
+
 char Tile::getTileSymbol(){
 	return tileSymbol;
+}
+
+bool Tile::isOccupied(){
+	if(item != NULL) return true;
+	if(character != NULL) return true;
+	return false;
 }
 
 bool Tile::isOccupied(Player *p){
@@ -51,11 +74,20 @@ bool Tile::isOccupied(Enemy *e){
 }
 
 bool Tile::placeCharacter(Character *c){
-	return true;
+	if(!isOccupied()){
+		character = c;
+		return true;
+	}
+	// Placement failed
+	return false;
 }
 
 bool Tile::placeItem(Item *i){
-	return true;
+	if(!isOccupied()){
+		item = i;
+		return true;
+	}
+	return false;
 }
 
 bool Tile::isSteppedOn(Player *p){
@@ -69,9 +101,9 @@ bool Tile::isSteppedOn(Enemy *e){
 ostream &operator<<(ostream &out, const Tile &t){
 	// TODO: If an item or charcter exists print that
 	if(t.character != NULL){
-		out << "@";
+		out << *(t.character);
 	} else if (t.item != NULL){
-		out << t.item;
+		out << *(t.item);
 	} else {
 	// Otherwise
 		out << t.tileSymbol;

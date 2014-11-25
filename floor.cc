@@ -16,7 +16,14 @@
 #include "character.h"
 #include "player.h"
 #include "item.h"
+#include "abstractpotion.h"
 #include "potion.h"
+#include "restorehealth.h"
+#include "poisonhealth.h"
+#include "boostatk.h"
+#include "boostdef.h"
+#include "woundatk.h"
+#include "wounddef.h"
 
 using namespace std;
 
@@ -69,7 +76,7 @@ Floor::Floor(int lvl):defaultFile("defaultLayout.txt"){
 	pSpawnProb["WD"] = 1;
 	
 	// TODO: Seed with system time
-	srand(9001);
+	srand(time(NULL));
 }
 
 Floor::Floor(int lvl, int seed):defaultFile("defaultLayout.txt"){
@@ -99,8 +106,8 @@ Floor::~Floor(){
 
 }
 
-void Floor::loadFloor(Player *p, Stairs *s){
-	loadFloor(p, s, defaultFile);
+void Floor::loadFloor(Player *p, Stairs *stairs){
+	loadFloor(p, stairs, defaultFile);
 }
 
 void Floor::loadFloor(Player *p, Stairs *stairs, string fileName){
@@ -252,14 +259,14 @@ void Floor::loadFloor(Player *p, Stairs *stairs, string fileName){
 	// 	- Enemy Locations
 	//		* EQUAL PROBABILITY FOR ALL CHAMBERS
 	// 	Remember that entity types can be generated with their respective functions
-	// TODO: BEGIN
-	// Randomly place into chambers (0 - numChambers-1)
+	// Temp int for random generation
 	int chamberIndex;
+	// Stores the chamber player is in so stairs won't be in the same one
 	int playerChamberIndex;
+	// Temp Flag denoting the success of a placement
 	bool placeSucceeded = false;
 	
 	while (!placeSucceeded){
-		// Generate Player Position
 		chamberIndex = random(0, numChambers-1);	// Which chamber
 
 		// Should only fail if chamber is full
@@ -278,13 +285,50 @@ void Floor::loadFloor(Player *p, Stairs *stairs, string fileName){
 		chamberIndex = random(0, numChambers-1);
 		// If not in the same room as the player
 		if(chamberIndex != playerChamberIndex && chambers[chamberIndex]->place(stairs)){
-			// TODO: this
 			placeSucceeded = true;
 		}
+		cout << "Stairs Placed" << endl;
 	}
 	
 	placeSucceeded = false;
+
+
+	// Randomly generate and place potions
+	for(int i = 0; i < maxPotions; i++){
+		// Generate Type of potion
+		
+		// Generate Chamber
+		
+		placeSucceeded = false;
+	}
+
+	// Randomly generate and place gold
+
+	// Randomly generate and place enemies
 	
+}
+
+Potion* Floor::getPotion(){
+	Potion *toReturn;
+	string potType = random(pSpawnProb);
+
+	if(potType == "BA"){
+		toReturn = new BoostAtk(NULL);
+	} else if(potType == "WA"){
+		toReturn = new WoundAtk(NULL);
+	} else if(potType == "BD"){
+		toReturn = new BoostDef(NULL);
+	} else if(potType == "WD"){
+		toReturn = new WoundDef(NULL);
+	} else if(potType == "RH"){
+		toReturn = new RestoreHealth;
+	} else if(potType == "PH"){
+		toReturn = new PoisonHealth;
+	} else {
+		toReturn = NULL;
+	}
+
+	return toReturn;
 }
 
 // Random generation given a map of integers

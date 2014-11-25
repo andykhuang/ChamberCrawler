@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include "tile.h"
 #include "abstractpotion.h"
 #include "potion.h"
@@ -35,7 +36,6 @@ Character::Character(string race, int maxhp, int hp, int atk, int def):race(race
 }
 
 Character::~Character(){
-	delete t;
 	t = NULL;
 	delete pot;
 	pot = NULL;
@@ -52,4 +52,9 @@ bool Character::isAttacked(Character *c){
 
 bool Character::isDead(){
 	return hp <= 0; 
+}
+
+ostream &operator<<(ostream &out, const Character &c){
+	out << c.characterSymbol;
+	return out;
 }

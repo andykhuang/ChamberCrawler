@@ -14,6 +14,9 @@ class Chamber {
 
 	public:
 	Chamber(Tile **tiles, int size);
+	
+	// Check if this chamber is full
+	bool isFull();
 
 	// Place an entity on a random tile in this chamber
 	bool place(Character *c);

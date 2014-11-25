@@ -21,5 +21,6 @@ bool BlankTile::isOccupied(Enemy *e){
 Tile::~Tile(){
 	// A Tile should not delete its neighbours as that is handled by the floor
 	delete item;
-	delete character;
+	item = NULL;
+	character = NULL;
 }
