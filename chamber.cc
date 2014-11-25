@@ -70,5 +70,20 @@ bool Chamber::place(Character *c){
 
 bool Chamber::place(Item *i){
 	// TODO: Place it on a random tile
-	return true;
+	int successFlag = false;
+	
+	if(isFull()) return false;
+
+	while(!successFlag){
+		int tileIndex = Floor::random(0, size-1);
+		// Try to place on the tile
+
+		// Testing purposes only!!!!
+		if(!tiles[tileIndex]->isOccupied()) tiles[tileIndex]->setTileSymbol('P');
+		// REMOVE THE ABOVE LINE WHEN POTION IS DONE IMPLEMENTATION
+		
+		successFlag = true;
+		return true;
+	}
+	return false;
 }

@@ -18,6 +18,7 @@
 #include "item.h"
 #include "abstractpotion.h"
 #include "potion.h"
+#include "emptypotion.h"
 #include "restorehealth.h"
 #include "poisonhealth.h"
 #include "boostatk.h"
@@ -295,10 +296,15 @@ void Floor::loadFloor(Player *p, Stairs *stairs, string fileName){
 
 	// Randomly generate and place potions
 	for(int i = 0; i < maxPotions; i++){
-		// Generate Type of potion
-		
-		// Generate Chamber
-		
+		while(!placeSucceeded){
+			// Generate Type of potion
+			AbstractPotion *tempPotion = getPotion();
+			// Generate Chamber
+			chamberIndex = random(0, numChambers-1);
+			if(chambers[chamberIndex]->place(static_cast<Item *>(tempPotion))){
+				placeSucceeded = true;
+			}
+		}
 		placeSucceeded = false;
 	}
 
@@ -308,18 +314,19 @@ void Floor::loadFloor(Player *p, Stairs *stairs, string fileName){
 	
 }
 
-Potion* Floor::getPotion(){
-	Potion *toReturn;
+// TODO: Decorate the potion
+AbstractPotion* Floor::getPotion(){
+	/*AbstractPotion *toReturn = new EmptyPotion;
 	string potType = random(pSpawnProb);
 
 	if(potType == "BA"){
-		toReturn = new BoostAtk(NULL);
+		toReturn = new BoostAtk(toReturn);
 	} else if(potType == "WA"){
-		toReturn = new WoundAtk(NULL);
+		toReturn = new WoundAtk(toReturn);
 	} else if(potType == "BD"){
-		toReturn = new BoostDef(NULL);
+		toReturn = new BoostDef(toReturn);
 	} else if(potType == "WD"){
-		toReturn = new WoundDef(NULL);
+		toReturn = new WoundDef(toReturn);
 	} else if(potType == "RH"){
 		toReturn = new RestoreHealth;
 	} else if(potType == "PH"){
@@ -329,6 +336,8 @@ Potion* Floor::getPotion(){
 	}
 
 	return toReturn;
+	*/
+	return NULL;
 }
 
 // Random generation given a map of integers

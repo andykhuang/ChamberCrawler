@@ -10,7 +10,7 @@
 
 class Enemy;
 class Player;
-class Potion;
+class AbstractPotion;
 class Treasure;
 class Stairs;
 
@@ -45,7 +45,7 @@ class Floor {
 	std::string random(std::map<std::string, int>&);
 	// Generate a random Enemy, Potion or Treasure based on their respective spawn probabilities
 	Enemy* getEnemy();
-	Potion* getPotion();
+	AbstractPotion* getPotion();
 	Treasure* getTreasure();
 	Stairs* getStairs();
 
