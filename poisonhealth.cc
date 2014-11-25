@@ -1,13 +1,24 @@
+#include "player.h"
+#include "enemy.h"
 #include "potion.h"
 #include "poisonhealth.h"
 
 using namespace std;
 
+bool PoisonHealth::hasEncountered = false;
+
+PoisonHealth::PoisonHealth(AbstractPotion *p): Potion(p) {
+	desc = "Poison Health Potion";
+	name = "PH";
+}
+
 bool PoisonHealth::isUsed(Player *p){
-	// TODO: Add the health negatively to the given player p
-	// TODO: Can this potion kill?
+	isConsumed(p);
+	p->heal(-10);
+	hasEncountered = true;
 	return true;
 }
+
 
 bool PoisonHealth::isUsed(Enemy *e){
 	return false;

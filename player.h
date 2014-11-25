@@ -3,6 +3,8 @@
 #include "character.h"
 #include <iostream>
 
+class AbstractPotion;
+
 class Player: public Character {
 	protected:
 	int moneyCoins;
@@ -10,7 +12,16 @@ class Player: public Character {
 	public:
 	Player(); // REMOVE THIS WHEN DONE
 	Player(std::string race, int maxhp, int hp, int atk, int def);
+
 	bool onDeath(Character *c);
+
+	// Increments the Player's HP by the amount specified
+	// If the amount is negative, decrement the Player's HP instead
+	virtual void heal(int amount);
+
+	// Increments the Player's moneyCoins by the amount specified
+	// If the amount is negative, decrement the Player's moneyCoins instead
+	virtual void bank(int amount);
 
 	// Player Accessors
 	virtual std::string getRace();
@@ -19,6 +30,10 @@ class Player: public Character {
 	virtual int getdef();
 	virtual int getGold();
 	virtual int getScore();
+	virtual AbstractPotion *getpotion();
+
+	// Player Mutators
+	virtual void setpotion(AbstractPotion *p);
 
 	virtual ~Player() = 0; // for making this pure virtual only
 };

@@ -2,9 +2,19 @@
 #define ___BOOSTDEF_H___
 #include "potion.h"
 
+class Player;
+class Enemy;
+
 class BoostDef:public Potion {
+	static bool hasEncountered;
+
 	public:
-	BoostDef(Potion *p);
+	// Constructor
+	BoostDef(AbstractPotion *p);
+
 	int getDef();
+
+	bool isUsed(Player *p);
+	bool isUsed(Enemy *e);
 };
 #endif

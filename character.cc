@@ -25,7 +25,7 @@ bool Character::use(string dir){
 
 Character::Character(){
 	t = NULL;
-	// TODO: Construct an empty potion here, ie a potion that does nothign
+	// TODO: Construct an empty potion here, ie a potion that does nothing
 	pot = new EmptyPotion;
 }
 
@@ -39,6 +39,10 @@ Character::~Character(){
 	t = NULL;
 	delete pot;
 	pot = NULL;
+}
+
+void Character::setTile(Tile *t) {
+	host = t;
 }
 
 string Character::performAction(string command, string dir){

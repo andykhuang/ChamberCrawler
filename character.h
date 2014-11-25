@@ -14,7 +14,7 @@ class Character {
 	virtual bool onDeath(Character *c) = 0;
 
 	protected:
-	Tile *t;
+	Tile *host;
 	char characterSymbol;
 	std::string race;
 
@@ -25,6 +25,8 @@ class Character {
 	// Constructor
 	Character();
 	Character(std::string race, int maxhp, int hp, int atk, int def);
+
+	virtual void setTile(Tile *t);
 
 	virtual std::string performAction(std::string command, std::string dir);
 	virtual bool isAttacked(Character *c);

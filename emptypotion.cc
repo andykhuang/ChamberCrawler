@@ -1,7 +1,13 @@
+#include <string>
 #include "abstractpotion.h"
 #include "emptypotion.h"
 
 using namespace std;
+
+EmptyPotion::EmptyPotion() {
+	name = "Empty Potion";
+	desc = "Hey! This potion is completely empty!";
+}
 
 bool EmptyPotion::isPickedUp(Player *p){
 	return true;

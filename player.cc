@@ -1,5 +1,6 @@
 #include <string>
 #include <iomanip>
+#include "abstractpotion.h"
 #include "character.h"
 #include "player.h"
 
@@ -11,6 +12,24 @@ Player::Player(){
 
 Player::Player(string race, int maxhp, int hp, int atk, int def) : Character(race, maxhp, hp, atk, def){
 	moneyCoins = 0;
+}
+
+void Player::heal(int amount) {
+	if(hp + amount > maxhp) {
+		hp = maxhp;
+	} else if(hp + amount < 0) {
+		hp = 0;
+	} else {
+		hp += amount;
+	}
+}
+
+void Player::bank(int amount) {
+	if(moneyCoins + amount < 0) {
+		moneyCoins = 0;
+	} else {
+		moneyCoins += amount;
+	}
 }
 
 bool Player::onDeath(Character *c){
@@ -31,13 +50,21 @@ int Player::gethp(){
 }
 
 int Player::getatk(){
-	return atk;
+	return atk + potion->getAtk();
 }
 
 int Player::getdef(){
-	return def;
+	return def + potion->getDef();
 }
 
 int Player::getGold(){
 	return moneyCoins;
+}
+
+AbstractPotion *Player::getPotion() {
+	return pot;
+}
+
+void Player::setpotion(AbstractPotion *ap) {
+	pot = ap;
 }

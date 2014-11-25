@@ -4,6 +4,9 @@
 
 class EmptyPotion: public AbstractPotion {
 	public:
+	// Constructor
+	EmptyPotion();
+
 	int getAtk();
 	int getDef();
 	bool isPickedUp(Player *p);

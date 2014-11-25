@@ -20,7 +20,8 @@ class Item {
 	Item();
 
 	// Set the host field for this Item
-	void setHost(Tile *t);
+	// This method is overloaded by the DragonTreasure item
+	virtual void setHost(Tile *t);
 	// Tries to pick up 
 	virtual bool isPickedUp(Player *p) = 0;
 	virtual bool isPickedUp(Enemy *e) = 0;
