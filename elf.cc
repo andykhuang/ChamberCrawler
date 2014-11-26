@@ -6,6 +6,7 @@ using namespace std;
 
 Elf::Elf(){
 	// Assign hp and stuff
+	characterSymbol = 'E';
 }
 
 bool Elf::attack(string dir){

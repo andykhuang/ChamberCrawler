@@ -5,7 +5,7 @@
 using namespace std;
 
 Dragon::Dragon(){
-
+	characterSymbol = 'D';
 }
 
 bool Dragon::attack(string dir){

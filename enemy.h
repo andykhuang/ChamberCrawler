@@ -14,7 +14,9 @@ class Enemy: public Character {
 	public:
 	std::string performAction(std::string command, std::string dir);
 
+	// Constructor
+	Enemy();
 	// Destructor
-	~Enemy();
+	virtual ~Enemy();
 };
 #endif

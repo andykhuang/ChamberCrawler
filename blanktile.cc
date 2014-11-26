@@ -1,7 +1,9 @@
+#include <iostream>
 #include "blanktile.h"
 #include "tile.h"
 #include "item.h"
 #include "character.h"
+#include "enemy.h"
 
 using namespace std;
 
@@ -22,5 +24,6 @@ Tile::~Tile(){
 	// A Tile should not delete its neighbours as that is handled by the floor
 	delete item;
 	item = NULL;
+	delete character;
 	character = NULL;
 }

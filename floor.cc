@@ -4,6 +4,7 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <iomanip>
 #include "floor.h"
 #include "tile.h"
 #include "chamber.h"
@@ -25,6 +26,16 @@
 #include "boostdef.h"
 #include "woundatk.h"
 #include "wounddef.h"
+#include "treasure.h"
+#include "dragontreasure.h"
+#include "enemy.h"
+#include "human.h"
+#include "dwarf.h"
+#include "elf.h"
+#include "orc.h"
+#include "merchant.h"
+#include "dragon.h"
+#include "halfling.h"
 
 using namespace std;
 
@@ -307,20 +318,82 @@ void Floor::loadFloor(Player *p, Stairs *stairs, string fileName){
 		}
 		placeSucceeded = false;
 	}
-
+	
 	// Randomly generate and place gold
+	// Special Note that There must be at least 1 neighbour that's not occupied around the gold
+	for(int i = 0; i < maxTreasures; i++){
+		while(!placeSucceeded){
+			// Generate the type of treasure
+			Treasure *tempTreasure = getTreasure();
+			// Generate Chamber
+			chamberIndex = random(0, numChambers-1);
+			if(chambers[chamberIndex]->place(static_cast<Item *>(tempTreasure))){
+				placeSucceeded = true;
+			}
+		}
+		placeSucceeded = false;
+	}
 
 	// Randomly generate and place enemies
+	for(int i = 0; i < maxEnemies; i++){
+		while(!placeSucceeded){
+			Enemy *tempEnemy = getEnemy();
+
+			chamberIndex = random(0, numChambers-1);
+			if(chambers[chamberIndex]->place(static_cast<Character *>(tempEnemy))){
+				placeSucceeded = true;
+			}
+		}
+		placeSucceeded = false;
+	}
 	
+}
+
+Enemy* Floor::getEnemy(){
+	Enemy *toReturn;
+	string eType = random(eSpawnProb);
+
+	if(eType == "Human"){
+		toReturn = new Human;
+	} else if(eType == "Dwarf"){
+		toReturn = new Dwarf;
+	} else if(eType == "Halfling"){
+		toReturn = new Halfling;
+	} else if(eType == "Elf"){
+		toReturn = new Elf;
+	} else if(eType == "Orc"){
+		toReturn = new Orc;
+	} else if(eType == "Merchant"){
+		toReturn = new Merchant;
+	} else {
+		toReturn = NULL;
+	}
+	return toReturn;
+}
+
+Treasure* Floor::getTreasure(){
+	Treasure *toReturn;
+	string tType = random(tSpawnProb);
+	
+	if(tType == "Normal"){
+		toReturn = new Treasure(2);
+	} else if(tType == "Small"){
+		toReturn = new Treasure(1);
+	} else if(tType == "Dragon"){
+		toReturn = new DragonTreasure;
+	} else {
+		toReturn = NULL;
+	}
+	return toReturn;
 }
 
 // TODO: Decorate the potion
 AbstractPotion* Floor::getPotion(){
-	/*AbstractPotion *toReturn = new EmptyPotion;
+	/*AbstractPotion *toReturn;
 	string potType = random(pSpawnProb);
 
 	if(potType == "BA"){
-		toReturn = new BoostAtk(toReturn);
+		toReturn = new BoostAtk(NULL);
 	} else if(potType == "WA"){
 		toReturn = new WoundAtk(toReturn);
 	} else if(potType == "BD"){

@@ -41,6 +41,10 @@ Character::~Character(){
 	pot = NULL;
 }
 
+void Character::setTile(Tile *t){
+	this->t = t;
+}
+
 string Character::performAction(string command, string dir){
 	return "Action";
 }

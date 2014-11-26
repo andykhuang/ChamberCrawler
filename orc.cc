@@ -5,6 +5,7 @@ using namespace std;
 
 Orc::Orc(){
 	// Set fields
+	characterSymbol = 'O';
 }
 
 bool Orc::attack(string dir){

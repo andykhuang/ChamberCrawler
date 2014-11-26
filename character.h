@@ -26,7 +26,8 @@ class Character {
 	// Constructor
 	Character();
 	Character(std::string race, int maxhp, int hp, int atk, int def);
-
+	
+	void setTile(Tile *t);
 	virtual std::string performAction(std::string command, std::string dir);
 	virtual bool isAttacked(Character *c);
 	virtual bool isDead();

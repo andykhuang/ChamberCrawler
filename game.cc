@@ -176,8 +176,8 @@ void Game::playGame(){
 			}
 			
 			// TODO: Free everything that needs freeing here
-			delete gamePlayer;
 			delete gameFloor;
+			//delete gamePlayer;
 			gamePlayer = NULL;
 			gameFloor = NULL;
 		

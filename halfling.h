@@ -7,6 +7,6 @@ class Halfling: public Enemy {
 	// Constructor
 	Halfling();
 	
-	bool isAttacked(Character *c);
+	bool isAttacked(Character *p);
 };
 #endif

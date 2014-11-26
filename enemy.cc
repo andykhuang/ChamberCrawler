@@ -13,6 +13,10 @@ string Enemy::performAction(string command, string dir){
 	return "Enemy perform Action";
 }
 
+
+Enemy::Enemy(){
+	t = NULL;
+}
 Enemy::~Enemy(){
 	delete t;
 }
