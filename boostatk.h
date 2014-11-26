@@ -16,5 +16,6 @@ class BoostAtk:public Potion {
 	int getAtk();
 
 	bool isUsed(Player *p);
+	bool isUsed(Enemy *e);
 };
 #endif

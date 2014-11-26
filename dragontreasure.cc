@@ -1,4 +1,5 @@
 #include "dragontreasure.h"
+#include "dragon.h"
 #include "treasure.h"
 #include "tile.h"
 
@@ -15,7 +16,7 @@ DragonTreasure::~DragonTreasure() {
 
 void DragonTreasure::clearDragon() {
 	delete d;
-	d = null;
+	d = NULL;
 }
 
 void DragonTreasure::setHost(Tile *t) {
@@ -23,10 +24,10 @@ void DragonTreasure::setHost(Tile *t) {
 	host = t;
 	// Set the Tile that the Dragon guarding this DragonTreasure is on
 	bool dragonSet = false;
-	Tile **neighbours = t.getNeighbours();
+	Tile **neighbours = t->getNeighbours();
 	while(!dragonSet) {
-		int ind = return (rand() % (8));
-		if(!neighbours[ind].isOccupied()) {
+		int ind = (rand() % (8));
+		if(!neighbours[ind]->isOccupied()) {
 			d->setTile(neighbours[ind]);
 			dragonSet = true;
 		}

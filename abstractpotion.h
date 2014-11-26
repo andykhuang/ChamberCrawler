@@ -14,5 +14,8 @@ class AbstractPotion: public Item {
 	virtual bool isUsed(Enemy *e) = 0;
 	virtual int getAtk() = 0;
 	virtual int getDef() = 0;
+
+	// Destructor
+	virtual ~AbstractPotion();
 };
 #endif

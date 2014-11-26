@@ -17,10 +17,7 @@ int BoostAtk::getAtk(){
 }
 
 bool BoostAtk::isUsed(Player *p) {
-	// Wrap this Potion around the Potion the Player currently has
-	this->setPotion(p->getPotion());
-	// Set the Potion the Player currently has to this Potion
-	p->setPotion(this);
+	isConsumed(p);	
 	hasEncountered = true;
 	return true;
 }

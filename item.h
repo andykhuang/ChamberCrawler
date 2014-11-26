@@ -26,6 +26,9 @@ class Item {
 	virtual bool isPickedUp(Player *p) = 0;
 	virtual bool isPickedUp(Enemy *e) = 0;
 
+	// Pure virtual Destructor
+	virtual ~Item() = 0;
+
 	friend std::ostream &operator<<(std::ostream &out, const Item &i);
 };
 #endif

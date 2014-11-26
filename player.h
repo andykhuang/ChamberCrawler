@@ -30,10 +30,10 @@ class Player: public Character {
 	virtual int getdef();
 	virtual int getGold();
 	virtual int getScore();
-	virtual AbstractPotion *getpotion();
+	virtual AbstractPotion *getPotion();
 
 	// Player Mutators
-	virtual void setpotion(AbstractPotion *p);
+	virtual void setPotion(AbstractPotion *p);
 
 	virtual ~Player() = 0; // for making this pure virtual only
 };

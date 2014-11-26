@@ -8,3 +8,5 @@ using namespace std;
 AbstractPotion::AbstractPotion() {
 	itemSymbol = 'P';
 }
+
+AbstractPotion::~AbstractPotion() {}

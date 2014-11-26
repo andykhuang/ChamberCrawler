@@ -16,6 +16,8 @@ class DragonTreasure: public Treasure {
 	bool isPickedUp(Player *p);
 	bool isPickedUp(Enemy *e);
 
+	void setHost(Tile *t);
+
 	// Called by the Dragon when it is slain to remove the dragon guarding
 	// the treasure
 	void clearDragon();

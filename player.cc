@@ -65,6 +65,6 @@ AbstractPotion *Player::getPotion() {
 	return pot;
 }
 
-void Player::setpotion(AbstractPotion *ap) {
+void Player::setPotion(AbstractPotion *ap) {
 	pot = ap;
 }

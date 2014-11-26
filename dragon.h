@@ -13,6 +13,8 @@ class Dragon: public Enemy {
 	// Constructor
 	Dragon(DragonTreasure *dt);
 	
+	void setTile(Tile *t);
+	
 	bool attack(std::string dir);
 };
 #endif

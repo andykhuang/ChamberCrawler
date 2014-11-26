@@ -24,19 +24,19 @@ bool Character::use(string dir){
 }
 
 Character::Character(){
-	t = NULL;
+	host = NULL;
 	// TODO: Construct an empty potion here, ie a potion that does nothing
 	pot = new EmptyPotion;
 }
 
 Character::Character(string race, int maxhp, int hp, int atk, int def):race(race), maxhp(maxhp), hp(hp), atk(atk), def(def){
-	t = NULL;
+	host = NULL;
 	pot = new EmptyPotion;
 }
 
 Character::~Character(){
-	delete t;
-	t = NULL;
+	delete host;
+	host = NULL;
 	delete pot;
 	pot = NULL;
 }
