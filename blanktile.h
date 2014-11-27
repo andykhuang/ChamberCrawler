@@ -9,5 +9,7 @@ class BlankTile: public Tile {
 	void addNeighbour(Tile *t);
 	bool isOccupied(Player *p);
 	bool isOccupied(Enemy *e);
+	bool isSteppedOn(Player *p);
+	bool isSteppedOn(Enemy *e);
 };
 #endif

@@ -12,7 +12,11 @@ class Treasure: public Item {
 	public:
 	// Constructor
 	Treasure(int value);
-
+	
+	// Tries to step on this treasure
+	virtual bool canBeSteppedOn(Player *p);
+	virtual bool canBeSteppedOn(Enemy *e);
+	
 	// Called when the Teasure is picked up. Returns True if successfully picked
 	virtual bool isPickedUp(Player *p);
 	virtual bool isPickedUp(Enemy *e);

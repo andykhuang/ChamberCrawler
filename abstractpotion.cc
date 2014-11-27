@@ -5,6 +5,13 @@
 
 using namespace std;
 
+bool AbstractPotion::canBeSteppedOn(Player *p){
+	return false;
+}
+
+bool AbstractPotion::canBeSteppedOn(Enemy *e){
+	return false;
+}
 /*bool AbstractPotion::isUsed(Player *p){
 	return false;
 }

@@ -18,3 +18,11 @@ bool Wall::isOccupied(Player *p){
 bool Wall::isOccupied(Enemy *e){
 	return true;
 }
+
+bool Wall::isSteppedOn(Player *p){
+	return false;
+}
+
+bool Wall::isSteppedOn(Enemy *e){
+	return false;
+}

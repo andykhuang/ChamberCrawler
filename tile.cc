@@ -90,8 +90,34 @@ bool Tile::placeItem(Item *i){
 	return false;
 }
 
+// Can a player step on this tile?
 bool Tile::isSteppedOn(Player *p){
+	// You can never step on characters
+	if(character != NULL) return false;
+	else if(item != NULL){
+		// TODO: Do step mechanics
+		// Call can step on item or something
+		// 	GOLD can be stepped on and will be picked up
+		//	STAIRS can be stepped on and will advance the floor
+		// 	Otherwise should return false
+
+		if(item->canBeSteppedOn(p)){
+			//TODO: Take the gold
+			cout << "Gold taken" << endl;
+		} 
+		// Item can't be stepped on
+		else {
+			return false;
+		}
+		
+	}
+	// If it has no character and no items then set this tile to have the player p
+	character = p;
 	return true;
+}
+
+void Tile::characterLeft(){
+	character = NULL;
 }
 
 bool Tile::isSteppedOn(Enemy *e){

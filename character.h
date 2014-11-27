@@ -7,10 +7,10 @@ class Tile;
 class AbstractPotion;
 
 class Character {
-	virtual bool attack(std::string dir);
-	virtual bool move(std::string dir);
-	virtual bool pickup(std::string dir);
-	virtual bool use(std::string dir);
+	virtual bool attack(std::string dir) = 0;
+	virtual bool move(std::string dir) = 0;
+	virtual bool pickup(std::string dir) = 0;
+	virtual bool use(std::string dir) = 0;
  
 	virtual bool onDeath(Character *c) = 0;
 
@@ -28,7 +28,7 @@ class Character {
 	Character(std::string race, int maxhp, int hp, int atk, int def);
 	
 	void setTile(Tile *t);
-	virtual std::string performAction(std::string command, std::string dir);
+	virtual std::string performAction(std::string command, std::string dir) = 0;
 	virtual bool isAttacked(Character *c);
 	virtual bool isDead();
 

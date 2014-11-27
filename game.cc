@@ -126,6 +126,8 @@ void Game::playGame(){
 		
 		// At this point the player has selected a valid race, game will begin	
 		else {
+			// Response messages from the game
+			string response = "Player Character has spawned.";
 			// Initialize the floor
 			// Make a Stair for this floor
 			Stairs *tempStair = new Stairs(this);
@@ -134,7 +136,7 @@ void Game::playGame(){
 
 			// Output the Board and HUD
 			cout << *gameFloor << endl;
-			displayHUD("Game Started");
+			displayHUD(response);
 			
 			// Begin command parsing
 			while(!isQuit && !isRestart && !cin.eof()){
@@ -168,11 +170,15 @@ void Game::playGame(){
 					// Other wise check if it's a direction
 					if(isValidDirection(command)){
 						// Move
-						cout << "Move " << command << endl;
+						response = gamePlayer->performAction("move", command);
 					} else {
 						cout << "Invalid Command" << endl;
 					}
 				}
+
+				// Display the board and information
+				cout << *gameFloor << endl;
+				displayHUD(response);
 			}
 			
 			// TODO: Free everything that needs freeing here

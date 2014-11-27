@@ -20,6 +20,16 @@ bool Stairs::isPickedUp(Player *p){
 bool Stairs::isPickedUp(Enemy *e){
 	return false;
 }
+
+bool Stairs::canBeSteppedOn(Player *p){
+	// TODO: load next floor
+	cout << "Stairs stepped on: loading floor now" << endl;
+	return true;
+}
+
+bool Stairs::canBeSteppedOn(Enemy *e){
+	return false;
+}
 /*
 bool Stairs::isSteppedOn(Player *p){
 	return false;

@@ -15,5 +15,7 @@ class Wall: public Tile {
 	// Overrides for the isOccupied methods
 	bool isOccupied(Player *p);
 	bool isOccupied(Enemy *e);
+	bool isSteppedOn(Player *p);
+	bool isSteppedOn(Enemy *e);
 };
 #endif

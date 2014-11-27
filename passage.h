@@ -3,6 +3,7 @@
 #include "tile.h"
 
 class Enemy;
+class Player;
 
 class Passage: public Tile {
 	public:
@@ -11,5 +12,7 @@ class Passage: public Tile {
 
 	// Override the isOccupied for Enemies to always return True
 	bool isOccupied(Enemy *e);
+	bool isSteppedOn(Player *p);
+	bool isSteppedOn(Enemy *e);
 };
 #endif

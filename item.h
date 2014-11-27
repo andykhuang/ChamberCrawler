@@ -20,7 +20,10 @@ class Item {
 	Item();
 
 	// Set the host field for this Item
+	// Can you step on this item?
 	void setHost(Tile *t);
+	virtual bool canBeSteppedOn(Player *p) = 0;
+	virtual bool canBeSteppedOn(Enemy *e) = 0; 
 	// Tries to pick up 
 	virtual bool isPickedUp(Player *p) = 0;
 	virtual bool isPickedUp(Enemy *e) = 0;

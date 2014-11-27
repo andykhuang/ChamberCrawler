@@ -36,6 +36,8 @@ class Tile {
 	virtual bool isSteppedOn(Player *p);
 	virtual bool isSteppedOn(Enemy *e);
 
+	/*virtual*/void characterLeft();
+
 	// Add Neighbours
 	void addNeighbour(Tile *neighbour);
 	
