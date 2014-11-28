@@ -20,13 +20,17 @@ class Item {
 	Item();
 
 	// Set the host field for this Item
-	// Can you step on this item?
+	// This method is overloaded by the DragonTreasure subclass
 	void setHost(Tile *t);
+	// Can you step on this item?
 	virtual bool canBeSteppedOn(Player *p) = 0;
 	virtual bool canBeSteppedOn(Enemy *e) = 0; 
 	// Tries to pick up 
 	virtual bool isPickedUp(Player *p) = 0;
 	virtual bool isPickedUp(Enemy *e) = 0;
+
+	// Destructor
+	virtual ~Item() = 0;
 
 	friend std::ostream &operator<<(std::ostream &out, const Item &i);
 };

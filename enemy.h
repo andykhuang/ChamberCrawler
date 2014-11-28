@@ -20,7 +20,8 @@ class Enemy: public Character {
 	std::string performAction(std::string command, std::string dir);
 
 	// Constructor
-	Enemy();
+	Enemy();	// REMOVE WHEN DONE
+	Enemy(std::string race, int maxhp, int hp, int atk, int def);
 	// Destructor
 	virtual ~Enemy();
 };

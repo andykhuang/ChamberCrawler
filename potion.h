@@ -5,8 +5,18 @@
 class Potion: public AbstractPotion {
 	protected:
 	AbstractPotion *p;
-	
+	virtual bool isConsumed(Player *p);
+
+	public:
+	// Constructor
 	Potion(AbstractPotion *p);
-	~Potion();
+
+	// Default implementation for getAtk() and getDef()
+	// Required since each potion only overrides one or the other
+	int getAtk();
+	int getDef();
+
+	// Destructor
+	virtual ~Potion() = 0;
 };
 #endif

@@ -5,6 +5,11 @@
 
 using namespace std;
 
+AbstractPotion::AbstractPotion() {
+	itemSymbol = 'P';
+}
+AbstractPotion::~AbstractPotion() {}
+
 bool AbstractPotion::canBeSteppedOn(Player *p){
 	return false;
 }
@@ -12,10 +17,3 @@ bool AbstractPotion::canBeSteppedOn(Player *p){
 bool AbstractPotion::canBeSteppedOn(Enemy *e){
 	return false;
 }
-/*bool AbstractPotion::isUsed(Player *p){
-	return false;
-}
-
-bool AbstractPotion::isUsed(Enemy *e){
-	return false;
-}*/

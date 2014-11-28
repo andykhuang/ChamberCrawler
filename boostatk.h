@@ -3,8 +3,16 @@
 #include "potion.h"
 
 class BoostAtk:public Potion {
+	// Determines whether the Potion is mysterious to the Player
+	static bool hasEncountered;
+
 	public:
-	BoostAtk(Potion *p);
+	// Constructor
+	BoostAtk(AbstractPotion *p);
+
 	int getAtk();
+
+	bool isUsed(Player *p);
+	bool isUsed(Enemy *e);
 };
 #endif

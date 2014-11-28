@@ -10,24 +10,24 @@ using namespace std;
 
 
 Character::Character(){
-	t = NULL;
+	host = NULL;
 	pot = new EmptyPotion;
 }
 
 // A Character constructor that accepts some parameters for the character's stats
 Character::Character(string race, int maxhp, int hp, int atk, int def):race(race), maxhp(maxhp), hp(hp), atk(atk), def(def){
-	t = NULL;
+	host = NULL;
 	pot = new EmptyPotion;
 }
 
 Character::~Character(){
-	t = NULL;
+	host = NULL;
 	delete pot;
 	pot = NULL;
 }
 
 void Character::setTile(Tile *t){
-	this->t = t;
+	host = t;
 }
 
 

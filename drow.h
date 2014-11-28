@@ -5,10 +5,13 @@
 
 class Drow: public Player {
 	// Private methods
-	bool use(std::string dir);
+	// No longer need to have custom implementation for this in Drow
+	// bool use(std::string dir);
 	
 	public:
 	// Constructor
 	Drow();
+
+	void heal(int amount);
 };
 #endif
