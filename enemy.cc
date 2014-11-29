@@ -71,10 +71,12 @@ bool Enemy::use(string dir){
 }
 
 Enemy::Enemy(){
+	eTreasure = NULL;
 	host = NULL;
 }
 
 Enemy::Enemy(string race, int maxhp, int hp, int atk, int def): Character(race, maxhp, hp, atk, def) {
+	eTreasure = NULL;
 	host = NULL;
 }
 
