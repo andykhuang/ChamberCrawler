@@ -15,6 +15,8 @@ class DragonTreasure: public Treasure {
 
 	bool isPickedUp(Player *p);
 	bool isPickedUp(Enemy *e);
+	bool canBeSteppedOn(Player *p);
+	bool canBeSteppedOn(Enemy *e);
 
 	void setHost(Tile *t);
 

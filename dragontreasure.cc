@@ -12,7 +12,8 @@ DragonTreasure::DragonTreasure():Treasure(/*value*/6){
 }
 
 DragonTreasure::~DragonTreasure(){
-	delete d;
+	//delete d;
+	d = NULL;
 }
 
 void DragonTreasure::clearDragon() {
@@ -29,10 +30,22 @@ void DragonTreasure::setHost(Tile *t) {
 	while(!dragonSet) {
 		int ind = Floor::random(0, 7);
 		if(!neighbours[ind]->isOccupied()) {
+			// TODO: increment the floor's enemy counter
 			d->setTile(neighbours[ind]);
 			dragonSet = true;
 		}
 	}
+}
+
+bool DragonTreasure::canBeSteppedOn(Player *p){
+	// Picks up the gold
+	if(d != NULL) return false;
+	isPickedUp(p);
+	return true;
+}
+
+bool DragonTreasure::canBeSteppedOn(Enemy *e){
+	return false;
 }
 
 bool DragonTreasure::isPickedUp(Player *p){

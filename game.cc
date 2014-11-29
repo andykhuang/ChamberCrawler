@@ -178,8 +178,10 @@ void Game::playGame(){
 				}
 
 				// Display the board and information
-				cout << *gameFloor << endl;
-				displayHUD(response);
+				if(!isRestart && !isQuit){
+					cout << *gameFloor << endl;
+					displayHUD(response);
+				}
 			}
 			
 			// TODO: Free everything that needs freeing here

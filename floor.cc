@@ -374,10 +374,7 @@ Treasure* Floor::getTreasure(){
 
 // TODO: Decorate the potion
 AbstractPotion* Floor::getPotion(){
-<<<<<<< HEAD
 	AbstractPotion *toReturn = NULL;
-=======
->>>>>>> 1b1b02fc18a2579701dda860a704ac557d4250ab
 	string potType = random(pSpawnProb);
 
 	if(potType == "BA"){

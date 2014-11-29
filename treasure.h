@@ -14,8 +14,8 @@ class Treasure: public Item {
 	Treasure(int value);
 	
 	// Tries to step on this treasure
-	bool canBeSteppedOn(Player *p);
-	bool canBeSteppedOn(Enemy *e);
+	virtual bool canBeSteppedOn(Player *p);
+	virtual bool canBeSteppedOn(Enemy *e);
 	
 	// Called when the Teasure is picked up. Returns True if successfully picked
 	bool isPickedUp(Player *p);

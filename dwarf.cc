@@ -6,7 +6,7 @@ using namespace std;
 
 Dwarf::Dwarf(){
 	// Assign hp and stuff
-	characterSymbol = 'D';
+	characterSymbol = 'F';
 }
 
 string Dwarf::isAttacked(Character *c){
