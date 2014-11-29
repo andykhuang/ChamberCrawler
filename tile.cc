@@ -106,6 +106,7 @@ bool Tile::isSteppedOn(Player *p){
 		if(item->canBeSteppedOn(p)){
 			//TODO: Take the gold
 			cout << "Gold taken" << endl;
+			// Delete the gold
 		} 
 		// Item can't be stepped on
 		else {

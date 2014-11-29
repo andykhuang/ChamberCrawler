@@ -389,27 +389,26 @@ Treasure* Floor::getTreasure(){
 
 // TODO: Decorate the potion
 AbstractPotion* Floor::getPotion(){
-	/*AbstractPotion *toReturn;
+	AbstractPotion *toReturn;
 	string potType = random(pSpawnProb);
 
 	if(potType == "BA"){
 		toReturn = new BoostAtk(NULL);
 	} else if(potType == "WA"){
-		toReturn = new WoundAtk(toReturn);
+		toReturn = new WoundAtk(NULL);
 	} else if(potType == "BD"){
-		toReturn = new BoostDef(toReturn);
+		toReturn = new BoostDef(NULL);
 	} else if(potType == "WD"){
-		toReturn = new WoundDef(toReturn);
+		toReturn = new WoundDef(NULL);
 	} else if(potType == "RH"){
-		toReturn = new RestoreHealth;
+		toReturn = new RestoreHealth(NULL);
 	} else if(potType == "PH"){
-		toReturn = new PoisonHealth;
+		toReturn = new PoisonHealth(NULL);
 	} else {
 		toReturn = NULL;
 	}
 
 	return toReturn;
-	*/
 	return NULL;
 }
 

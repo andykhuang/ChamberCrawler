@@ -78,13 +78,6 @@ bool Chamber::place(Item *i){
 
 	while(!successFlag){
 		int tileIndex = Floor::random(0, size-1);
-		// TESTING! REMOVE THID
-		if(i == NULL && !tiles[tileIndex]->isOccupied()){
-			tiles[tileIndex]->setTileSymbol('P');
-			successFlag = true;
-			return true;
-		}
-
 		// Try to place on the tile
 		if(tiles[tileIndex]->placeItem(i)){
 			i->setHost(tiles[tileIndex]);
