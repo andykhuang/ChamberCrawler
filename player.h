@@ -1,16 +1,19 @@
 #ifndef ___PLAYER_H___
 #define ___PLAYER_H___
-#include "character.h"
+#include <string>
 #include <iostream>
+#include "character.h"
+
+class Potion;
 
 class Player: public Character {
 	protected:
 	int moneyCoins;
 
-        virtual bool attack(std::string dir);
-        virtual bool move(std::string dir);
-        virtual bool pickup(std::string dir);
-        virtual bool use(std::string dir);
+        bool attack(std::string dir);
+        bool move(std::string dir);
+        std::string pickup(std::string dir);
+        std::string use(std::string dir);
 
 	public:
 	Player(); // REMOVE THIS WHEN DONE
@@ -35,8 +38,7 @@ class Player: public Character {
 	virtual int getGold();
 	virtual int getScore();
 
-	// NOTE: May decide to modify this implementation later
-	virtual AbstractPotion *getPotion();
+	AbstractPotion *getPotion();
 
 	// Player Mutators
 	virtual void setPotion(AbstractPotion *p);

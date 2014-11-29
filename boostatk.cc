@@ -1,4 +1,5 @@
 #include "potion.h"
+#include "player.h"
 #include "boostatk.h"
 
 using namespace std;
@@ -14,8 +15,11 @@ int BoostAtk::getAtk(){
 	return p->getAtk() + 5;
 }
 
-bool BoostAtk::isUsed(Player *p) {
-	isConsumed(p);	
+bool BoostAtk::isUsed(Player *pl) {
+	// Wrap this Potion around the Potion the Player currently has
+	p = pl->getPotion();
+	// Set the Potion the Player currently has to this Potion
+	pl->setPotion(this);
 	hasEncountered = true;
 	return true;
 }

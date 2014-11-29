@@ -1,5 +1,6 @@
 #include <string>
 #include <iomanip>
+#include "abstractpotion.h"
 #include "character.h"
 #include "player.h"
 #include "tile.h"
@@ -48,23 +49,23 @@ string Player::performAction(string command, string dir){
                 }
         } else if(command == "use"){
                 // TODO: use in direction if possible
+		actionDesc = use(dir);		
         } else if(command == "attack"){
                 // TODO: attack in direction if possible
         } else {
+		// Returns an empty string if no matching command is found
                 return actionDesc;
         }
 
-        // Returns an empty string if it can't be done
-        return actionDesc;
+	return actionDesc;
 }
-
 
 bool Player::move(string dir){
         // Get tile to step on
 	Tile *dest = host->getNeighbour(dir);
 	if(dest->isSteppedOn(this)){
 		// Notify the original tile that the character left
-		host->characterLeft();
+		host->clearTile();
 		// At this point dest already hosts player so change the tile the player is on
 		host = dest;
 		// Return moved
@@ -73,20 +74,21 @@ bool Player::move(string dir){
 	return false;
 }
 
-
 bool Player::attack(string dir){
         return false;
 }
 
-
-bool Player::pickup(string dir){
-        return false;
+string Player::pickup(string dir){
+	// Get the Tile to pick up
+	Tile *dest = host->getNeighbour(dir);
+        return dest->isPickedUp(this);
 }
 
-bool Player::use(string dir){
-        return false;
+string Player::use(string dir){
+	// Get the Tile to use
+	Tile *dest = host->getNeighbour(dir);
+        return dest->isUsed(this);
 }
-
 
 bool Player::onDeath(Character *c){
 	// End game and stuff
@@ -106,11 +108,11 @@ int Player::gethp(){
 }
 
 int Player::getatk(){
-	return atk;
+	return atk + pot->getAtk();
 }
 
 int Player::getdef(){
-	return def;
+	return def + pot->getDef();
 }
 
 int Player::getGold(){
@@ -121,6 +123,6 @@ AbstractPotion *Player::getPotion() {
 	return pot;
 }
 
-void Player::setPotion(AbstractPotion *ap) {
-	pot = ap;
+void Player::setPotion(AbstractPotion *p) {
+	pot = p;
 }

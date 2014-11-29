@@ -12,10 +12,10 @@ class Enemy: public Character {
 	protected:
 	Treasure *eTreasure;
 
-	virtual bool attack(std::string dir);
-        virtual bool move(std::string dir);
-        virtual bool pickup(std::string dir);
-        virtual bool use(std::string dir);
+	bool attack(std::string dir);
+        bool move(std::string dir);
+        std::string pickup(std::string dir);
+        std::string use(std::string dir);
 
 	public:
 	std::string performAction(std::string command="", std::string dir="");

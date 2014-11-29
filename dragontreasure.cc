@@ -2,6 +2,7 @@
 #include "dragon.h"
 #include "tile.h"
 #include "floor.h"
+#include "player.h"
 
 using namespace std;
 
@@ -35,8 +36,12 @@ void DragonTreasure::setHost(Tile *t) {
 }
 
 bool DragonTreasure::isPickedUp(Player *p){
-	// TODO: Logic
-	return false;
+	if(d == NULL) {
+		p->bank(value);
+		return true;
+	} else {
+		return false;
+	}
 }
 
 bool DragonTreasure::isPickedUp(Enemy *e){

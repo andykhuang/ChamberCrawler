@@ -13,6 +13,18 @@ void Item::setHost(Tile *t){
 	host = t;
 }
 
+bool Item::isUsed(Player *p) {
+	return false;
+}
+
+bool Item::isUsed(Enemy *e) {
+	return false;
+}
+
+string Item::getName() {
+	return name;
+}
+
 Item::~Item() {}
 
 ostream &operator<<(ostream &out, const Item &i){

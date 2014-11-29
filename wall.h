@@ -19,8 +19,5 @@ class Wall: public Tile {
 	// Overrides for the isSteppedOn methods in Tile
 	bool isSteppedOn(Player *p);
 	bool isSteppedOn(Enemy *e);
-	// Overrides for the isAttacked methods in Tile
-	std::string isAttacked(Player *p);
-	std::string isAttacked(Enemy *e);
 };
 #endif

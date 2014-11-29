@@ -42,7 +42,15 @@ class Tile {
 	virtual std::string isAttacked(Player *p);
 	virtual std::string isAttacked(Enemy *e);
 
-	/*virtual*/void characterLeft();
+	virtual std::string isUsed(Player *p);
+	virtual std::string isPickedUp(Player *p);
+
+	// Sets the Item and Character pointers to NULL (Does not delete)
+	/*virtual*/void clearTile();
+
+	// Sets the Item pointer to NULL and called Delete on the Item
+	// This should only be called when picking up Treasure
+	/*virtual*/void removeTreasure();
 
 	// Add Neighbours
 	void addNeighbour(Tile *neighbour);

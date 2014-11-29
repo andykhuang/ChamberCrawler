@@ -308,11 +308,11 @@ void Floor::loadFloor(Player *p, Stairs *stairs, string fileName){
 	// Randomly generate and place potions
 	for(int i = 0; i < maxPotions; i++){
 		while(!placeSucceeded){
-			// Generate Type of potion
-			AbstractPotion *tempPotion = getPotion();
+			// Generate Type of Potion
+			Item *tempPotion = getPotion();
 			// Generate Chamber
 			chamberIndex = random(0, numChambers-1);
-			if(chambers[chamberIndex]->place(static_cast<Item *>(tempPotion))){
+			if(chambers[chamberIndex]->place(tempPotion)){
 				placeSucceeded = true;
 			}
 		}
@@ -323,11 +323,11 @@ void Floor::loadFloor(Player *p, Stairs *stairs, string fileName){
 	// Special Note that There must be at least 1 neighbour that's not occupied around the gold
 	for(int i = 0; i < maxTreasures; i++){
 		while(!placeSucceeded){
-			// Generate the type of treasure
-			Treasure *tempTreasure = getTreasure();
+			// Generate the type of Treasure
+			Item *tempTreasure = getTreasure();
 			// Generate Chamber
 			chamberIndex = random(0, numChambers-1);
-			if(chambers[chamberIndex]->place(static_cast<Item *>(tempTreasure))){
+			if(chambers[chamberIndex]->place(tempTreasure)){
 				placeSucceeded = true;
 			}
 		}
@@ -337,10 +337,11 @@ void Floor::loadFloor(Player *p, Stairs *stairs, string fileName){
 	// Randomly generate and place enemies
 	for(int i = 0; i < maxEnemies; i++){
 		while(!placeSucceeded){
-			Enemy *tempEnemy = getEnemy();
-
+			// Generate the type of Enemy
+			Character *tempEnemy = getEnemy();
+			// Generate the Chamber
 			chamberIndex = random(0, numChambers-1);
-			if(chambers[chamberIndex]->place(static_cast<Character *>(tempEnemy))){
+			if(chambers[chamberIndex]->place(tempEnemy)){
 				placeSucceeded = true;
 			}
 		}
@@ -389,28 +390,26 @@ Treasure* Floor::getTreasure(){
 
 // TODO: Decorate the potion
 AbstractPotion* Floor::getPotion(){
-	/*AbstractPotion *toReturn;
+	AbstractPotion *toReturn;
 	string potType = random(pSpawnProb);
 
 	if(potType == "BA"){
 		toReturn = new BoostAtk(NULL);
 	} else if(potType == "WA"){
-		toReturn = new WoundAtk(toReturn);
+		toReturn = new WoundAtk(NULL);
 	} else if(potType == "BD"){
-		toReturn = new BoostDef(toReturn);
+		toReturn = new BoostDef(NULL);
 	} else if(potType == "WD"){
-		toReturn = new WoundDef(toReturn);
+		toReturn = new WoundDef(NULL);
 	} else if(potType == "RH"){
-		toReturn = new RestoreHealth;
+		toReturn = new RestoreHealth(NULL);
 	} else if(potType == "PH"){
-		toReturn = new PoisonHealth;
+		toReturn = new PoisonHealth(NULL);
 	} else {
 		toReturn = NULL;
 	}
 
 	return toReturn;
-	*/
-	return NULL;
 }
 
 // Random generation given a map of integers

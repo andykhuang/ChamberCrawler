@@ -16,6 +16,8 @@ class AbstractPotion: public Item {
 	virtual bool isUsed(Enemy *e) = 0;
 	bool canBeSteppedOn(Player *p);
 	bool canBeSteppedOn(Enemy *e);
+	bool isPickedUp(Player *p);
+	bool isPickedUp(Enemy *e);
 	
 	// Destructor
 	virtual ~AbstractPotion() = 0;

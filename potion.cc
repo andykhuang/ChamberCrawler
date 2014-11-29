@@ -1,4 +1,3 @@
-#include "abstractpotion.h"
 #include "potion.h"
 #include "player.h"
 
@@ -16,9 +15,12 @@ int Potion::getDef() {
 
 bool Potion::isConsumed(Player *pl) {
 	// Wrap this Potion around the Potion the Player currently has
+	cout << "GETTING PLAYER POTION" << endl;
 	p = pl->getPotion();
+	cout << "PLAYER POTION RETREIVED" << endl;
 	// Set the Potion the Player currently has to this Potion
 	pl->setPotion(this);
+	cout << "PLAYER POTION SET" << endl;
 	return true;
 }
 

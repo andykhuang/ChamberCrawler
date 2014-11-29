@@ -150,6 +150,7 @@ void Game::playGame(){
 						cout << "Invalid Direction" << endl;
 					} else {
 						// Use in direction
+						response = gamePlayer->performAction("use", cOption);
 						cout << "Use " << cOption << endl; 
 					}
 				} else if(command == "a"){
