@@ -1,5 +1,6 @@
 #ifndef ___GOBLIN_H___
 #define ___GOBLIN_H___
+#include <string>
 #include "player.h"
 
 class Goblin: public Player {
@@ -7,6 +8,6 @@ class Goblin: public Player {
 	// Constructor
 	Goblin();
 	
-	bool isAttacked(Character *c);
+	std::string isAttacked(Character *c);
 };
 #endif

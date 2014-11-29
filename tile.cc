@@ -3,6 +3,7 @@
 #include "tile.h"
 #include "character.h"
 #include "player.h"
+#include "enemy.h"
 #include "item.h"
 #include "enemy.h"
 
@@ -91,7 +92,7 @@ bool Tile::placeItem(Item *i){
 	return false;
 }
 
-// Can a player step on this tile?
+// Can a Player step on this tile?
 bool Tile::isSteppedOn(Player *p){
 	// You can never step on characters
 	if(character != NULL) return false;
@@ -112,12 +113,13 @@ bool Tile::isSteppedOn(Player *p){
 		}
 		
 	}
-	// If it has no character and no items then set this tile to have the player p
+	// If it has no Character and no item then set this tile to have the Player p
 	character = p;
 	return true;
 }
 
 bool Tile::isSteppedOn(Enemy *e){
+<<<<<<< HEAD
 	if(character != NULL) return false;
 	// Unlike players enemies can't step on items either
 	else if(item != NULL) return false;
@@ -125,6 +127,49 @@ bool Tile::isSteppedOn(Enemy *e){
 	// Otherwise you can move to here
 	character = e;
 	return true;
+=======
+	return true;
+}
+
+string Tile::isAttacked(Player *p) {
+	string desc = "";
+	// If there is not Character on this Tile, there is nothing to attack
+	if(character == NULL) return desc;
+	// If the Character on this Tile is an Enemy, then attack it
+	else if(dynamic_cast<Enemy *>(character)) {
+		return character->isAttacked(p);
+	} else {
+		// If the Character on this Tile is a Player, it cannot be attacked
+		return desc;
+	}
+
+}
+
+string Tile::isAttacked(Enemy *e) {
+	string desc = "";
+	// If there is not Character on this Tile, there is nothing to attack
+	if(character == NULL) return desc;
+	// If the Character on this Tile is a Player, then attack it
+	else if(dynamic_cast<Player *>(character)) {
+		return character->isAttacked(e);
+	} else {
+		// If the Character on this Tile is an Enemy, it cannot be attacked
+		return desc;
+	}
+}
+
+void Tile::characterLeft(){
+	character = NULL;
+}
+
+// Virtual Tile Destructor implementation
+Tile::~Tile(){
+	// A Tile should not delete its neighbours as that is handled by the floor
+	delete item;
+	item = NULL;
+	delete character;
+	character = NULL;
+>>>>>>> 78cfbc4131d09aa17d9bb5e7dbc522f13e03c568
 }
 
 void Tile::characterLeft(){

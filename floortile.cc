@@ -7,10 +7,6 @@ FloorTile::FloorTile(){
 	tileSymbol = '.';
 }
 
-bool FloorTile::isAttacked(Character *c){
-	return false;
-}
-
 bool FloorTile::isUsed(Character *c){
 	return false;
 }

@@ -1,6 +1,7 @@
 #include "dragontreasure.h"
 #include "dragon.h"
 #include "tile.h"
+#include "floor.h"
 
 using namespace std;
 
@@ -25,7 +26,7 @@ void DragonTreasure::setHost(Tile *t) {
 	bool dragonSet = false;
 	Tile **neighbours = t->getNeighbour();
 	while(!dragonSet) {
-		int ind = (rand() % (8));
+		int ind = Floor::random(0, 7);
 		if(!neighbours[ind]->isOccupied()) {
 			d->setTile(neighbours[ind]);
 			dragonSet = true;

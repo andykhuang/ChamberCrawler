@@ -67,7 +67,7 @@ class Floor {
 	// Load the floor pattern from a specific input file
 	void loadFloor(Player *p, Stairs *s, std::string fileName);
 	// Enemy Action
-	string enemyAction(Player *p);
+	std::string enemyAction(Player *p);
 	
 	// Destructor
 	~Floor();

@@ -1,3 +1,4 @@
+#include <string>
 #include "tile.h"
 #include "wall.h"
 
@@ -25,4 +26,12 @@ bool Wall::isSteppedOn(Player *p){
 
 bool Wall::isSteppedOn(Enemy *e){
 	return false;
+}
+
+string Wall::isAttacked(Player *p){
+	return "";
+}
+
+string Wall::isAttacked(Enemy *e){
+	return "";
 }

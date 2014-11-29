@@ -1,4 +1,4 @@
-#include "enemy.h"
+#include <string>
 #include "merchant.h"
 
 using namespace std;
@@ -10,8 +10,8 @@ Merchant::Merchant(){
 	characterSymbol = 'M';
 }
 
-bool Merchant::isAttacked(Character *c){
+string Merchant::isAttacked(Character *c){
 	isFriendly = false;
 	// Retaliate
-	return true;
+	return "";
 }
