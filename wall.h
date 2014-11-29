@@ -1,5 +1,6 @@
 #ifndef ___WALL_H___
 #define ___WALL_H___
+#include <string>
 #include "tile.h"
 
 class Player;
@@ -12,10 +13,14 @@ class Wall: public Tile {
 
 	void addNeighbour(Tile *t);
 
-	// Overrides for the isOccupied methods
+	// TODO: Remove these
 	bool isOccupied(Player *p);
 	bool isOccupied(Enemy *e);
+	// Overrides for the isSteppedOn methods in Tile
 	bool isSteppedOn(Player *p);
 	bool isSteppedOn(Enemy *e);
+	// Overrides for the isAttacked methods in Tile
+	std::string isAttacked(Player *p);
+	std::string isAttacked(Enemy *e);
 };
 #endif

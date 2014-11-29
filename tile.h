@@ -1,6 +1,7 @@
 #ifndef ___TILE_H___
 #define ___TILE_H___
 #include <iostream>
+#include <string>
 
 class Character;
 class Player;
@@ -26,6 +27,7 @@ class Tile {
 
 	// Returns whether this Tile has something "on" it
 	virtual bool isOccupied();
+	// TODO: Remove this
 	virtual bool isOccupied(Player *p);
 	virtual bool isOccupied(Enemy *e);
 	// Tries to place a Character on this Tile and return whether it succeeded
@@ -35,6 +37,10 @@ class Tile {
 	// Try to step on this Tile and return whether it succeeded
 	virtual bool isSteppedOn(Player *p);
 	virtual bool isSteppedOn(Enemy *e);
+	// Try to attack this Tile and return a message describing the
+	// attack or an empty string if the Tile cannot be attacked
+	virtual std::string isAttacked(Player *p);
+	virtual std::string isAttacked(Enemy *e);
 
 	/*virtual*/void characterLeft();
 

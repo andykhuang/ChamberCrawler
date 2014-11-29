@@ -9,7 +9,7 @@ Dwarf::Dwarf(){
 	characterSymbol = 'D';
 }
 
-bool Dwarf::isAttacked(Character *c){
+string Dwarf::isAttacked(Character *c){
 	// if c is a orc then suffer double damage
-	return true;
+	return "";
 }

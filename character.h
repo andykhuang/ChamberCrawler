@@ -29,7 +29,7 @@ class Character {
 	
 	void setTile(Tile *t);
 	virtual std::string performAction(std::string command, std::string dir) = 0;
-	virtual bool isAttacked(Character *c);
+	virtual std::string isAttacked(Character *c);
 	virtual bool isDead();
 
 	// Destructor

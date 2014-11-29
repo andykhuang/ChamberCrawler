@@ -1,10 +1,12 @@
+#include <string>
 #include "halfling.h"
-#include "enemy.h"
+
+using namespace std;
 
 Halfling::Halfling(){
 	characterSymbol = 'L';
 }
 
-bool Halfling::isAttacked(Character *p){
-	return true;
+string Halfling::isAttacked(Character *p){
+	return "";
 }

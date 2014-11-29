@@ -31,9 +31,9 @@ void Character::setTile(Tile *t){
 }
 
 
-bool Character::isAttacked(Character *c){
+string Character::isAttacked(Character *c){
 	// Take damage
-	return true;
+	return "";
 }
 
 bool Character::isDead(){

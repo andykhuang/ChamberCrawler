@@ -10,7 +10,8 @@ class FloorTile: public Tile {
 	FloorTile();
 
 	// Methods for handling Attacking, Using, and Picking up a Tile
-	virtual bool isAttacked(Character *c);
+	// std::string isAttacked(Player *p);	// Moved to superclass
+	// std::string isAttacked(Enemy *e);	// Moved to superclass
 	virtual bool isUsed(Character *c);
 	virtual bool isPickedUp(Character *c);
 	
