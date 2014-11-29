@@ -1,16 +1,29 @@
 #include <string>
 #include <iostream>
-#include "player.h"
 #include "vampire.h"
+#include "tile.h"
 
 using namespace std;
 
-Vampire::Vampire():Player("Vampire", 99999999, 50, 25, 25){
-	// TODO: set max hp to int_max
+// Set maxhp to -1 since Vampire overrides the heal method
+// so that it can heal endlessly
+Vampire::Vampire(): Player("Vampire", -1, 50, 25, 25){}
+
+string Vampire::attack(string dir){
+	// Get the Tile to attack
+	Tile *dest = host->getNeighbour(dir);
+	string result = dest->isAttacked(this);
+	// If the attack worked, heal 5HP
+	if(result != "") {
+		heal(5);
+	}
+	return result;
 }
 
-bool Vampire::attack(string dir){
-	return true;
+void Vampire::heal(int amount){
+	if(hp + amount < 0) {
+		hp = 0;
+	} else {
+		hp += amount;
+	}
 }
-
-Player::~Player(){}

@@ -10,7 +10,7 @@ class Player: public Character {
 	protected:
 	int moneyCoins;
 
-        bool attack(std::string dir);
+        std::string attack(std::string dir);
         bool move(std::string dir);
         std::string pickup(std::string dir);
         std::string use(std::string dir);
@@ -20,21 +20,16 @@ class Player: public Character {
 	Player(std::string race, int maxhp, int hp, int atk, int def);
 
 	std::string performAction(std::string command, std::string dir);
+	std::string isAttacked(Character *c);
 	bool onDeath(Character *c);
-
-	// Increments the Player's HP by the amount specified
-	// If the amount is negative, decrement the Player's HP instead
-	virtual void heal(int amount);
 
 	// Increments the Player's moneyCoins by the amount specified
 	// If the amount is negative, decrement the Player's moneyCoins instead
 	virtual void bank(int amount);
 
 	// Player Accessors
-	virtual std::string getRace();
-	virtual int gethp();
-	virtual int getatk();
-	virtual int getdef();
+	int getatk();
+	int getdef();
 	virtual int getGold();
 	virtual int getScore();
 

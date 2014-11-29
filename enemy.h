@@ -12,13 +12,14 @@ class Enemy: public Character {
 	protected:
 	Treasure *eTreasure;
 
-	bool attack(std::string dir);
+	std::string attack(std::string dir);
         bool move(std::string dir);
         std::string pickup(std::string dir);
         std::string use(std::string dir);
 
 	public:
 	std::string performAction(std::string command="", std::string dir="");
+	std::string isAttacked(Character *c);
 
 	// Constructor
 	Enemy();	// TODO: REMOVE WHEN DONE

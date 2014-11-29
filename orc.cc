@@ -8,7 +8,7 @@ Orc::Orc(){
 	characterSymbol = 'O';
 }
 
-bool Orc::attack(string dir){
+string Orc::attack(string dir){
 	// TODO double dmg against some class that i forgot
-	return true;
+	return "";
 }

@@ -30,14 +30,34 @@ void Character::setTile(Tile *t){
 	host = t;
 }
 
-
-string Character::isAttacked(Character *c){
-	// Take damage
-	return "";
+void Character::heal(int amount){
+	if(hp + amount > maxhp) {
+		hp = maxhp;
+	} else if(hp + amount < 0) {
+		hp = 0;
+	} else {
+		hp += amount;
+	}
 }
 
 bool Character::isDead(){
 	return hp <= 0; 
+}
+
+string Character::getRace(){
+	return race;
+}
+
+int Character::gethp(){
+	return hp;
+}
+
+int Character::getatk(){
+	return atk;
+}
+
+int Character::getdef(){
+	return def;
 }
 
 ostream &operator<<(ostream &out, const Character &c){

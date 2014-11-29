@@ -1,15 +1,22 @@
 #include <string>
-#include "player.h"
+#include <sstream>
+#include "vampire.h"
 #include "dwarf.h"
 
 using namespace std;
 
-Dwarf::Dwarf(){
-	// Assign hp and stuff
+Dwarf::Dwarf(): Enemy("Dwarf", 100, 100, 20, 30) {
 	characterSymbol = 'D';
 }
 
 string Dwarf::isAttacked(Character *c){
-	// if c is a orc then suffer double damage
-	return "";
+	ostringstream oss;
+	int damage = ((100 * c->getatk()) + (100 + def - 1)) / (100 + def);
+	heal(-damage);
+	oss << "deals " << damage << " to " << characterSymbol << ".";
+	// If the attacker is a Vampire, trigger its allergies to do 10 damage
+	if(dynamic_cast<Vampire *>(c)) {
+		c->heal(-10);
+	}
+	return oss.str();
 }

@@ -8,6 +8,7 @@ class Vampire: public Player {
 	// Constructor
 	Vampire();
 
-	bool attack(std::string dir);
+	void heal(int amount);
+	std::string attack(std::string dir);
 };
 #endif

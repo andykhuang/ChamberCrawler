@@ -9,7 +9,7 @@ Elf::Elf(){
 	characterSymbol = 'E';
 }
 
-bool Elf::attack(string dir){
+string Elf::attack(string dir){
 	// Gets to attack everyone twice except drows
-	return true;
+	return "";
 }

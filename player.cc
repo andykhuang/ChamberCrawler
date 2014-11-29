@@ -1,4 +1,5 @@
 #include <string>
+#include <sstream>
 #include <iomanip>
 #include "abstractpotion.h"
 #include "character.h"
@@ -17,14 +18,17 @@ Player::Player(string race, int maxhp, int hp, int atk, int def) : Character(rac
 	moneyCoins = 0;
 }
 
-void Player::heal(int amount) {
-	if(hp + amount > maxhp) {
-		hp = maxhp;
-	} else if(hp + amount < 0) {
-		hp = 0;
+string Player::isAttacked(Character *c){
+	ostringstream oss;
+	int miss = rand() % 2;
+	if(miss == 1) {
+		oss << "missed " << characterSymbol;
 	} else {
-		hp += amount;
+		int damage = ((100 * c->getatk()) + (100 + def - 1)) / (100 + def);
+		heal(-damage);
+		oss << "deals " << damage << " to PC.";
 	}
+	return oss.str();
 }
 
 void Player::bank(int amount) {
@@ -39,24 +43,21 @@ string Player::performAction(string command, string dir){
         string actionDesc = "";
 
 	if(command == ""){
-		return "";
-	}
-
-        if(command == "move"){
+		return actionDesc;
+	}else if(command == "move"){
                 // TODO: move player
                 if(move(dir)){
                         actionDesc = " moves " + dir;
                 }
         } else if(command == "use"){
-                // TODO: use in direction if possible
 		actionDesc = use(dir);		
         } else if(command == "attack"){
-                // TODO: attack in direction if possible
-        } else {
-		// Returns an empty string if no matching command is found
-                return actionDesc;
+		actionDesc = attack(dir);
         }
-
+	// Check if an action has been performed
+	if(actionDesc != "") {
+		actionDesc = "PC " + actionDesc;
+	}
 	return actionDesc;
 }
 
@@ -74,8 +75,10 @@ bool Player::move(string dir){
 	return false;
 }
 
-bool Player::attack(string dir){
-        return false;
+string Player::attack(string dir){
+	// Get the Tile to attack
+	Tile *dest = host->getNeighbour(dir);
+        return dest->isAttacked(this);
 }
 
 string Player::pickup(string dir){
@@ -99,14 +102,6 @@ int Player::getScore(){
 	return moneyCoins;
 }
 
-string Player::getRace(){
-	return race;
-}
-
-int Player::gethp(){
-	return hp;
-}
-
 int Player::getatk(){
 	return atk + pot->getAtk();
 }
@@ -126,3 +121,5 @@ AbstractPotion *Player::getPotion() {
 void Player::setPotion(AbstractPotion *p) {
 	pot = p;
 }
+
+Player::~Player(){}
