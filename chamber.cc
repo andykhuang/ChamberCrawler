@@ -22,10 +22,6 @@ Chamber::Chamber(Tile **tiles, int size):size(size){
 }
 
 Chamber::~Chamber(){
-	/*for(int i = 0; i < size; i++){
-		delete tiles[i];
-		tiles[i] = NULL;
-	}*/
 	delete [] tiles;
 	tiles = NULL;
 }
@@ -55,7 +51,6 @@ bool Chamber::place(Stairs *s){
 }
 
 bool Chamber::place(Character *c){
-	// TODO: place it on a random tile
 	int successFlag = false;
 	
 	if(isFull()) return false;	
@@ -72,7 +67,6 @@ bool Chamber::place(Character *c){
 }
 
 bool Chamber::place(Item *i){
-	// TODO: Place it on a random tile
 	int successFlag = false;
 	
 	

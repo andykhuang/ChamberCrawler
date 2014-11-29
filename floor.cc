@@ -255,22 +255,6 @@ void Floor::loadFloor(Player *p, Stairs *stairs, string fileName){
 	// =================================
 	// =	Begin Entity Generation	   =
 	// =================================
-	// Generate Order
-	// 	- Player Location
-	//		* CANNOT BE SAME ROOM AS STAIRS
-	//		* EQUAL PROBABILITY FOR ALL CHAMBERS
-	// 	- Stairway Location
-	//		* ONLY 1 SET OF STAIRS GENERATED
-	//		* SINGLETON?
-	//		* EQUAL PROBABILITY FOR ALL CHAMBERS
-	// 	- Potion locations
-	//		* EQUAL PROBABILITY FOR ALL POTIONS
-	//		* EQUAL PROBABILITY FOR ALL CHAMBERS
-	//	- Gold Locations
-	//		* EQUAL PROBABILITY FOR ALL CHAMBERS
-	// 	- Enemy Locations
-	//		* EQUAL PROBABILITY FOR ALL CHAMBERS
-	// 	Remember that entity types can be generated with their respective functions
 	// Temp int for random generation
 	int chamberIndex;
 	// Stores the chamber player is in so stairs won't be in the same one

@@ -34,9 +34,7 @@ string Enemy::performAction(string command, string dir){
 	// Move randomly
 	else {
 		string direction = randDir();
-		while(!move(dir)){
-			
-		}
+		while(!move(dir)){}
 	}
 	// Otherwise Move
 	return "Enemy perform Action";
