@@ -62,9 +62,7 @@ char Tile::getTileSymbol(){
 }
 
 bool Tile::isOccupied(){
-	if(item != NULL) return true;
-	if(character != NULL) return true;
-	return false;
+	return true;
 }
 
 bool Tile::isOccupied(Player *p){
@@ -105,6 +103,8 @@ bool Tile::isSteppedOn(Player *p){
 
 		if(item->canBeSteppedOn(p)){
 			//TODO: Take the gold
+			delete item;
+			item = NULL;
 			cout << "Gold taken" << endl;
 		} 
 		// Item can't be stepped on

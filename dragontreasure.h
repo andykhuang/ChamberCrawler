@@ -21,7 +21,5 @@ class DragonTreasure: public Treasure {
 	// Called by the Dragon when it is slain to remove the dragon guarding
 	// the treasure
 	void clearDragon();
-
-	~DragonTreasure();
 };
 #endif

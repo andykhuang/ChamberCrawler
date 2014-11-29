@@ -11,10 +11,6 @@ DragonTreasure::DragonTreasure():Treasure(/*value*/6){
 	d = new Dragon(this);
 }
 
-DragonTreasure::~DragonTreasure(){
-	delete d;
-}
-
 void DragonTreasure::clearDragon() {
 	delete d;
 	d = NULL;

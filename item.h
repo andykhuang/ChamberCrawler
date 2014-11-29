@@ -21,7 +21,7 @@ class Item {
 
 	// Set the host field for this Item
 	// This method is overloaded by the DragonTreasure subclass
-	void setHost(Tile *t);
+	virtual void setHost(Tile *t);
 	// Can you step on this item?
 	virtual bool canBeSteppedOn(Player *p) = 0;
 	virtual bool canBeSteppedOn(Enemy *e) = 0; 
