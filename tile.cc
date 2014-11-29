@@ -168,10 +168,6 @@ Tile::~Tile(){
 	character = NULL;
 }
 
-void Tile::characterLeft(){
-	character = NULL;
-}
-
 ostream &operator<<(ostream &out, const Tile &t){
 	// TODO: If an item or charcter exists print that
 	if(t.character != NULL){

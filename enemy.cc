@@ -44,10 +44,10 @@ string Enemy::performAction(string command, string dir){
 
 bool Enemy::move(string dir){
 	// Get tile to step on
-	Tile *dest = t->getNeighbour(dir);
+	Tile *dest = host->getNeighbour(dir);
 	if(dest->isSteppedOn(this)){
-		t->characterLeft();
-		t = dest;
+		host->characterLeft();
+		host = dest;
 		return true;
 	}
 	return false;
@@ -71,10 +71,12 @@ bool Enemy::use(string dir){
 }
 
 Enemy::Enemy(){
+	eTreasure = NULL;
 	host = NULL;
 }
 
 Enemy::Enemy(string race, int maxhp, int hp, int atk, int def): Character(race, maxhp, hp, atk, def) {
+	eTreasure = NULL;
 	host = NULL;
 }
 
