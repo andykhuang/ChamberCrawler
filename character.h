@@ -15,7 +15,7 @@ class Character {
 	virtual bool onDeath(Character *c) = 0;
 
 	protected:
-	Tile *t;
+	Tile *host;
 	char characterSymbol;
 	std::string race;
 

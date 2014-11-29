@@ -16,6 +16,24 @@ Player::Player(string race, int maxhp, int hp, int atk, int def) : Character(rac
 	moneyCoins = 0;
 }
 
+void Player::heal(int amount) {
+	if(hp + amount > maxhp) {
+		hp = maxhp;
+	} else if(hp + amount < 0) {
+		hp = 0;
+	} else {
+		hp += amount;
+	}
+}
+
+void Player::bank(int amount) {
+	if(moneyCoins + amount < 0) {
+		moneyCoins = 0;
+	} else {
+		moneyCoins += amount;
+	}
+}
+
 string Player::performAction(string command, string dir){
         string actionDesc = "";
 
@@ -43,12 +61,12 @@ string Player::performAction(string command, string dir){
 
 bool Player::move(string dir){
         // Get tile to step on
-	Tile *dest = t->getNeighbour(dir);
+	Tile *dest = host->getNeighbour(dir);
 	if(dest->isSteppedOn(this)){
 		// Notify the original tile that the character left
-		t->characterLeft();
+		host->characterLeft();
 		// At this point dest already hosts player so change the tile the player is on
-		t = dest;
+		host = dest;
 		// Return moved
 		return true;
 	}
@@ -97,4 +115,12 @@ int Player::getdef(){
 
 int Player::getGold(){
 	return moneyCoins;
+}
+
+AbstractPotion *Player::getPotion() {
+	return pot;
+}
+
+void Player::setPotion(AbstractPotion *ap) {
+	pot = ap;
 }

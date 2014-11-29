@@ -7,12 +7,17 @@ class Enemy;
 
 class AbstractPotion: public Item {
 	public:
+	// Constructor
+	AbstractPotion();
+
 	virtual int getAtk() = 0;
 	virtual int getDef() = 0;
-	virtual bool isPickedUp(Player *p) = 0;
-	virtual bool isPickedUp(Enemy *e) = 0;
+	virtual bool isUsed(Player *p) = 0;
+	virtual bool isUsed(Enemy *e) = 0;
 	bool canBeSteppedOn(Player *p);
 	bool canBeSteppedOn(Enemy *e);
-	//is use
+	
+	// Destructor
+	virtual ~AbstractPotion() = 0;
 };
 #endif

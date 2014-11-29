@@ -70,10 +70,18 @@ bool Enemy::use(string dir){
         return false;
 }
 
+Enemy::Enemy() {
+	t = NULL;
+}
 
 Enemy::Enemy(){
 	eTreasure = NULL;
 }
+
+Enemy::Enemy(string race, int maxhp, int hp, int atk, int def): Character(race, maxhp, hp, atk, def) {
+	t = NULL;
+}
+
 Enemy::~Enemy(){
 	delete eTreasure;
 }
