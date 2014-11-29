@@ -5,7 +5,6 @@
 #include "player.h"
 #include "enemy.h"
 #include "item.h"
-#include "enemy.h"
 
 using namespace std;
 
@@ -116,6 +115,7 @@ bool Tile::isSteppedOn(Player *p){
 		
 	}
 	// If it has no Character and no item then set this tile to have the Player p
+	// or if the item can be stepped on
 	character = p;
 	return true;
 }

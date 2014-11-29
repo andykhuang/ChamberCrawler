@@ -26,6 +26,7 @@ string randDir(){
 }
 
 string Enemy::performAction(string command, string dir){
+	if(command != "" || dir != "") return "";
 	// Enemy can only attack or move
 	// Check if there's a player around him to attack
 	if(false){
@@ -34,7 +35,9 @@ string Enemy::performAction(string command, string dir){
 	// Move randomly
 	else {
 		string direction = randDir();
-		while(!move(dir)){}
+		while(!move(direction)){
+			direction = randDir();
+		}
 	}
 	// Otherwise Move
 	return "Enemy perform Action";

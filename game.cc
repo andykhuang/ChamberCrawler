@@ -17,6 +17,7 @@
 
 using namespace std;
 
+const string INVALID_COMMAND = "Invalid Command";
 Game *Game::instance = NULL;
 
 Game* Game::getInstance(){
@@ -128,6 +129,9 @@ void Game::playGame(){
 		else {
 			// Response messages from the game
 			string response = "Player Character has spawned.";
+
+			// Determines if the issued player command is valid first
+			bool isValidCommand = false;
 			// Initialize the floor
 			// Make a Stair for this floor
 			Stairs *tempStair = new Stairs(this);
@@ -146,12 +150,15 @@ void Game::playGame(){
 				// USE Command performed
 				if(command == "u"){
 					cin >> cOption;
+
 					if(!isValidDirection(cOption)){
-						cout << "Invalid Direction" << endl;
+						cout << INVALID_COMMAND << endl;
 					} else {
 						// Use in direction
 						response = gamePlayer->performAction("use", cOption);
-						cout << "Use " << cOption << endl; 
+						if(response != INVALID_COMMAND){
+							isValidCommand = true;
+						}
 					}
 				} else if(command == "a"){
 					cin >> cOption;
@@ -159,7 +166,7 @@ void Game::playGame(){
 						cout << "Invalid Direction" << endl;
 					} else {
 						// Attack in direction
-						cout << "Attack " << cOption << endl;
+						isValidCommand = true;
 					}
 				} else if(command == "r"){
 					// Restart Game
@@ -172,15 +179,22 @@ void Game::playGame(){
 					if(isValidDirection(command)){
 						// Move
 						response = gamePlayer->performAction("move", command);
+						// If the command is valid
+						if(response != INVALID_COMMAND){
+							isValidCommand = true;
+						}
 					} else {
 						cout << "Invalid Command" << endl;
 					}
 				}
-
+				
+				// Enemy Perform action
 				// Display the board and information
-				if(!isRestart && !isQuit){
+				if(!isRestart && !isQuit && isValidCommand){
+					response += " " + gameFloor->enemyAction(gamePlayer);
 					cout << *gameFloor << endl;
 					displayHUD(response);
+					isValidCommand = false;
 				}
 			}
 			

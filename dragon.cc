@@ -21,3 +21,11 @@ void Dragon::setTile(Tile *t) {
 bool Dragon::attack(string dir){
 	return false;
 }
+
+bool Dragon::move(string dir){
+	return true;
+}
+
+Dragon::~Dragon(){
+	host->clearTile();
+}

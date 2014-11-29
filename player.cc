@@ -7,6 +7,8 @@
 
 using namespace std;
 
+const string INVALID_COMMAND = "Invalid Command";
+
 Player::Player(){
 	characterSymbol = '@';
 	moneyCoins = 0;
@@ -47,9 +49,15 @@ string Player::performAction(string command, string dir){
                 if(move(dir)){
                         actionDesc = " moves " + dir;
                 }
+		else {
+			actionDesc = INVALID_COMMAND;
+		}
         } else if(command == "use"){
                 // TODO: use in direction if possible
-		actionDesc = use(dir);		
+		actionDesc = use(dir);
+		if(actionDesc == ""){
+			return INVALID_COMMAND;
+		}
         } else if(command == "attack"){
                 // TODO: attack in direction if possible
         } else {

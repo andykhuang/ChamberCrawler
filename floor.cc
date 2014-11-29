@@ -428,16 +428,25 @@ string Floor::enemyAction(Player *p){
 	for(int i = 0; i < rSize; i++){
 		for(int j = 0; j < cSize; j++){
 			// if there is a character on the tile (ie not null)
-			if(tiles[i][j]->getCharacterPtr()){
-				characterArray.push_back(tiles[i][j]->getCharacterPtr());
+			/*Enemy *temp = NULL;
+			if(tiles[i][j]->getCharacterPtr() != NULL) temp = dynamic_cast<Enemy *>(tiles[i][j]->getCharacterPtr());
+			if(temp != NULL){
+				characterArray.push_back(temp);
+			}*/
+			Character *temp = tiles[i][j]->getCharacterPtr();
+			if(temp != NULL){
+				characterArray.push_back(temp);
 			}
 		}
 	}
-
+	
 	// call the perform action function for each character
 	int vectorSize = characterArray.size();
 	for(int i = 0; i < vectorSize; i++){
+		//cout << i << " ";
+		//cout << characterArray.size() << " ";
 		actionDesc = characterArray[i]->performAction();
+		//cout << characterArray[i]->getCharacterSymbol() << endl;
 	}
 	return actionDesc;
 }

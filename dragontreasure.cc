@@ -16,7 +16,6 @@ DragonTreasure::~DragonTreasure(){
 }
 
 void DragonTreasure::clearDragon() {
-	d->host->clearTile();
 	delete d;
 	d = NULL;
 }
