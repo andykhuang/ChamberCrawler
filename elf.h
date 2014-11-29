@@ -8,6 +8,6 @@ class Elf: public Enemy {
 	// Constructor
 	Elf();
 
-	bool attack(std::string dir);
+	std::string attack(std::string dir);
 };
 #endif

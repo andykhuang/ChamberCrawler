@@ -1,5 +1,8 @@
 #include <string>
+#include <map>
+#include <sstream>
 #include <iomanip>
+#include <cstdlib>
 #include "abstractpotion.h"
 #include "character.h"
 #include "player.h"
@@ -19,14 +22,17 @@ Player::Player(string race, int maxhp, int hp, int atk, int def) : Character(rac
 	moneyCoins = 0;
 }
 
-void Player::heal(int amount) {
-	if(hp + amount > maxhp) {
-		hp = maxhp;
-	} else if(hp + amount < 0) {
-		hp = 0;
+string Player::isAttacked(Character *c){
+	ostringstream oss;
+	int miss = rand() % 2;
+	if(miss == 1) {
+		oss << "missed " << characterSymbol;
 	} else {
-		hp += amount;
+		int damage = ((100 * c->getatk()) + (100 + def - 1)) / (100 + def);
+		heal(-damage);
+		oss << "deals " << damage << " to PC.";
 	}
+	return oss.str();
 }
 
 void Player::bank(int amount) {
@@ -41,13 +47,12 @@ string Player::performAction(string command, string dir){
         string actionDesc = "";
 
 	if(command == ""){
-		return "";
-	}
+		return actionDesc;
 
-        if(command == "move"){
+	}else if(command == "move"){
                 // TODO: move player
                 if(move(dir)){
-                        actionDesc = " moves " + dir;
+                        actionDesc = "moves " + convertDirection(dir);
                 }
 		else {
 			actionDesc = INVALID_COMMAND;
@@ -59,12 +64,15 @@ string Player::performAction(string command, string dir){
 			return INVALID_COMMAND;
 		}
         } else if(command == "attack"){
-                // TODO: attack in direction if possible
-        } else {
-		// Returns an empty string if no matching command is found
-                return actionDesc;
+		actionDesc = attack(dir);
+		if(actionDesc == ""){
+			return INVALID_COMMAND;
+		}
         }
-
+	// Check if an action has been performed
+	if(actionDesc != "") {
+		actionDesc = "PC " + actionDesc;
+	}
 	return actionDesc;
 }
 
@@ -82,8 +90,10 @@ bool Player::move(string dir){
 	return false;
 }
 
-bool Player::attack(string dir){
-        return false;
+string Player::attack(string dir){
+	// Get the Tile to attack
+	Tile *dest = host->getNeighbour(dir);
+        return dest->isAttacked(this);
 }
 
 string Player::pickup(string dir){
@@ -107,14 +117,6 @@ int Player::getScore(){
 	return moneyCoins;
 }
 
-string Player::getRace(){
-	return race;
-}
-
-int Player::gethp(){
-	return hp;
-}
-
 int Player::getatk(){
 	return atk + pot->getAtk();
 }
@@ -134,3 +136,24 @@ AbstractPotion *Player::getPotion() {
 void Player::setPotion(AbstractPotion *p) {
 	pot = p;
 }
+
+// converts shortform to long form or vice versa
+string Player::convertDirection(string dir){
+	map<string, string>dirMap;
+	dirMap["nw"] = "North West";
+	dirMap["no"] = "North";
+	dirMap["ne"] = "North East";
+	dirMap["we"] = "West";
+	dirMap["ea"] = "East";
+	dirMap["sw"] = "South West";
+	dirMap["so"] = "South";
+	dirMap["se"] = "South East";
+	
+	for(map<string, string>::iterator i = dirMap.begin(); i != dirMap.end(); i++){
+		if(dir == i->first) return i->second;
+		if(dir == i->second) return i->first;
+	}
+	return "";
+}
+
+Player::~Player(){}

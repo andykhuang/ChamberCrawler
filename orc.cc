@@ -11,7 +11,7 @@ Orc::Orc():Enemy("Orc", 180, 180, 30, 25){
 	characterSymbol = 'O';
 }
 
-bool Orc::attack(string dir){
+string Orc::attack(string dir){
 	// TODO double dmg against some class that i forgot
-	return true;
+	return "";
 }

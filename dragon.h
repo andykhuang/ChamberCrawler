@@ -15,8 +15,8 @@ class Dragon: public Enemy {
 
 	void setTile(Tile *t);
 	
-	bool attack(std::string dir);
 	bool move(std::string dir);
 	~Dragon();
+	std::string attack(std::string dir);
 };
 #endif

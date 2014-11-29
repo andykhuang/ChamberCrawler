@@ -166,6 +166,8 @@ void Game::playGame(){
 						cout << "Invalid Direction" << endl;
 					} else {
 						// Attack in direction
+						response = gamePlayer->performAction("attack",cOption);
+						cout << "Attack " << cOption << endl;
 						isValidCommand = true;
 					}
 				} else if(command == "r"){

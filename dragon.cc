@@ -18,8 +18,8 @@ void Dragon::setTile(Tile *t) {
 	t->placeCharacter(this);
 }
 
-bool Dragon::attack(string dir){
-	return false;
+string Dragon::attack(string dir){
+	return "";
 }
 
 bool Dragon::move(string dir){

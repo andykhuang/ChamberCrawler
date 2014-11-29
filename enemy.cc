@@ -1,4 +1,5 @@
 #include <string>
+#include <sstream>
 #include "character.h"
 #include "enemy.h"
 #include "treasure.h"
@@ -40,7 +41,15 @@ string Enemy::performAction(string command, string dir){
 		}
 	}
 	// Otherwise Move
-	return "Enemy perform Action";
+	return "";
+}
+
+string Enemy::isAttacked(Character *c){
+	ostringstream oss;
+	int damage = ((100 * c->getatk()) + (100 + def - 1)) / (100 + def);
+	heal(-damage);
+	oss << "deals " << damage << " to " << characterSymbol;
+	return oss.str();
 }
 
 bool Enemy::move(string dir){
@@ -55,9 +64,9 @@ bool Enemy::move(string dir){
 }
 
 
-bool Enemy::attack(string dir){
+string Enemy::attack(string dir){
 	// TODO: Attack action
-        return false;
+        return "";
 }
 
 // Enemy cannot pick up things

@@ -8,6 +8,6 @@ class Orc: public Enemy {
 	// Constructor
 	Orc();
 	
-	bool attack(std::string dir);	
+	std::string attack(std::string dir);	
 };
 #endif

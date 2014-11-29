@@ -7,7 +7,7 @@ class Tile;
 class AbstractPotion;
 
 class Character {
-	virtual bool attack(std::string dir) = 0;
+	virtual std::string attack(std::string dir) = 0;
 	virtual bool move(std::string dir) = 0;
 	virtual std::string pickup(std::string dir) = 0;
 	virtual std::string use(std::string dir) = 0;
@@ -29,8 +29,18 @@ class Character {
 	
 	virtual void setTile(Tile *t);
 	virtual std::string performAction(std::string command = "", std::string dir = "") = 0;
-	virtual std::string isAttacked(Character *c);
+	virtual std::string isAttacked(Character *c) = 0;
+
+	// Increments the Character's HP by the amount specified
+	// If the amount is negative, decrement the Character's HP instead
+	virtual void heal(int amount);
 	virtual bool isDead();
+
+	// Accessors
+	virtual std::string getRace();
+	virtual int gethp();
+	virtual int getatk();
+	virtual int getdef();
 
 	// Destructor
 	virtual ~Character();
