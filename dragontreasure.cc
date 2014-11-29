@@ -12,11 +12,11 @@ DragonTreasure::DragonTreasure():Treasure(/*value*/6){
 }
 
 DragonTreasure::~DragonTreasure(){
-	//delete d;
 	d = NULL;
 }
 
 void DragonTreasure::clearDragon() {
+	d->host->clearTile();
 	delete d;
 	d = NULL;
 }

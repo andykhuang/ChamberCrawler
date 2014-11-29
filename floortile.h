@@ -10,6 +10,8 @@ class FloorTile: public Tile {
 	// Constructors
 	FloorTile();
 
+	bool isOccupied();
+
 	// Methods for handling Attacking, Using, and Picking up a Tile
 	std::string isAttacked(Player *p);
 	std::string isAttacked(Enemy *e);

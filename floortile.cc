@@ -11,6 +11,10 @@ FloorTile::FloorTile(){
 	tileSymbol = '.';
 }
 
+bool FloorTile::isOccupied() {
+	return !(character == NULL && item == NULL);
+}
+
 string FloorTile::isAttacked(Player *p) {
 	// If there is not Character on this Tile, there is nothing to attack
 	if(character == NULL) return "";

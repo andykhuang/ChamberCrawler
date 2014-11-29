@@ -25,8 +25,8 @@ Treasure::Treasure(int value) : value(value){
 
 bool Treasure::canBeSteppedOn(Player *p){
 	// Picks up the gold
-	isPickedUp(p);
-	return true;
+	// isPickedUp(p);
+	return isPickedUp(p);
 }
 
 bool Treasure::canBeSteppedOn(Enemy *e){
