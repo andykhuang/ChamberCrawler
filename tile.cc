@@ -119,15 +119,12 @@ bool Tile::isSteppedOn(Player *p){
 }
 
 bool Tile::isSteppedOn(Enemy *e){
-<<<<<<< HEAD
 	if(character != NULL) return false;
 	// Unlike players enemies can't step on items either
 	else if(item != NULL) return false;
 
 	// Otherwise you can move to here
 	character = e;
-	return true;
-=======
 	return true;
 }
 
@@ -169,7 +166,6 @@ Tile::~Tile(){
 	item = NULL;
 	delete character;
 	character = NULL;
->>>>>>> 78cfbc4131d09aa17d9bb5e7dbc522f13e03c568
 }
 
 void Tile::characterLeft(){
