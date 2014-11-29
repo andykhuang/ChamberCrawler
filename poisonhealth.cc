@@ -11,9 +11,12 @@ PoisonHealth::PoisonHealth(AbstractPotion *p): Potion(p) {
 	name = "PH";
 }
 
-bool PoisonHealth::isUsed(Player *p){
-	isConsumed(p);
-	p->heal(-10);
+bool PoisonHealth::isUsed(Player *pl){
+	// Wrap this Potion around the Potion the Player currently has
+	p = pl->getPotion();
+	// Set the Potion the Player currently has to this Potion
+	pl->setPotion(this);
+	pl->heal(-10);
 	hasEncountered = true;
 	return true;
 }

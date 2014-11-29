@@ -9,8 +9,8 @@ class AbstractPotion;
 class Character {
 	virtual bool attack(std::string dir) = 0;
 	virtual bool move(std::string dir) = 0;
-	virtual bool pickup(std::string dir) = 0;
-	virtual bool use(std::string dir) = 0;
+	virtual std::string pickup(std::string dir) = 0;
+	virtual std::string use(std::string dir) = 0;
  
 	virtual bool onDeath(Character *c) = 0;
 

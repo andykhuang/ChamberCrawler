@@ -44,7 +44,7 @@ bool Enemy::move(string dir){
 	// Get tile to step on
 	Tile *dest = host->getNeighbour(dir);
 	if(dest->isSteppedOn(this)){
-		host->characterLeft();
+		host->clearTile();
 		host = dest;
 		return true;
 	}
@@ -58,14 +58,14 @@ bool Enemy::attack(string dir){
 }
 
 // Enemy cannot pick up things
-bool Enemy::pickup(string dir){
-        return false;
+string Enemy::pickup(string dir){
+        return "";
 }
 
 
 // Enemy cannot use things
-bool Enemy::use(string dir){
-        return false;
+string Enemy::use(string dir){
+        return "";
 }
 
 Enemy::Enemy(){

@@ -29,12 +29,3 @@ bool BlankTile::isSteppedOn(Player *p){
 bool BlankTile::isSteppedOn(Enemy *e){
 	return false;
 }
-
-// Nothing can attack Blank Tiles
-string BlankTile::isAttacked(Player *p){
-	return "";
-}
-
-string BlankTile::isAttacked(Enemy *e){
-	return "";
-}

@@ -11,9 +11,12 @@ RestoreHealth::RestoreHealth(AbstractPotion *p): Potion(p) {
 	desc = "Restore Health Potion";
 }
 
-bool RestoreHealth::isUsed(Player *p){
-	isConsumed(p);
-	p->heal(10);
+bool RestoreHealth::isUsed(Player *pl){
+	// Wrap this Potion around the Potion the Player currently has
+	p = pl->getPotion();
+	// Set the Potion the Player currently has to this Potion
+	pl->setPotion(this);
+	pl->heal(10);
 	hasEncountered = true;
 	return true;
 }

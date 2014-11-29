@@ -17,3 +17,11 @@ bool AbstractPotion::canBeSteppedOn(Player *p){
 bool AbstractPotion::canBeSteppedOn(Enemy *e){
 	return false;
 }
+
+bool AbstractPotion::isPickedUp(Player *p) {
+	return isUsed(p);
+}
+
+bool AbstractPotion::isPickedUp(Enemy *e) {
+	return isUsed(e);
+}

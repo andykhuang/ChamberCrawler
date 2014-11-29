@@ -130,38 +130,33 @@ bool Tile::isSteppedOn(Enemy *e){
 }
 
 string Tile::isAttacked(Player *p) {
-	string desc = "";
-	// If there is not Character on this Tile, there is nothing to attack
-	if(character == NULL) return desc;
-	// If the Character on this Tile is an Enemy, then attack it
-	else if(dynamic_cast<Enemy *>(character)) {
-		return character->isAttacked(p);
-	} else {
-		// If the Character on this Tile is a Player, it cannot be attacked
-		return desc;
-	}
-
+	return "";
 }
 
 string Tile::isAttacked(Enemy *e) {
-	string desc = "";
-	// If there is not Character on this Tile, there is nothing to attack
-	if(character == NULL) return desc;
-	// If the Character on this Tile is a Player, then attack it
-	else if(dynamic_cast<Player *>(character)) {
-		return character->isAttacked(e);
-	} else {
-		// If the Character on this Tile is an Enemy, it cannot be attacked
-		return desc;
-	}
+	return "";
 }
 
-void Tile::characterLeft(){
+string Tile::isUsed(Player *p) {
+	return "";
+}
+
+string Tile::isPickedUp(Player *p) {
+	return "";
+}
+
+void Tile::clearTile() {
+	item = NULL;
 	character = NULL;
 }
 
 Character *Tile::getCharacterPtr(){
 	return character;
+}
+
+void Tile::removeTreasure() {
+	delete item;
+	item = NULL;
 }
 
 // Virtual Tile Destructor implementation
