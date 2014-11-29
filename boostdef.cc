@@ -16,12 +16,8 @@ int BoostDef::getDef(){
 }
 
 bool BoostDef::isUsed(Player *pl) {
-	// Wrap this Potion around the Potion the Player currently has
-	p = pl->getPotion();
-	// Set the Potion the Player currently has to this Potion
-	pl->setPotion(this);
 	hasEncountered = true;
-	return true;
+	return isConsumed(pl);
 }
 
 bool BoostDef::isUsed(Enemy *e) {
