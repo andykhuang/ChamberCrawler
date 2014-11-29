@@ -160,6 +160,10 @@ void Tile::characterLeft(){
 	character = NULL;
 }
 
+Character *Tile::getCharacterPtr(){
+	return character;
+}
+
 // Virtual Tile Destructor implementation
 Tile::~Tile(){
 	// A Tile should not delete its neighbours as that is handled by the floor

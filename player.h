@@ -16,7 +16,7 @@ class Player: public Character {
 	Player(); // REMOVE THIS WHEN DONE
 	Player(std::string race, int maxhp, int hp, int atk, int def);
 
-	std::string performAction(std::string command, std::string dir);
+	std::string performAction(std::string command = "", std::string dir = "");
 	bool onDeath(Character *c);
 
 	// Increments the Player's HP by the amount specified

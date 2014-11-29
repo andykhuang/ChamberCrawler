@@ -389,7 +389,7 @@ Treasure* Floor::getTreasure(){
 
 // TODO: Decorate the potion
 AbstractPotion* Floor::getPotion(){
-	AbstractPotion *toReturn;
+	AbstractPotion *toReturn = NULL;
 	string potType = random(pSpawnProb);
 
 	if(potType == "BA"){
@@ -409,7 +409,6 @@ AbstractPotion* Floor::getPotion(){
 	}
 
 	return toReturn;
-	return NULL;
 }
 
 // Random generation given a map of integers
@@ -438,8 +437,24 @@ string Floor::random(map<string, int> &prob){
 }
 
 string Floor::enemyAction(Player *p){
-	// Map out all the character and call perform action
-	return "";
+	string actionDesc = "";
+	vector<Character *> characterArray;
+	// Map out all the characters
+	for(int i = 0; i < rSize; i++){
+		for(int j = 0; j < cSize; j++){
+			// if there is a character on the tile (ie not null)
+			if(tiles[i][j]->getCharacterPtr()){
+				characterArray.push_back(tiles[i][j]->getCharacterPtr());
+			}
+		}
+	}
+
+	// call the perform action function for each character
+	int vectorSize = characterArray.size();
+	for(int i = 0; i < vectorSize; i++){
+		actionDesc = characterArray[i]->performAction();
+	}
+	return actionDesc;
 }
 
 // Generate a random number between low to high inclusive
@@ -461,6 +476,7 @@ void Floor::setChamber(int r, int c, vector<Tile *> &chamberTiles, bool **tracke
 		setChamber(r, c-1, chamberTiles, trackerGrid);
 	}
 }
+
 
 bool Floor::validCheck(int r, int c){
 	if(r >= 0 && r < rSize && c >= 0 && c < cSize){

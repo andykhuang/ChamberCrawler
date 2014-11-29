@@ -54,6 +54,9 @@ class Tile {
 	// Get tileSymbol
 	char getTileSymbol();
 
+	// Get Character Pointer
+	Character *getCharacterPtr();
+
 	// Destructor
 	virtual ~Tile() = 0;
 

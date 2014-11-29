@@ -8,6 +8,8 @@
 #include "floor.h"
 #include "stairs.h"
 #include "floortile.h"
+#include "treasure.h"
+#include "dragontreasure.h"
 
 using namespace std;
 
@@ -78,6 +80,18 @@ bool Chamber::place(Item *i){
 
 	while(!successFlag){
 		int tileIndex = Floor::random(0, size-1);
+		// If this item is a DragonTreasure
+		if(dynamic_cast<DragonTreasure *>(i)){
+			bool hasDragonSpace = false;
+			Tile **neighbourCheck = tiles[tileIndex]->getNeighbour();
+			// Check that there's at least one neighbour that is not occupied
+			for(int i = 0; i < 8 && !hasDragonSpace; i++){
+				if(neighbourCheck[i] != NULL && !neighbourCheck[i]->isOccupied()){
+					hasDragonSpace = true;
+				}
+			}
+			if(!hasDragonSpace) return false;
+		}
 		// Try to place on the tile
 		if(tiles[tileIndex]->placeItem(i)){
 			i->setHost(tiles[tileIndex]);
