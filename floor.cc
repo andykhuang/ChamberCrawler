@@ -438,6 +438,10 @@ string Floor::random(map<string, int> &prob){
 	return "";
 }
 
+string Floor::enemyAction(Player *p){
+	// Map out all the character and call perform action
+}
+
 // Generate a random number between low to high inclusive
 int Floor::random(int low, int high){
 	return (rand() % (high-low + 1)) + low;

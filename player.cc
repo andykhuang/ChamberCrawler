@@ -19,6 +19,10 @@ Player::Player(string race, int maxhp, int hp, int atk, int def) : Character(rac
 string Player::performAction(string command, string dir){
         string actionDesc = "";
 
+	if(command == ""){
+		return "";
+	}
+
         if(command == "move"){
                 // TODO: move player
                 if(move(dir)){

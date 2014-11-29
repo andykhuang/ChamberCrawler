@@ -4,6 +4,7 @@
 #include "character.h"
 #include "player.h"
 #include "item.h"
+#include "enemy.h"
 
 using namespace std;
 
@@ -116,12 +117,18 @@ bool Tile::isSteppedOn(Player *p){
 	return true;
 }
 
-void Tile::characterLeft(){
-	character = NULL;
+bool Tile::isSteppedOn(Enemy *e){
+	if(character != NULL) return false;
+	// Unlike players enemies can't step on items either
+	else if(item != NULL) return false;
+
+	// Otherwise you can move to here
+	character = e;
+	return true;
 }
 
-bool Tile::isSteppedOn(Enemy *e){
-	return true;
+void Tile::characterLeft(){
+	character = NULL;
 }
 
 ostream &operator<<(ostream &out, const Tile &t){

@@ -3,13 +3,14 @@
 #include <string>
 #include "character.h"
 
+class Tile;
 class Treasure;
 
 class Enemy: public Character {
 	bool onDeath(Character *c);
 
 	protected:
-	Treasure *t;
+	Treasure *eTreasure;
 
 	virtual bool attack(std::string dir);
         virtual bool move(std::string dir);
@@ -17,7 +18,7 @@ class Enemy: public Character {
         virtual bool use(std::string dir);
 
 	public:
-	std::string performAction(std::string command, std::string dir);
+	std::string performAction(std::string command="", std::string dir="");
 
 	// Constructor
 	Enemy();
