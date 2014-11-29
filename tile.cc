@@ -155,10 +155,6 @@ string Tile::isAttacked(Enemy *e) {
 	}
 }
 
-void Tile::characterLeft(){
-	character = NULL;
-}
-
 // Virtual Tile Destructor implementation
 Tile::~Tile(){
 	// A Tile should not delete its neighbours as that is handled by the floor
