@@ -10,7 +10,7 @@ int main(int argc, char *argv[]){
 
 	// Check for command line arguments
 	if(argc == 2){
-		testGame->setFloorFile(argv[2]);
+		testGame->setFloorFile(argv[1]);
 	}
 	cout << "Starting Game" << endl;
 	testGame->playGame();

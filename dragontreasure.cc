@@ -11,6 +11,11 @@ DragonTreasure::DragonTreasure():Treasure(/*value*/6){
 	d = new Dragon(this);
 }
 
+DragonTreasure::DragonTreasure(Tile *dHost, Tile *tHost):Treasure(6){
+	d = new Dragon(this);
+	dualSetHost(dHost, tHost);
+}
+
 DragonTreasure::~DragonTreasure(){
 	d = NULL;
 }
@@ -20,6 +25,11 @@ void DragonTreasure::clearDragon() {
 	d = NULL;
 }
 
+void DragonTreasure::dualSetHost(Tile *dHost, Tile *tHost){
+	host = tHost;
+	d->setTile(dHost);
+	
+}
 void DragonTreasure::setHost(Tile *t) {
 	// Set the Tile that this DragonTreasure is on
 	host = t;

@@ -39,6 +39,7 @@ class Game {
 		// Private methods
 		bool setGamePlayer(std::string race);
 		void displayHUD(std::string action = "");
+		void displayScore();
 
 };
 #endif

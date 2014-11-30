@@ -118,7 +118,7 @@ Floor::~Floor(){
 }
 
 void Floor::loadPreLoadedFloor(Player *p, Stairs *stairs, string fiveFloorFile){
-	ifstream f(fileName.c_str());
+	ifstream f(fiveFloorFile.c_str());
 	string fLine;
 
 	char **preFloor = new char *[rSize];
@@ -128,8 +128,7 @@ void Floor::loadPreLoadedFloor(Player *p, Stairs *stairs, string fiveFloorFile){
 			preFloor[i][j] = ' ';
 		}
 	}
-	
-	
+
 	//Skip lines
 	for(int i = 0; i < rSize*(lvl-1); i++){
 		getline(f, fLine);
@@ -142,15 +141,7 @@ void Floor::loadPreLoadedFloor(Player *p, Stairs *stairs, string fiveFloorFile){
 			preFloor[i][j] = fLine[j];
 		}
 	}
-
-	// TODO: REMove TESTING ONLY
-	for(int i = 0; i < rSize; i++){
-		for(int j = 0; j < cSize; j++){
-			cout << preFloor[i][j];
-		}
-		cout << endl;
-	}
-
+	
 	// Step 1: Construct a blank floor with only walls, doors, passages blanktiles, and floors (floor is everything that is not one of the 4 aforementioned things)
 	for(int i = 0; i < rSize; i++){
 		for(int j = 0; j < cSize; j++){
@@ -240,21 +231,94 @@ void Floor::loadPreLoadedFloor(Player *p, Stairs *stairs, string fiveFloorFile){
 	for(int i = 0; i < rSize; i++){
 		for(int j = 0; j < cSize; j++){
 			char tmp = preFloor[i][j];
+			bool isDragon = false;
 			// Potions
-			if(tmp == '0') tiles[i][j]->placeItem(new RestoreHealth(NULL));
-			else if(tmp == '1') tiles[i][j]->placeItem(new BoostAtk(NULL));
-			else if(tmp == '2') tiles[i][j]->placeItem(new BoostDef(NULL));
-			else if(tmp == '3') tiles[i][j]->placeItem(new PoisonHealth(NULL));
-			else if(tmp == '4') tiles[i][j]->placeItem(new WoundAtk(NULL));
-			else if(tmp == '5') tiles[i][j]->placeItem(new WoundDef(NULL));
-			else if(tmp == '6') tiles[i][j]->placeItem(new Treasure(2));
-			else if(tmp == '7') tiles[i][j]->placeItem(new Treasure(1));
-			else if(tmp == '8') tiles[i][j]->placeItem(new Treasure(4));
+			Item *tmpItem = NULL;
+			Character *tmpChar = NULL;
+			if(tmp == '0') tmpItem = new RestoreHealth(NULL);
+			else if(tmp == '1') tmpItem = new BoostAtk(NULL);
+			else if(tmp == '2') tmpItem = new BoostDef(NULL);
+			else if(tmp == '3') tmpItem = new PoisonHealth(NULL);
+			else if(tmp == '4') tmpItem = new WoundAtk(NULL);
+			else if(tmp == '5') tmpItem = new WoundDef(NULL);
+			else if(tmp == '6') tmpItem = new Treasure(2);
+			else if(tmp == '7') tmpItem = new Treasure(1);
+			else if(tmp == '8') tmpItem = new Treasure(4);
 			else if(tmp == '9'){
-				cout << "Dargon" << endl;
+				isDragon = true;
+				Tile *dragonTile = NULL;
+				// NORTH WEST
+				if(validCheck(i-1, j-1)){
+					if(preFloor[i-1][j-1] == 'D') dragonTile = tiles[i-1][j-1];
+				}
+
+				// NORTH
+				if(validCheck(i-1, j)){
+					if(preFloor[i-1][j] == 'D') dragonTile = tiles[i-1][j];
+				}
+				
+				// NORTHEAST
+				if(validCheck(i-1, j+1)){
+					if(preFloor[i-1][j+1] == 'D') dragonTile = tiles[i-1][j+1];
+				}
+
+				// WEST
+				if(validCheck(i, j-1)){
+					if(preFloor[i][j-1] == 'D') dragonTile = tiles[i][j-1];
+				}
+
+				// EAST
+				if(validCheck(i, j+1)){
+					if(preFloor[i][j+1] == 'D') dragonTile = tiles[i][j+1];
+				}
+
+				// SOUTHWEST
+				if(validCheck(i+1, j-1)){
+					if(preFloor[i+1][j-1] == 'D') dragonTile = tiles[i+1][j-1];
+				}
+
+				// SOUTH
+				if(validCheck(i+1, j)){
+					if(preFloor[i+1][j] == 'D') dragonTile = tiles[i+1][j];
+				}
+				
+				// SOUTHEAST
+				if(validCheck(i+1, j+1)){
+					if(preFloor[i+1][j+1] == 'D') dragonTile = tiles[i+1][j+1];
+				}
+				
+				tmpItem = new DragonTreasure(dragonTile, tiles[i][j]);
+				tiles[i][j]->placeItem(tmpItem);
+			
 			}
+			// is actuaully a dwarf
+			else if(tmp == 'D'){
+				// if it's not occupied already then it's not a previously defined dragon
+				if(!tiles[i][j]->isOccupied()) tmpChar = new Dwarf;
+				else tmpChar = NULL;
+			}
+			else if(tmp == 'H') tmpChar = new Human;
+			else if(tmp == 'E') tmpChar = new Elf;
+			else if(tmp == 'O') tmpChar = new Orc;
+			else if(tmp == 'M') tmpChar = new Merchant;
+			else if(tmp == 'L') tmpChar = new Halfling;
+			else if(tmp == '@') tmpChar = p;
+			else if(tmp == '\\') tmpItem = stairs;
+
+			if(!isDragon && tmpItem != NULL){
+				tmpItem->setHost(tiles[i][j]);
+				tiles[i][j]->placeItem(tmpItem);
+			}
+			if(tmpChar != NULL){
+				tmpChar->setTile(tiles[i][j]);
+				tiles[i][j]->placeCharacter(tmpChar);
+			}
+			isDragon = false;
 		}
 	}
+
+	cout << "Actual Board" << endl;
+	
 	
 	// Free the preFloor 2D char array
 	for(int i = 0; i < rSize; i++){
