@@ -6,14 +6,12 @@
 using namespace std;
 
 Stairs::Stairs(Game *g):g(g){
-	// TODO: stairs mechanics
 	name = "Stairs";
 	desc = "Stairs to the next Floor";
 	itemSymbol = '\\';
 }
 
 bool Stairs::isPickedUp(Player *p){
-	// TODO: go to the next floor
 	return false;
 }
 
@@ -22,9 +20,8 @@ bool Stairs::isPickedUp(Enemy *e){
 }
 
 bool Stairs::canBeSteppedOn(Player *p){
-	// TODO: load next floor
 	g->descendFloor();
-	cout << "Stairs stepped on: loading floor now" << endl;
+	cout << "Stairs stepped on: descending floor" << endl;
 	return true;
 }
 

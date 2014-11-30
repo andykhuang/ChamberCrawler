@@ -15,10 +15,5 @@ class Stairs: public Item {
 	bool isPickedUp(Enemy *e);
 	bool canBeSteppedOn(Player *p);
 	bool canBeSteppedOn(Enemy *e);
-	/*bool isSteppedOn(Player *p);
-	bool isOccupied();
-	bool isOccupied(Player *p);
-	bool isOccupied(Enemy *e);
-	*/
 };
 #endif

@@ -19,18 +19,6 @@ Tile::Tile(){
 	tileSymbol = ' ';
 }
 
-Tile::Tile(Character *c){
-	item = NULL;
-	character = c;
-	tileSymbol = 'C'; // TODO: get it from the character pointer
-}
-
-Tile::Tile(Item *i){
-	item = i;
-	character = NULL;
-	tileSymbol = 'i'; // TODO: get it from the item pointer
-}
-
 void Tile::addNeighbour(Tile *neighbour){
 	// Safety
 	if(numNeighbours >= MAX_NEIGHBOURS) return;
@@ -61,14 +49,6 @@ char Tile::getTileSymbol(){
 }
 
 bool Tile::isOccupied(){
-	return true;
-}
-
-bool Tile::isOccupied(Player *p){
-	return true;
-}
-
-bool Tile::isOccupied(Enemy *e){
 	return true;
 }
 

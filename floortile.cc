@@ -61,7 +61,3 @@ string FloorTile::isUsed(Player *p){
 string FloorTile::isPickedUp(Player *p){
 	return "";
 }
-
-bool FloorTile::performAction(){
-	return false;
-}
