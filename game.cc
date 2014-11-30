@@ -227,14 +227,17 @@ void Game::playGame(){
 					} else {
 						gameFloor->loadPreLoadedFloor(gamePlayer, tempStair, fiveFloorFile);
 					}
-					toNextFloor = false;
 				}
 				// Enemy Perform action
 				// Display the board and information
-				if(!isRestart && !isQuit && isValidCommand && !toNextFloor){
+				if(!isRestart && !isQuit && isValidCommand){
 					// Add a buffer between the player and enemy response
 					response += " ";
-					response += gameFloor->enemyAction(gamePlayer);
+					if(!toNextFloor){
+						response += gameFloor->enemyAction(gamePlayer);
+					} else {
+						toNextFloor = false;
+					}
 					cout << *gameFloor << endl;
 					displayHUD(response);
 					isValidCommand = false;
@@ -257,10 +260,6 @@ void Game::playGame(){
 							isQuit = true;
 							break;
 						}
-						else {
-							isQuit = true;
-							break;
-						}
 					}
 				}
 				
@@ -277,10 +276,6 @@ void Game::playGame(){
 							break;
 						}
 						else if(command == "n"){
-							isQuit = true;
-							break;
-						}
-						else {
 							isQuit = true;
 							break;
 						}
@@ -302,6 +297,7 @@ void Game::playGame(){
 			command = "";
 			cOption = "";
 			playerRace = "";
+			floorNum = 1;
 		}
 
 	}

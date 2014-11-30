@@ -226,7 +226,8 @@ void Floor::loadPreLoadedFloor(Player *p, Stairs *stairs, string fiveFloorFile){
 
 	// Step 3: Load all Treasures, if a 9 (dragon hoard) is encountered, search the surrounding space for a D, set both the DragonTreasure tile and the dragon tile simultaneously
 	
-	// Step 4: Load the rest of the enemies
+	// Step 4: Load all enemies except dwarfs
+	// Step 5: Load dwarfs
 	
 	for(int i = 0; i < rSize; i++){
 		for(int j = 0; j < cSize; j++){
@@ -291,12 +292,6 @@ void Floor::loadPreLoadedFloor(Player *p, Stairs *stairs, string fiveFloorFile){
 				tiles[i][j]->placeItem(tmpItem);
 			
 			}
-			// is actuaully a dwarf
-			else if(tmp == 'D'){
-				// if it's not occupied already then it's not a previously defined dragon
-				if(!tiles[i][j]->isOccupied()) tmpChar = new Dwarf;
-				else tmpChar = NULL;
-			}
 			else if(tmp == 'H') tmpChar = new Human;
 			else if(tmp == 'E') tmpChar = new Elf;
 			else if(tmp == 'O') tmpChar = new Orc;
@@ -317,9 +312,19 @@ void Floor::loadPreLoadedFloor(Player *p, Stairs *stairs, string fiveFloorFile){
 		}
 	}
 
-	cout << "Actual Board" << endl;
-	
-	
+	// Generate Dwarves
+	for(int i = 0; i < rSize; i++){
+		for(int j = 0; j < cSize; j++){
+			if(preFloor[i][j] == 'D'){
+				if(!tiles[i][j]->isOccupied()){
+					Dwarf *tempDwarf = new Dwarf;
+					tempDwarf->setTile(tiles[i][j]);
+					tiles[i][j]->placeCharacter(tempDwarf);
+				}
+			}
+		}
+	}
+
 	// Free the preFloor 2D char array
 	for(int i = 0; i < rSize; i++){
 		delete [] preFloor[i];
