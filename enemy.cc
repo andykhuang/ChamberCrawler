@@ -2,14 +2,25 @@
 #include <sstream>
 #include "character.h"
 #include "enemy.h"
+#include "player.h"
 #include "treasure.h"
 #include "floor.h"
 #include "tile.h"
+#include "goblin.h"
 
 using namespace std;
 
-bool Enemy::onDeath(Character *c){
-	return true;
+void Enemy::onDeath(Character *c){
+	Player *p = dynamic_cast<Player *>(c);
+	if(p) {
+		eTreasure->isPickedUp(p);
+		// Check if the killer is a Goblin
+		Goblin *g = dynamic_cast<Goblin *>(p);
+		// If the killer is a Goblin, give it an extra 5 gold
+		if(g) {
+			g->bank(5);
+		}
+	}
 }
 
 // Gets a direction based on number or randomly if none is provided
@@ -51,7 +62,7 @@ string Enemy::performAction(string command, string dir){
 	if(dynamic_cast<Dragon *>(this)){
 		Tile **goldNeighbours = 
 	}*/
-	actionResponse = attack("");
+	actionResponse = attack();
 
 	// if the enemy did not make an attack then move
 	// Dragon's can't move
@@ -86,7 +97,6 @@ string Enemy::move(string dir){
 	}
 	return "";
 }
-
 
 string Enemy::attack(string dir){
 	// TODO: Attack action

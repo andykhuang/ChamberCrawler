@@ -20,7 +20,12 @@ string FloorTile::isAttacked(Player *p) {
 	if(character == NULL) return "";
 	// If the Character on this Tile is an Enemy, then attack it
 	else if(dynamic_cast<Enemy *>(character)) {
-		return character->isAttacked(p);
+		string response = character->isAttacked(p);
+		if(character->isSlain(p)) {
+			delete character;
+			character = NULL;
+		}
+		return response;
 	} else {
 		// If the Character on this Tile is a Player, it cannot be attacked
 		return "";

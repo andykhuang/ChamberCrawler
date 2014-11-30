@@ -1,4 +1,5 @@
 #include <string>
+#include <sstream>
 #include "merchant.h"
 #include "treasure.h"
 
@@ -14,6 +15,9 @@ Merchant::Merchant():Enemy("Merchant", 30, 30, 70, 5){
 
 string Merchant::isAttacked(Character *c){
 	isFriendly = false;
-	// Retaliate
-	return "";
+	ostringstream oss;
+	int damage = ((100 * c->getatk()) + (100 + def - 1)) / (100 + def);
+	heal(-damage);
+	oss << "deals " << damage << " to " << characterSymbol << ".";
+	return oss.str();
 }

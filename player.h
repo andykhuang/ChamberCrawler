@@ -7,6 +7,9 @@
 class Potion;
 
 class Player: public Character {
+	void onDeath(Character *c);
+	virtual void hiddenPower();
+
 	protected:
 	int moneyCoins;
 
@@ -21,8 +24,7 @@ class Player: public Character {
 
 	std::string performAction(std::string command = "", std::string dir = "");
 	std::string isAttacked(Character *c);
-	bool onDeath(Character *c);
-
+	
 	// Increments the Player's moneyCoins by the amount specified
 	// If the amount is negative, decrement the Player's moneyCoins instead
 	virtual void bank(int amount);
@@ -36,12 +38,13 @@ class Player: public Character {
 	bool isPlayer();
 
 	static std::string convertDirection(std::string dir);
-
+	
 	AbstractPotion *getPotion();
 
 	// Player Mutators
 	virtual void setPotion(AbstractPotion *p);
 
+	// Destructor
 	virtual ~Player() = 0; // for making this pure virtual only
 };
 #endif

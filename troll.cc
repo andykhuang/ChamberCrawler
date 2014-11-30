@@ -4,10 +4,9 @@
 
 using namespace std;
 
-Troll::Troll(){
-	// Set hp values
-}
+Troll::Troll(): Player("Troll", 120, 120, 25, 15) {}
 
-string Troll::performAction(string command, string dir){
-	return "potato";
+void Troll::hiddenPower() {
+	// Regains 5 HP
+	heal(5);
 }

@@ -8,6 +8,6 @@ class Halfling: public Enemy {
 	// Constructor
 	Halfling();
 	
-	std::string isAttacked(Character *p);
+	std::string isAttacked(Character *c);
 };
 #endif

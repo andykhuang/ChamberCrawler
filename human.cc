@@ -1,16 +1,26 @@
-#include "enemy.h"
 #include "human.h"
+#include "goblin.h"
 #include "treasure.h"
 
 using namespace std;
 
 Human::Human():Enemy("Human", 140, 140, 20, 20){
 	//Assign hp and stuff
-	eTreasure = new Treasure(4);
+	eTreasure = new Treasure(2);
 	characterSymbol = 'H';
 }
 
-bool Human::onDeath(Character *c){
-	// forgot special
-	return true;
+void Human::onDeath(Character *c){
+	Player *p = dynamic_cast<Player *>(c);
+	if(p) {
+		// On Death, "drops" 2 piles of gold (Gold is picked up twice to compensate)
+		eTreasure->isPickedUp(p);
+		eTreasure->isPickedUp(p);
+		// Check if the killer is a Goblin
+		Goblin *g = dynamic_cast<Goblin *>(p);
+		// If the killer is a Goblin, give it an extra 5 gold
+		if(g) {
+			g->bank(5);
+		}
+	}
 }

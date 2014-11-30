@@ -191,15 +191,25 @@ void Game::playGame(){
 						cout << "Invalid Command" << endl;
 					}
 				}
+				
+				// If the player are to move to the next floor
 				if(toNextFloor){
+					// Delete the current floor
 					delete gameFloor;
 					gameFloor = NULL;
-		
+
+					//Clear the potion bonuses
+					gamePlayer->flushPot();
+					
+					// Make new stairs because the old one was deleted
 					tempStair = new Stairs(getInstance());
+
+					// Construct the new floor
 					gameFloor = new Floor(floorNum);
+					
+					// Load the floor
 					gameFloor->loadFloor(gamePlayer, tempStair);
 					toNextFloor = false;
-					cout << "Floor number: " << floorNum << endl;
 				}
 				// Enemy Perform action
 				// Display the board and information

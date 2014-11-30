@@ -11,8 +11,3 @@ Elf::Elf():Enemy("Elf", 140, 140, 30, 10){
 	eTreasure = new Treasure(Floor::random(1,2));
 	characterSymbol = 'E';
 }
-
-string Elf::attack(string dir){
-	// Gets to attack everyone twice except drows
-	return "";
-}

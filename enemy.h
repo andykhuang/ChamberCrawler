@@ -4,10 +4,11 @@
 #include "character.h"
 
 class Tile;
+class Player;
 class Treasure;
 
 class Enemy: public Character {
-	bool onDeath(Character *c);
+	void onDeath(Character *c);
 
 	protected:
 	Treasure *eTreasure;
@@ -26,6 +27,7 @@ class Enemy: public Character {
 	// Constructor
 	Enemy();	// TODO: REMOVE WHEN DONE
 	Enemy(std::string race, int maxhp, int hp, int atk, int def);
+
 	// Destructor
 	virtual ~Enemy();
 };

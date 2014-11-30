@@ -4,10 +4,10 @@
 #include "player.h"
 
 class Troll: public Player {
+	void hiddenPower();	
+
 	public:
 	// Constructor
 	Troll();
-
-	std::string performAction(std::string command, std::string dir);
 };
 #endif

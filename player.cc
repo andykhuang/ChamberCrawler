@@ -7,6 +7,7 @@
 #include "character.h"
 #include "player.h"
 #include "tile.h"
+#include "elf.h"
 
 using namespace std;
 
@@ -26,9 +27,13 @@ string Player::isAttacked(Character *c){
 	ostringstream oss;
 	int miss = rand() % 2;
 	if(miss == 1) {
-		oss << "missed " << characterSymbol;
+		oss << "missed PC.";
 	} else {
 		int damage = ((100 * c->getatk()) + (100 + def - 1)) / (100 + def);
+		// If the attacker is an Elf, get hit twice for double the damage
+		if(dynamic_cast<Elf *>(c)) {
+			damage *= 2;
+		}
 		heal(-damage);
 		oss << "deals " << damage << " to PC.";
 	}
@@ -69,6 +74,8 @@ string Player::performAction(string command, string dir){
         }
 	// Check if an action has been performed
 	if(actionDesc != "") {
+		// At the end of an action, activate the Player's hidden power
+		hiddenPower();
 		actionDesc = "PC " + actionDesc;
 	}
 	return actionDesc;
@@ -141,9 +148,11 @@ string Player::use(string dir){
         return dest->isUsed(this);
 }
 
-bool Player::onDeath(Character *c){
+// Players get no hidden powers by default :(
+void Player::hiddenPower() {}
+
+void Player::onDeath(Character *c){
 	// End game and stuff
-	return false;
 }
 
 int Player::getScore(){

@@ -290,7 +290,7 @@ void Floor::loadFloor(Player *p, Stairs *stairs, string fileName){
 
 
 	// Randomly generate and place potions
-	for(int i = 0; i < maxPotions; i++){
+	for(int i = potions; i < maxPotions; i++){
 		while(!placeSucceeded){
 			// Generate Type of Potion
 			Item *tempPotion = getPotion();
@@ -305,7 +305,7 @@ void Floor::loadFloor(Player *p, Stairs *stairs, string fileName){
 	
 	// Randomly generate and place gold
 	// Special Note that There must be at least 1 neighbour that's not occupied around the gold
-	for(int i = 0; i < maxTreasures; i++){
+	for(int i = treasures; i < maxTreasures; i++){
 		while(!placeSucceeded){
 			// Generate the type of Treasure
 			Item *tempTreasure = getTreasure();
@@ -319,7 +319,7 @@ void Floor::loadFloor(Player *p, Stairs *stairs, string fileName){
 	}
 
 	// Randomly generate and place enemies
-	for(int i = 0; i < maxEnemies; i++){
+	for(int i = enemies; i < maxEnemies; i++){
 		while(!placeSucceeded){
 			// Generate the type of Enemy
 			Character *tempEnemy = getEnemy();
@@ -366,6 +366,8 @@ Treasure* Floor::getTreasure(){
 		toReturn = new Treasure(1);
 	} else if(tType == "Dragon"){
 		toReturn = new DragonTreasure;
+		// Since a dragon hoard always comes with a dragon
+		enemies++;
 	} else {
 		toReturn = NULL;
 	}
