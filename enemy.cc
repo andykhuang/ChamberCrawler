@@ -12,8 +12,9 @@ bool Enemy::onDeath(Character *c){
 	return true;
 }
 
-string randDir(){
-	int direction = Floor::random(0,7);
+// Gets a direction based on number or randomly if none is provided
+string dirGet(int direction = -1){
+	if(direction == -1) direction = Floor::random(0,7);
 	if(direction == 0) return "nw";
 	else if(direction == 1) return "no";
 	else if(direction == 2) return "ne";
@@ -29,19 +30,41 @@ string randDir(){
 string Enemy::performAction(string command, string dir){
 	if(command != "" || dir != "") return "";
 	// Enemy can only attack or move
+	string actionResponse = "";
+	// If the enemy is not a dragon
 	// Check if there's a player around him to attack
-	if(false){
-		return "";
-	} 
-	// Move randomly
-	else {
-		string direction = randDir();
-		while(!move(direction)){
-			direction = randDir();
+	/*Tile **attackNeighbours = host->getNeighbour();
+	string actionResponse = "";
+	for(int i = 0; i < 8; i++){
+		Character *tempCharacter = attackNeighbours[i]->getCharacterPtr();
+		// If the tile has a character, check if it's a player
+		if(tempCharacter != NULL && tempCharacter->isPlayer()){
+			// then attack in that direction
+			actionResponse += attack(dirGet(i));
+			cout << "Rekt m8" << endl;
+			return actionResponse;
 		}
 	}
-	// Otherwise Move
-	return "";
+	
+	// If this is a dragon and it hasn't attacked yet
+	// since a dragon can only attack once
+	if(dynamic_cast<Dragon *>(this)){
+		Tile **goldNeighbours = 
+	}*/
+	actionResponse = attack("");
+
+	// if the enemy did not make an attack then move
+	// Dragon's can't move
+	if(actionResponse == ""){
+		string direction = dirGet();
+		int tries = 0; // incase an enemy gets boxed in so no infinite loops
+		while(move(direction) == "" && tries < 20){
+			// If i couldn't move in that direction, try to move in another 1
+			direction = dirGet();
+			tries++;
+		}
+	}
+	return actionResponse;
 }
 
 string Enemy::isAttacked(Character *c){
@@ -49,18 +72,19 @@ string Enemy::isAttacked(Character *c){
 	int damage = ((100 * c->getatk()) + (100 + def - 1)) / (100 + def);
 	heal(-damage);
 	oss << "deals " << damage << " to " << characterSymbol;
+	oss << " (" << gethp() << " HP)";
 	return oss.str();
 }
 
-bool Enemy::move(string dir){
+string Enemy::move(string dir){
 	// Get tile to step on
 	Tile *dest = host->getNeighbour(dir);
 	if(dest->isSteppedOn(this)){
 		host->clearTile();
 		host = dest;
-		return true;
+		return "Moved";
 	}
-	return false;
+	return "";
 }
 
 
@@ -88,6 +112,10 @@ Enemy::Enemy(){
 Enemy::Enemy(string race, int maxhp, int hp, int atk, int def): Character(race, maxhp, hp, atk, def) {
 	eTreasure = NULL;
 	host = NULL;
+}
+
+bool Enemy::isPlayer(){
+	return false;
 }
 
 Enemy::~Enemy(){

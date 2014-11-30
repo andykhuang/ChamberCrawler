@@ -13,13 +13,15 @@ class Enemy: public Character {
 	Treasure *eTreasure;
 
 	std::string attack(std::string dir);
-        bool move(std::string dir);
+        std::string move(std::string dir);
         std::string pickup(std::string dir);
         std::string use(std::string dir);
 
 	public:
 	std::string performAction(std::string command="", std::string dir="");
 	std::string isAttacked(Character *c);
+
+	bool isPlayer();
 
 	// Constructor
 	Enemy();	// TODO: REMOVE WHEN DONE

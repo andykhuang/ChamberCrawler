@@ -11,7 +11,7 @@ class Player: public Character {
 	int moneyCoins;
 
         std::string attack(std::string dir);
-        bool move(std::string dir);
+        std::string move(std::string dir);
         std::string pickup(std::string dir);
         std::string use(std::string dir);
 
@@ -32,6 +32,8 @@ class Player: public Character {
 	int getdef();
 	virtual int getGold();
 	virtual int getScore();
+
+	bool isPlayer();
 
 	static std::string convertDirection(std::string dir);
 

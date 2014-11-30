@@ -15,5 +15,7 @@ class RestoreHealth:public Potion {
 	
 	bool isUsed(Player *p);
 	bool isUsed(Enemy *e);
+
+	std::string seesPotion();
 };
 #endif

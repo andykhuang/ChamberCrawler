@@ -23,3 +23,8 @@ bool WoundDef::isUsed(Player *pl) {
 bool WoundDef::isUsed(Enemy *e) {
 	return false;
 }
+
+string WoundDef::seesPotion(){
+	if(hasEncountered) return desc;
+	return "Unknown Potion";
+}

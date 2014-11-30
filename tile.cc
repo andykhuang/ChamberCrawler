@@ -104,9 +104,6 @@ bool Tile::isSteppedOn(Player *p){
 			//TODO: Take the gold
 			delete item;
 			item = NULL;
-			cout << "Gold taken" << endl;
-			// Delete the gold
-			//delete item;
 		} 
 		// Item can't be stepped on
 		else {
@@ -155,6 +152,10 @@ Character *Tile::getCharacterPtr(){
 	return character;
 }
 
+Item *Tile::getItemPtr(){
+	return item;
+}
+
 void Tile::removeTreasure() {
 	delete item;
 	item = NULL;
@@ -165,7 +166,9 @@ Tile::~Tile(){
 	// A Tile should not delete its neighbours as that is handled by the floor
 	delete item;
 	item = NULL;
-	delete character;
+	if(character != NULL && !character->isPlayer()){
+		delete character;
+	}
 	character = NULL;
 }
 

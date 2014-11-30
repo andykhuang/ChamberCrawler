@@ -23,3 +23,8 @@ bool BoostAtk::isUsed(Player *pl) {
 bool BoostAtk::isUsed(Enemy *e) {
 	return false;
 }
+
+string BoostAtk::seesPotion(){
+	if(hasEncountered) return desc;
+	return "Unknown Potion";
+}

@@ -23,3 +23,7 @@ int EmptyPotion::getAtk(){
 int EmptyPotion::getDef(){
 	return 0;
 }
+
+string EmptyPotion::seesPotion(){
+	return name;
+}

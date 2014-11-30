@@ -20,3 +20,8 @@ bool PoisonHealth::isUsed(Player *pl){
 bool PoisonHealth::isUsed(Enemy *e){
 	return false;
 }
+
+string PoisonHealth::seesPotion(){
+	if(hasEncountered) return desc;
+	return "Unknown Potion";
+}

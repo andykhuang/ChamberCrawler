@@ -12,5 +12,8 @@ class WoundAtk:public Potion {
 	int getAtk();
 
 	bool isUsed(Player *p);
-	bool isUsed(Enemy *e);};
+	bool isUsed(Enemy *e);
+
+	std::string seesPotion();
+};
 #endif

@@ -22,8 +22,8 @@ string Dragon::attack(string dir){
 	return "";
 }
 
-bool Dragon::move(string dir){
-	return true;
+string Dragon::move(string dir){
+	return "Moved";
 }
 
 Dragon::~Dragon(){

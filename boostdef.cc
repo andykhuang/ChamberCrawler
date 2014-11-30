@@ -23,3 +23,8 @@ bool BoostDef::isUsed(Player *pl) {
 bool BoostDef::isUsed(Enemy *e) {
 	return false;
 }
+
+string BoostDef::seesPotion(){
+	if(hasEncountered) return desc;
+	return "Unknown Potion";
+}

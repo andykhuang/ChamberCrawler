@@ -18,6 +18,7 @@ class AbstractPotion: public Item {
 	bool canBeSteppedOn(Enemy *e);
 	bool isPickedUp(Player *p);
 	bool isPickedUp(Enemy *e);
+	virtual std::string seesPotion();
 	
 	// Destructor
 	virtual ~AbstractPotion() = 0;

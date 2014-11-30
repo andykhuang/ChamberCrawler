@@ -18,6 +18,8 @@
 using namespace std;
 
 const string INVALID_COMMAND = "Invalid Command";
+bool toNextFloor = false;
+bool isQuit = false;
 Game *Game::instance = NULL;
 
 Game* Game::getInstance(){
@@ -99,7 +101,6 @@ bool isValidDirection(string dir){
 void Game::playGame(){
 	// Sentinel Stuff
 	bool isRestart = false;
-	bool isQuit = false;
 	
 	// Variable for storing and parsing commands
 	string command;	// The First part of the command (ie: u)
@@ -134,7 +135,7 @@ void Game::playGame(){
 			bool isValidCommand = false;
 			// Initialize the floor
 			// Make a Stair for this floor
-			Stairs *tempStair = new Stairs(this);
+			Stairs *tempStair = new Stairs(getInstance());
 			gameFloor = new Floor(floorNum);
 			gameFloor->loadFloor(gamePlayer, tempStair);
 
@@ -167,8 +168,9 @@ void Game::playGame(){
 					} else {
 						// Attack in direction
 						response = gamePlayer->performAction("attack",cOption);
-						cout << "Attack " << cOption << endl;
-						isValidCommand = true;
+						if(response != INVALID_COMMAND){
+							isValidCommand = true;
+						}
 					}
 				} else if(command == "r"){
 					// Restart Game
@@ -189,10 +191,19 @@ void Game::playGame(){
 						cout << "Invalid Command" << endl;
 					}
 				}
-				
+				if(toNextFloor){
+					delete gameFloor;
+					gameFloor = NULL;
+		
+					tempStair = new Stairs(getInstance());
+					gameFloor = new Floor(floorNum);
+					gameFloor->loadFloor(gamePlayer, tempStair);
+					toNextFloor = false;
+					cout << "Floor number: " << floorNum << endl;
+				}
 				// Enemy Perform action
 				// Display the board and information
-				if(!isRestart && !isQuit && isValidCommand){
+				if(!isRestart && !isQuit && isValidCommand && !toNextFloor){
 					response += " " + gameFloor->enemyAction(gamePlayer);
 					cout << *gameFloor << endl;
 					displayHUD(response);
@@ -202,6 +213,7 @@ void Game::playGame(){
 			
 			// TODO: Free everything that needs freeing here
 			delete gameFloor;
+			delete gamePlayer;
 			//delete gamePlayer;
 			gamePlayer = NULL;
 			gameFloor = NULL;
@@ -222,15 +234,14 @@ void Game::descendFloor(){
 
 	if(floorNum >= 6){
 		// TODO: Trigger game over win condition and tally scores
-		
-		delete gamePlayer;
-		delete gameFloor;
-		gamePlayer = NULL;
-		gameFloor = NULL;
+		isQuit = true;
 	}
 	else {
+		toNextFloor = true;
+		/*Stairs *newStairs = new Stairs(getInstance());
 		delete gameFloor;
 		gameFloor = new Floor(floorNum);
+		gameFloor->loadFloor(gamePlayer, newStairs);*/
 	}
 	// delete gameFloor
 	// makes a new floor

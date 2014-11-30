@@ -51,12 +51,10 @@ string Player::performAction(string command, string dir){
 
 	}else if(command == "move"){
                 // TODO: move player
-                if(move(dir)){
-                        actionDesc = "moves " + convertDirection(dir);
-                }
-		else {
-			actionDesc = INVALID_COMMAND;
-		}
+		actionDesc = move(dir);
+		if(actionDesc == ""){	
+			return INVALID_COMMAND;
+		} 
         } else if(command == "use"){
                 // TODO: use in direction if possible
 		actionDesc = use(dir);
@@ -76,18 +74,53 @@ string Player::performAction(string command, string dir){
 	return actionDesc;
 }
 
-bool Player::move(string dir){
+string Player::move(string dir){
+	string moveDesc = "";
+	int initialGold = getGold();
         // Get tile to step on
 	Tile *dest = host->getNeighbour(dir);
 	if(dest->isSteppedOn(this)){
+		int goldDiff = getGold() - initialGold;
 		// Notify the original tile that the character left
 		host->clearTile();
 		// At this point dest already hosts player so change the tile the player is on
 		host = dest;
+		// Generate the move description
+		moveDesc += "moves " + convertDirection(dir);
+		
+		// Sentence structure: PC moves dir and sees a (XX) Potion. Picked up Y gold
+		// Sees a Potion (can see multiple)
+		int numPotsSeen = 0;
+		Tile **potTileCheck = dest->getNeighbour();
+		for(int i = 0; i < 8; i++){
+			string tempPotDesc = "";
+			if(potTileCheck[i] != NULL){
+				Item *tempItem = potTileCheck[i]->getItemPtr();
+				if(tempItem != NULL){
+					tempPotDesc = potTileCheck[i]->getItemPtr()->seesPotion();
+				}
+			}
+			
+			if(tempPotDesc != ""){
+				if(numPotsSeen > 0){
+					moveDesc += " and " + tempPotDesc;
+				}
+				else if(numPotsSeen == 0){
+					moveDesc += " and sees a(n) " + tempPotDesc;
+				}
+			}
+		}
+		
+		// Picks up gold
+		if(goldDiff > 0){
+			ostringstream converter;
+			converter << ". Picked up " << goldDiff << " gold";
+			moveDesc += converter.str();
+		}
 		// Return moved
-		return true;
+		return moveDesc + ".";
 	}
-	return false;
+	return "";
 }
 
 string Player::attack(string dir){
@@ -154,6 +187,10 @@ string Player::convertDirection(string dir){
 		if(dir == i->second) return i->first;
 	}
 	return "";
+}
+
+bool Player::isPlayer(){
+	return true;
 }
 
 Player::~Player(){}

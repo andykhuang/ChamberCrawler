@@ -25,3 +25,7 @@ bool AbstractPotion::isPickedUp(Player *p) {
 bool AbstractPotion::isPickedUp(Enemy *e) {
 	return isUsed(e);
 }
+
+string AbstractPotion::seesPotion(){
+	return "";
+}

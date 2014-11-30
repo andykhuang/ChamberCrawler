@@ -23,3 +23,8 @@ bool WoundAtk::isUsed(Player *pl) {
 bool WoundAtk::isUsed(Enemy *e) {
 	return false;
 }
+
+string WoundAtk::seesPotion(){
+	if(hasEncountered) return desc;
+	return "Unknown Potion";
+}

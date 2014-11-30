@@ -8,7 +8,7 @@ class AbstractPotion;
 
 class Character {
 	virtual std::string attack(std::string dir) = 0;
-	virtual bool move(std::string dir) = 0;
+	virtual std::string move(std::string dir) = 0;
 	virtual std::string pickup(std::string dir) = 0;
 	virtual std::string use(std::string dir) = 0;
  
@@ -41,6 +41,7 @@ class Character {
 	virtual int gethp();
 	virtual int getatk();
 	virtual int getdef();
+	virtual bool isPlayer() = 0;
 
 	// Destructor
 	virtual ~Character();

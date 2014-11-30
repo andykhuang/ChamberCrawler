@@ -20,3 +20,8 @@ bool RestoreHealth::isUsed(Player *pl){
 bool RestoreHealth::isUsed(Enemy *e){
 	return false;
 }
+
+string RestoreHealth::seesPotion(){
+	if(hasEncountered) return desc;
+	return "Unknown Potion";
+}

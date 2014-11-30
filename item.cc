@@ -25,6 +25,10 @@ string Item::getName() {
 	return name;
 }
 
+string Item::seesPotion(){
+	return "";
+}
+
 Item::~Item() {}
 
 ostream &operator<<(ostream &out, const Item &i){

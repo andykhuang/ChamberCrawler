@@ -14,7 +14,7 @@ Stairs::Stairs(Game *g):g(g){
 
 bool Stairs::isPickedUp(Player *p){
 	// TODO: go to the next floor
-	return true;
+	return false;
 }
 
 bool Stairs::isPickedUp(Enemy *e){
@@ -23,6 +23,7 @@ bool Stairs::isPickedUp(Enemy *e){
 
 bool Stairs::canBeSteppedOn(Player *p){
 	// TODO: load next floor
+	g->descendFloor();
 	cout << "Stairs stepped on: loading floor now" << endl;
 	return true;
 }

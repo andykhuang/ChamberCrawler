@@ -31,6 +31,8 @@ class Item {
 	virtual bool isUsed(Player *e);
 	virtual bool isUsed(Enemy *e);
 
+	virtual std::string seesPotion();
+
 	virtual std::string getName();	
 
 	// Destructor
