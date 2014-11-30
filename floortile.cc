@@ -48,7 +48,7 @@ string FloorTile::isAttacked(Enemy *e) {
 string FloorTile::isUsed(Player *p){
 	if(item == NULL) return "";
 	if(item->isUsed(p)) {
-		string actionDesc = "uses " + item->getName();
+		string actionDesc = "uses " + item->getName() + ".";
 		// If the item has been used, clear the item from the tile
 		clearTile();
 		return actionDesc;

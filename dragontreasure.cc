@@ -11,12 +11,7 @@ DragonTreasure::DragonTreasure():Treasure(/*value*/6){
 	d = new Dragon(this);
 }
 
-DragonTreasure::~DragonTreasure(){
-	d = NULL;
-}
-
 void DragonTreasure::clearDragon() {
-	delete d;
 	d = NULL;
 }
 
@@ -37,7 +32,7 @@ void DragonTreasure::setHost(Tile *t) {
 }
 
 bool DragonTreasure::canBeSteppedOn(Player *p){
-	// Picks up the gold
+	// Picks up the gold only if the Dragon guarding it is slain
 	if(d != NULL) return false;
 	isPickedUp(p);
 	return true;

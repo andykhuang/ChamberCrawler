@@ -1,6 +1,6 @@
 #include <string>
 #include "tile.h"
-#include "enemy.h"
+#include "goblin.h"
 #include "dragon.h"
 #include "dragontreasure.h"
 
@@ -9,6 +9,16 @@ using namespace std;
 Dragon::Dragon(DragonTreasure *t): Enemy("Dragon", 150, 150, 20, 20) {
 	characterSymbol = 'D';
 	treasure = t;
+}
+
+void Dragon::onDeath(Character *c) {
+	treasure->clearDragon();
+	// Check if the killer is a Goblin
+	Goblin *g = dynamic_cast<Goblin *>(c);
+	// If the killer is a Goblin, give it an extra 5 gold
+	if(g) {
+		g->bank(5);
+	}
 }
 
 void Dragon::setTile(Tile *t) {
@@ -41,8 +51,4 @@ string Dragon::attack(){
 
 string Dragon::move(string dir){
 	return "Moved";
-}
-
-Dragon::~Dragon(){
-	host->clearTile();
 }

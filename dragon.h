@@ -9,6 +9,8 @@ class Dragon: public Enemy {
 	// The DragonTreasure that the dragon is guarding
 	DragonTreasure *treasure;
 
+	void onDeath(Character *c);
+
 	std::string move(std::string dir);
 	std::string attack();
 
@@ -17,7 +19,5 @@ class Dragon: public Enemy {
 	Dragon(DragonTreasure *t);
 
 	void setTile(Tile *t);
-	
-	~Dragon();
 };
 #endif
