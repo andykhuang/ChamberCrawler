@@ -40,7 +40,6 @@
 using namespace std;
 
 Floor::Floor(int lvl):defaultFile("defaultLayout.txt"){
-	// TODO: MOVE THIS BODY INTO ANOTHER METHOD AND HAVE THE CONSTRUCTORS CALL IT WITH CERTAIN PARAMETERS
 	this->lvl = lvl;
 	maxEnemies = 20;
 	maxPotions = 10;
@@ -88,10 +87,6 @@ Floor::Floor(int lvl):defaultFile("defaultLayout.txt"){
 	pSpawnProb["WD"] = 1;
 	
 	srand(time(NULL));
-}
-
-Floor::Floor(int lvl, int seed):defaultFile("defaultLayout.txt"){
-	
 }
 
 Floor::~Floor(){
@@ -373,7 +368,6 @@ void Floor::loadFloor(Player *p, Stairs *stairs, string fileName){
 				tiles[i][j] = new BlankTile;
 			}
 			else {
-				//TODO: do we want to include this
 				// should never get here
 				cout << "Failure" << endl;
 			}
@@ -483,7 +477,6 @@ void Floor::loadFloor(Player *p, Stairs *stairs, string fileName){
 			placeSucceeded = true;
 			playerChamberIndex = chamberIndex;
 		}
-		cout << "Player Placed" << endl;
 	}
 	// Reset Flag
 	placeSucceeded = false;
@@ -496,7 +489,6 @@ void Floor::loadFloor(Player *p, Stairs *stairs, string fileName){
 		if(chamberIndex != playerChamberIndex && chambers[chamberIndex]->place(stairs)){
 			placeSucceeded = true;
 		}
-		cout << "Stairs Placed" << endl;
 	}
 	
 	placeSucceeded = false;
