@@ -10,8 +10,3 @@ Orc::Orc():Enemy("Orc", 180, 180, 30, 25){
 	eTreasure = new Treasure(Floor::random(1,2));
 	characterSymbol = 'O';
 }
-
-string Orc::attack(string dir){
-	// TODO double dmg against some class that i forgot
-	return "";
-}

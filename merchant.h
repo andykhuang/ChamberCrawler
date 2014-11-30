@@ -5,6 +5,7 @@
 
 class Merchant: public Enemy {
 	static bool isFriendly;
+	std::string attack();
 
 	public:
 	// Constructor

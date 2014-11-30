@@ -7,11 +7,6 @@ class Tile;
 class AbstractPotion;
 
 class Character {
-	virtual std::string attack(std::string dir) = 0;
-	virtual std::string move(std::string dir) = 0;
-	virtual std::string pickup(std::string dir) = 0;
-	virtual std::string use(std::string dir) = 0;
-
 	virtual void onDeath(Character *c) = 0;
 
 	protected:

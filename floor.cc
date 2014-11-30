@@ -440,7 +440,7 @@ string Floor::enemyAction(Player *p){
 	// call the perform action function for each character
 	int vectorSize = characterArray.size();
 	for(int i = 0; i < vectorSize; i++){
-		actionDesc = characterArray[i]->performAction();
+		actionDesc += characterArray[i]->performAction();
 	}
 	return actionDesc;
 }

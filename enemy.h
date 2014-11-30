@@ -13,10 +13,8 @@ class Enemy: public Character {
 	protected:
 	Treasure *eTreasure;
 
-	std::string attack(std::string dir);
-        std::string move(std::string dir);
-        std::string pickup(std::string dir);
-        std::string use(std::string dir);
+	virtual std::string attack();
+	virtual std::string move(std::string dir);
 
 	public:
 	std::string performAction(std::string command="", std::string dir="");

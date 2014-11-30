@@ -9,14 +9,15 @@ class Dragon: public Enemy {
 	// The DragonTreasure that the dragon is guarding
 	DragonTreasure *treasure;
 
+	std::string move(std::string dir);
+	std::string attack();
+
 	public:
 	// Constructor
 	Dragon(DragonTreasure *t);
 
 	void setTile(Tile *t);
 	
-	std::string move(std::string dir);
 	~Dragon();
-	std::string attack(std::string dir);
 };
 #endif

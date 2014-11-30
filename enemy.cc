@@ -42,26 +42,7 @@ string Enemy::performAction(string command, string dir){
 	if(command != "" || dir != "") return "";
 	// Enemy can only attack or move
 	string actionResponse = "";
-	// If the enemy is not a dragon
-	// Check if there's a player around him to attack
-	/*Tile **attackNeighbours = host->getNeighbour();
-	string actionResponse = "";
-	for(int i = 0; i < 8; i++){
-		Character *tempCharacter = attackNeighbours[i]->getCharacterPtr();
-		// If the tile has a character, check if it's a player
-		if(tempCharacter != NULL && tempCharacter->isPlayer()){
-			// then attack in that direction
-			actionResponse += attack(dirGet(i));
-			cout << "Rekt m8" << endl;
-			return actionResponse;
-		}
-	}
-	
-	// If this is a dragon and it hasn't attacked yet
-	// since a dragon can only attack once
-	if(dynamic_cast<Dragon *>(this)){
-		Tile **goldNeighbours = 
-	}*/
+
 	actionResponse = attack();
 
 	// if the enemy did not make an attack then move
@@ -75,6 +56,13 @@ string Enemy::performAction(string command, string dir){
 			tries++;
 		}
 	}
+
+	// If the Enemy attacked, append its characterSymbol to the actionResponse
+	if(actionResponse != "") {
+		actionResponse = " " + actionResponse;
+		actionResponse = characterSymbol + actionResponse;
+	}	
+
 	return actionResponse;
 }
 
@@ -83,7 +71,7 @@ string Enemy::isAttacked(Character *c){
 	int damage = ((100 * c->getatk()) + (100 + def - 1)) / (100 + def);
 	heal(-damage);
 	oss << "deals " << damage << " to " << characterSymbol;
-	oss << " (" << gethp() << " HP)";
+	oss << " (" << gethp() << " HP).";
 	return oss.str();
 }
 
@@ -98,20 +86,15 @@ string Enemy::move(string dir){
 	return "";
 }
 
-string Enemy::attack(string dir){
-	// TODO: Attack action
-        return "";
-}
-
-// Enemy cannot pick up things
-string Enemy::pickup(string dir){
-        return "";
-}
-
-
-// Enemy cannot use things
-string Enemy::use(string dir){
-        return "";
+string Enemy::attack(){
+	string actionDesc = "";
+	Tile **neighbours = host->getNeighbour();
+	// Try to attack every Tile around this Enemy until one succeeds
+	// or there are no more Tiles to attack
+	for(int i = 0; i < 8 && actionDesc == ""; i++) {
+		actionDesc = neighbours[i]->isAttacked(this);
+	}
+        return actionDesc;
 }
 
 Enemy::Enemy(){
