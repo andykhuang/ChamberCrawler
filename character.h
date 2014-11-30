@@ -42,11 +42,6 @@ class Character {
 	// Destructor
 	virtual ~Character();
 
-	// TODO: Remove this
-	char getCharacterSymbol(){
-		return characterSymbol;
-	}
-
 	friend std::ostream &operator<<(std::ostream &out, const Character &c);
 };
 #endif

@@ -28,7 +28,7 @@ class Item {
 	// Tries to pick up 
 	virtual bool isPickedUp(Player *p) = 0;
 	virtual bool isPickedUp(Enemy *e) = 0;
-	virtual bool isUsed(Player *e);
+	virtual bool isUsed(Player *p);
 	virtual bool isUsed(Enemy *e);
 
 	virtual std::string seesPotion();
