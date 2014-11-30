@@ -35,7 +35,7 @@ string Merchant::isAttacked(Character *c){
 	ostringstream oss;
 	int damage = ((100 * c->getatk()) + (100 + def - 1)) / (100 + def);
 	heal(-damage);
-	oss << "deals " << damage << " to " << characterSymbol;
+	oss << "deals " << damage << " damage to " << characterSymbol;
 	oss << " (" << gethp() << " HP).";
 	return oss.str();
 }

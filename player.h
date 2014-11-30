@@ -8,7 +8,7 @@ class Potion;
 
 class Player: public Character {
 	void onDeath(Character *c);
-	virtual void hiddenPower();
+	virtual std::string hiddenPower();
 
 	protected:
 	int moneyCoins;

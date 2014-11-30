@@ -26,21 +26,20 @@ Player::Player(string race, int maxhp, int hp, int atk, int def) : Character(rac
 
 string Player::isAttacked(Character *c){
 	ostringstream oss;
-	int miss = rand() % 2;
-	if(miss == 1) {
+	int rollRange = dynamic_cast<Elf *>(c) ? 4 : 2;
+	int roll = rand() % rollRange;
+	int damage = ((100 * c->getatk()) + (100 + def - 1)) / (100 + def);
+	
+	if(roll == 0) {
 		oss << "missed PC. ";
+	} else if(roll == 3) {	// Only possible if the attacker is an Elf
+		damage *= 2;
+		oss << "hits twice and deals " << damage << " damage to PC. ";
 	} else {
-		int damage = ((100 * c->getatk()) + (100 + def - 1)) / (100 + def);
-		// If the attacker is an Elf, roll again for double strike
-		if(dynamic_cast<Elf *>(c)) {
-			miss = rand() % 2;
-			if(miss == 0) {
-				damage *= 2;
-			}
-		}
-		heal(-damage);
-		oss << "deals " << damage << " to PC. ";
+		oss << "deals " << damage << " damage to PC. ";
 	}
+
+	heal(-damage);
 	return oss.str();
 }
 
@@ -83,9 +82,9 @@ string Player::performAction(string command, string dir){
         }
 	// Check if an action has been performed
 	if(actionDesc != "") {
-		// At the end of an action, activate the Player's hidden power
-		hiddenPower();
 		actionDesc = "PC " + actionDesc;
+		// At the end of an action, activate the Player's hidden power
+		actionDesc += " " + hiddenPower();
 	}
 	return actionDesc;
 }
@@ -158,7 +157,7 @@ string Player::use(string dir){
 }
 
 // Players get no hidden powers by default :(
-void Player::hiddenPower() {}
+string Player::hiddenPower() {}
 
 void Player::onDeath(Character *c){
 	// End game and stuff

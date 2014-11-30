@@ -40,7 +40,7 @@ string Drow::isAttacked(Character *c){
 	} else {
 		int damage = ((100 * c->getatk()) + (100 + def - 1)) / (100 + def);
 		heal(-damage);
-		oss << "deals " << damage << " to PC. ";
+		oss << "deals " << damage << " damage to PC. ";
 	}
 	return oss.str();
 }
