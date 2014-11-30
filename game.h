@@ -8,6 +8,8 @@ class Game {
 	public:
 		static Game *getInstance();
 		static void cleanup();
+		
+		void setFloorFile(std::string fName);
 
 		// Parses user commands
 		void playGame();
@@ -18,6 +20,8 @@ class Game {
 
 	
 	private:
+		std::string fiveFloorFile;		
+
 		// Pointer to the only instance of the game
 		static Game *instance;
 		// Private fields

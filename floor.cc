@@ -87,7 +87,6 @@ Floor::Floor(int lvl):defaultFile("defaultLayout.txt"){
 	pSpawnProb["WA"] = 1;
 	pSpawnProb["WD"] = 1;
 	
-	// TODO: Seed with system time
 	srand(time(NULL));
 }
 
@@ -116,6 +115,152 @@ Floor::~Floor(){
 	delete [] tiles;
 	tiles = NULL;
 
+}
+
+void Floor::loadPreLoadedFloor(Player *p, Stairs *stairs, string fiveFloorFile){
+	ifstream f(fileName.c_str());
+	string fLine;
+
+	char **preFloor = new char *[rSize];
+	for(int i = 0; i < rSize; i++){
+		preFloor[i] = new char[cSize];
+		for(int j = 0; j < cSize; j++){
+			preFloor[i][j] = ' ';
+		}
+	}
+	
+	
+	//Skip lines
+	for(int i = 0; i < rSize*(lvl-1); i++){
+		getline(f, fLine);
+	}
+
+	// Start reading
+	for(int i = 0; i < rSize; i++){
+		getline(f, fLine);
+		for(int j = 0; j < cSize; j++){
+			preFloor[i][j] = fLine[j];
+		}
+	}
+
+	// TODO: REMove TESTING ONLY
+	for(int i = 0; i < rSize; i++){
+		for(int j = 0; j < cSize; j++){
+			cout << preFloor[i][j];
+		}
+		cout << endl;
+	}
+
+	// Step 1: Construct a blank floor with only walls, doors, passages blanktiles, and floors (floor is everything that is not one of the 4 aforementioned things)
+	for(int i = 0; i < rSize; i++){
+		for(int j = 0; j < cSize; j++){
+			if(preFloor[i][j] == '|'){
+				tiles[i][j] = new Wall(true);
+			}
+			// Horizontal wall
+			else if(preFloor[i][j]  == '-'){
+				tiles[i][j] = new Wall(false);
+			}
+			
+			// Door
+			else if(preFloor[i][j] == '+'){
+				tiles[i][j] = new Doorway;
+			}
+
+			// Walkway
+			else if(preFloor[i][j]  == '#'){
+				tiles[i][j] = new Passage;
+			}
+			// Blank tiles
+			else if(preFloor[i][j]  == ' '){
+				tiles[i][j] = new BlankTile;
+			}
+
+			// Treat as floor tiles
+			else {
+				tiles[i][j] = new FloorTile;
+			}
+			
+		}
+	}
+	// Set neighbours for tiles
+	for(int r = 0; r < rSize; r++){
+		for(int c = 0; c < cSize; c++){
+			// Set neighbours here
+			// if it's a blank tile or walls don't add neighbours
+			// NORTHWEST Neighbour
+			if(validCheck(r-1, c-1)){
+				tiles[r][c]->addNeighbour(tiles[r-1][c-1]);
+			}
+
+			// NORTH
+			if(validCheck(r-1, c)){
+				tiles[r][c]->addNeighbour(tiles[r-1][c]);
+			}
+			
+			// NORTHEAST
+			if(validCheck(r-1, c+1)){
+				tiles[r][c]->addNeighbour(tiles[r-1][c+1]);
+			}
+
+			// WEST
+			if(validCheck(r, c-1)){
+				tiles[r][c]->addNeighbour(tiles[r][c-1]);
+			}
+
+			// EAST
+			if(validCheck(r, c+1)){
+				tiles[r][c]->addNeighbour(tiles[r][c+1]);
+			}
+
+			// SOUTHWEST
+			if(validCheck(r+1, c-1)){
+				tiles[r][c]->addNeighbour(tiles[r+1][c-1]);
+			}
+
+			// SOUTH
+			if(validCheck(r+1, c)){
+				tiles[r][c]->addNeighbour(tiles[r+1][c]);
+			}
+			
+			// SOUTHEAST
+			if(validCheck(r+1, c+1)){
+				tiles[r][c]->addNeighbour(tiles[r+1][c+1]);
+			}
+		}
+	}
+
+	// Note chambers are not necessary because be don't need random generation and placement
+	// Step 2: Load all potions
+
+	// Step 3: Load all Treasures, if a 9 (dragon hoard) is encountered, search the surrounding space for a D, set both the DragonTreasure tile and the dragon tile simultaneously
+	
+	// Step 4: Load the rest of the enemies
+	
+	for(int i = 0; i < rSize; i++){
+		for(int j = 0; j < cSize; j++){
+			char tmp = preFloor[i][j];
+			// Potions
+			if(tmp == '0') tiles[i][j]->placeItem(new RestoreHealth(NULL));
+			else if(tmp == '1') tiles[i][j]->placeItem(new BoostAtk(NULL));
+			else if(tmp == '2') tiles[i][j]->placeItem(new BoostDef(NULL));
+			else if(tmp == '3') tiles[i][j]->placeItem(new PoisonHealth(NULL));
+			else if(tmp == '4') tiles[i][j]->placeItem(new WoundAtk(NULL));
+			else if(tmp == '5') tiles[i][j]->placeItem(new WoundDef(NULL));
+			else if(tmp == '6') tiles[i][j]->placeItem(new Treasure(2));
+			else if(tmp == '7') tiles[i][j]->placeItem(new Treasure(1));
+			else if(tmp == '8') tiles[i][j]->placeItem(new Treasure(4));
+			else if(tmp == '9'){
+				cout << "Dargon" << endl;
+			}
+		}
+	}
+	
+	// Free the preFloor 2D char array
+	for(int i = 0; i < rSize; i++){
+		delete [] preFloor[i];
+	}
+	delete [] preFloor;
 }
 
 void Floor::loadFloor(Player *p, Stairs *stairs){
@@ -166,7 +311,6 @@ void Floor::loadFloor(Player *p, Stairs *stairs, string fileName){
 		}
 	}
 
-	// TODO: Set Neighbours
 	for(int r = 0; r < rSize; r++){
 		for(int c = 0; c < cSize; c++){
 			// Set neighbours here

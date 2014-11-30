@@ -37,6 +37,7 @@ void Game::cleanup(){
 Game::Game(){
 	gamePlayer = NULL;
 	gameFloor = NULL;
+	fiveFloorFile = "";
 
 	// Start at Floor 1
 	floorNum = 1;
@@ -59,6 +60,10 @@ void Game::displayHUD(string action){
 	cout << setw(5) << left << "Atk: " << gamePlayer->getatk() << endl;
 	cout << setw(5) << left << "Def: " << gamePlayer->getdef() << endl;
 	cout << "Action: " << action << endl;
+}
+
+void Game::setFloorFile(string fName){
+	fiveFloorFile = fName;
 }
 
 
@@ -137,7 +142,12 @@ void Game::playGame(){
 			// Make a Stair for this floor
 			Stairs *tempStair = new Stairs(getInstance());
 			gameFloor = new Floor(floorNum);
-			gameFloor->loadFloor(gamePlayer, tempStair);
+			
+			if(fiveFloorFile == ""){
+				gameFloor->loadFloor(gamePlayer, tempStair);
+			} else {
+				gameFloor->loadFloor(gamePlayer, tempStair, fiveFloorFile);
+			}
 
 			// Output the Board and HUD
 			cout << *gameFloor << endl;
@@ -208,7 +218,11 @@ void Game::playGame(){
 					gameFloor = new Floor(floorNum);
 					
 					// Load the floor
-					gameFloor->loadFloor(gamePlayer, tempStair);
+					if(fiveFloorFile == ""){
+						gameFloor->loadFloor(gamePlayer, tempStair);
+					} else {
+						gameFloor->loadFloor(gamePlayer, tempStair, fiveFloorFile);
+					}
 					toNextFloor = false;
 				}
 				// Enemy Perform action
