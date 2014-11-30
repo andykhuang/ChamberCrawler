@@ -13,10 +13,10 @@ class Player: public Character {
 	protected:
 	int moneyCoins;
 
-        std::string attack(std::string dir);
-        std::string move(std::string dir);
-        std::string pickup(std::string dir);
-        std::string use(std::string dir);
+	virtual std::string attack(std::string dir);
+	virtual std::string move(std::string dir);
+	virtual std::string pickup(std::string dir);
+	virtual std::string use(std::string dir);
 
 	public:
 	Player(); // REMOVE THIS WHEN DONE
@@ -25,6 +25,9 @@ class Player: public Character {
 	std::string performAction(std::string command = "", std::string dir = "");
 	std::string isAttacked(Character *c);
 	
+	// Called at the end of every Floor to remove the Potion(s) this Player has
+	void flushPot();
+
 	// Increments the Player's moneyCoins by the amount specified
 	// If the amount is negative, decrement the Player's moneyCoins instead
 	virtual void bank(int amount);

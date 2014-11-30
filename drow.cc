@@ -36,11 +36,11 @@ string Drow::isAttacked(Character *c){
 	ostringstream oss;
 	int miss = rand() % 2;
 	if(miss == 1) {
-		oss << "missed PC.";
+		oss << "missed PC. ";
 	} else {
 		int damage = ((100 * c->getatk()) + (100 + def - 1)) / (100 + def);
 		heal(-damage);
-		oss << "deals " << damage << " to PC.";
+		oss << "deals " << damage << " to PC. ";
 	}
 	return oss.str();
 }

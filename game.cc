@@ -228,7 +228,9 @@ void Game::playGame(){
 				// Enemy Perform action
 				// Display the board and information
 				if(!isRestart && !isQuit && isValidCommand && !toNextFloor){
-					response += " " + gameFloor->enemyAction(gamePlayer);
+					// Add a buffer between the player and enemy response
+					response += " ";
+					response += gameFloor->enemyAction(gamePlayer);
 					cout << *gameFloor << endl;
 					displayHUD(response);
 					isValidCommand = false;

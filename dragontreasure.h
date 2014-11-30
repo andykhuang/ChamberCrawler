@@ -24,5 +24,8 @@ class DragonTreasure: public Treasure {
 	// the treasure
 	void clearDragon();
 	~DragonTreasure();
+
+	// The Dragon is a friend of the DragonTreasure
+	friend class Dragon;
 };
 #endif

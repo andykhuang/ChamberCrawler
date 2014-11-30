@@ -7,7 +7,5 @@ class Orc: public Enemy {
 	public:
 	// Constructor
 	Orc();
-	
-	std::string attack(std::string dir);	
 };
 #endif

@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <cstdlib>
 #include "abstractpotion.h"
+#include "emptypotion.h"
 #include "character.h"
 #include "player.h"
 #include "tile.h"
@@ -27,17 +28,25 @@ string Player::isAttacked(Character *c){
 	ostringstream oss;
 	int miss = rand() % 2;
 	if(miss == 1) {
-		oss << "missed PC.";
+		oss << "missed PC. ";
 	} else {
 		int damage = ((100 * c->getatk()) + (100 + def - 1)) / (100 + def);
-		// If the attacker is an Elf, get hit twice for double the damage
+		// If the attacker is an Elf, roll again for double strike
 		if(dynamic_cast<Elf *>(c)) {
-			damage *= 2;
+			miss = rand() % 2;
+			if(miss == 0) {
+				damage *= 2;
+			}
 		}
 		heal(-damage);
-		oss << "deals " << damage << " to PC.";
+		oss << "deals " << damage << " to PC. ";
 	}
 	return oss.str();
+}
+
+void Player::flushPot() {
+	delete pot;
+	pot = new EmptyPotion;
 }
 
 void Player::bank(int amount) {
