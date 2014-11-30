@@ -16,12 +16,12 @@ string Halfling::isAttacked(Character *c){
 	ostringstream oss;
 	int miss = Floor::random(1, 2);
 	if(miss == 1) {
-		oss << "missed " << characterSymbol << ".";
+		oss << "missed " << *this << ". ";
 	} else {
 		int damage = ((100 * c->getatk()) + (100 + def - 1)) / (100 + def);
 		heal(-damage);
-		oss << "deals " << damage << " to " << characterSymbol;
-		oss << " (" << gethp() << " HP).";
+		oss << "deals " << damage << " damage to " << *this;
+		oss << " (" << gethp() << " HP). ";
 	}
 	return oss.str();
 }

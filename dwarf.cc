@@ -18,8 +18,8 @@ string Dwarf::isAttacked(Character *c){
 	ostringstream oss;
 	int damage = ((100 * c->getatk()) + (100 + def - 1)) / (100 + def);
 	heal(-damage);
-	oss << "deals " << damage << " to " << characterSymbol;
-	oss << " (" << gethp() << " HP).";
+	oss << "deals " << damage << " damage to " << *this;
+	oss << " (" << gethp() << " HP). ";
 	// If the attacker is a Vampire, trigger its allergies to do 10 damage
 	if(dynamic_cast<Vampire *>(c)) {
 		c->heal(-10);

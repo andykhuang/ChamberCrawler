@@ -1,9 +1,10 @@
 #ifndef ___HUMAN_H___
 #define ___HUMAN_H___
+#include <string>
 #include "enemy.h"
 
 class Human: public Enemy {
-	void onDeath(Character *c);
+	std::string onDeath(Character *c);
 
 	public:
 	// Constructor

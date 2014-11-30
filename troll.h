@@ -4,7 +4,7 @@
 #include "player.h"
 
 class Troll: public Player {
-	void hiddenPower();	
+	std::string hiddenPower();	
 
 	public:
 	// Constructor

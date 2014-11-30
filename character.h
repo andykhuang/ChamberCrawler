@@ -7,7 +7,7 @@ class Tile;
 class AbstractPotion;
 
 class Character {
-	virtual void onDeath(Character *c) = 0;
+	virtual std::string onDeath(Character *c) = 0;
 
 	protected:
 	Tile *host;
@@ -37,7 +37,7 @@ class Character {
 	virtual int getdef();
 	virtual bool isPlayer() = 0;
 
-	virtual bool isSlain(Character *c);
+	virtual std::string isSlain(Character *c);
 
 	// Destructor
 	virtual ~Character();

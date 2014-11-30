@@ -1,4 +1,5 @@
 #include <string>
+#include <sstream>
 #include "tile.h"
 #include "goblin.h"
 #include "dragon.h"
@@ -11,14 +12,18 @@ Dragon::Dragon(DragonTreasure *t): Enemy("Dragon", 150, 150, 20, 20) {
 	treasure = t;
 }
 
-void Dragon::onDeath(Character *c) {
+string Dragon::onDeath(Character *c) {
+	ostringstream oss;
+	oss << *this << " has been slain. It's treasure can now be taken. ";
 	treasure->clearDragon();
 	// Check if the killer is a Goblin
 	Goblin *g = dynamic_cast<Goblin *>(c);
 	// If the killer is a Goblin, give it an extra 5 gold
 	if(g) {
 		g->bank(5);
+		oss << " 5 gold was looted. ";
 	}
+	return oss.str();
 }
 
 void Dragon::setTile(Tile *t) {

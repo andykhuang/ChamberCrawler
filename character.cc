@@ -39,12 +39,12 @@ void Character::heal(int amount){
 	}
 }
 
-bool Character::isSlain(Character *c){
+string Character::isSlain(Character *c){
 	if(hp == 0) {
-		onDeath(c);
-		return true;
+		//onDeath(c);
+		return onDeath(c);
 	}
-	return false; 
+	return ""; 
 }
 
 string Character::getRace(){

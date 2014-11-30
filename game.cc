@@ -231,8 +231,6 @@ void Game::playGame(){
 				// Enemy Perform action
 				// Display the board and information
 				if(!isRestart && !isQuit && isValidCommand){
-					// Add a buffer between the player and enemy response
-					response += " ";
 					if(!toNextFloor){
 						response += gameFloor->enemyAction(gamePlayer);
 					} else {

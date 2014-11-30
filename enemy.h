@@ -8,7 +8,7 @@ class Player;
 class Treasure;
 
 class Enemy: public Character {
-	virtual void onDeath(Character *c);
+	virtual std::string onDeath(Character *c);
 
 	protected:
 	Treasure *eTreasure;
