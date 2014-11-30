@@ -8,6 +8,10 @@ using namespace std;
 
 bool Merchant::isFriendly = true;
 
+void Merchant::resetFriendliness() {
+	isFriendly = true;
+}
+
 Merchant::Merchant():Enemy("Merchant", 30, 30, 70, 5){
 	// TODO: set stuff
 	eTreasure = new Treasure(4);

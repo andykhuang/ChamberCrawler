@@ -12,5 +12,8 @@ class Merchant: public Enemy {
 	Merchant();
 
 	std::string isAttacked(Character *c);
+
+	// Resets how friendly Merchants are to Players
+	static void resetFriendliness();
 };
 #endif
