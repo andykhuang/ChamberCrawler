@@ -19,7 +19,6 @@ class Player: public Character {
 	virtual std::string use(std::string dir);
 
 	public:
-	Player(); // REMOVE THIS WHEN DONE
 	Player(std::string race, int maxhp, int hp, int atk, int def);
 
 	std::string performAction(std::string command = "", std::string dir = "");

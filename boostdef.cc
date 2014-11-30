@@ -6,6 +6,10 @@ using namespace std;
 
 bool BoostDef::hasEncountered = false;
 
+void BoostDef::resetEncounters() {
+	hasEncountered = false;
+}
+
 BoostDef::BoostDef(AbstractPotion *p): Potion(p){
 	desc = "Boost Defence Potion";
 	name = "BD";

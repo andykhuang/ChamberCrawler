@@ -23,7 +23,6 @@ class Enemy: public Character {
 	bool isPlayer();
 
 	// Constructor
-	Enemy();	// TODO: REMOVE WHEN DONE
 	Enemy(std::string race, int maxhp, int hp, int atk, int def);
 
 	// Destructor

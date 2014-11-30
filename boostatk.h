@@ -17,5 +17,7 @@ class BoostAtk:public Potion {
 	bool isUsed(Enemy *e);
 
 	std::string seesPotion();
+
+	static void resetEncounters();
 };
 #endif

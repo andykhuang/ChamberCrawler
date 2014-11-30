@@ -6,6 +6,10 @@ using namespace std;
 
 bool RestoreHealth::hasEncountered = false;
 
+void RestoreHealth::resetEncounters() {
+	hasEncountered = false;
+}
+
 RestoreHealth::RestoreHealth(AbstractPotion *p): Potion(p) {
 	name = "RH";
 	desc = "Restore Health Potion";

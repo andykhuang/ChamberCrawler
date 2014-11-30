@@ -4,24 +4,36 @@
 #include <iomanip>
 #include <cstdlib>
 #include "abstractpotion.h"
+#include "restorehealth.h"
+#include "poisonhealth.h"
+#include "boostatk.h"
+#include "boostdef.h"
+#include "woundatk.h"
+#include "wounddef.h"
 #include "emptypotion.h"
 #include "character.h"
 #include "player.h"
 #include "tile.h"
 #include "elf.h"
+#include "merchant.h"
 
 using namespace std;
 
 const string INVALID_COMMAND = "Invalid Command";
 
-Player::Player(){
-	characterSymbol = '@';
-	moneyCoins = 0;
-}
-
 Player::Player(string race, int maxhp, int hp, int atk, int def) : Character(race, maxhp, hp, atk, def){
 	characterSymbol = '@';
 	moneyCoins = 0;
+
+	// Reset all Potion encounters and Merchant friendliness
+	RestoreHealth::resetEncounters();
+	PoisonHealth::resetEncounters();
+	BoostAtk::resetEncounters();
+	BoostDef::resetEncounters();
+	WoundAtk::resetEncounters();
+	WoundDef::resetEncounters();
+
+	Merchant::resetFriendliness();
 }
 
 string Player::isAttacked(Character *c){

@@ -6,6 +6,10 @@ using namespace std;
 
 bool PoisonHealth::hasEncountered = false;
 
+void PoisonHealth::resetEncounters() {
+	hasEncountered = false;
+}
+
 PoisonHealth::PoisonHealth(AbstractPotion *p): Potion(p) {
 	desc = "Poison Health Potion";
 	name = "PH";
