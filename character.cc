@@ -8,7 +8,6 @@
 
 using namespace std;
 
-
 Character::Character(){
 	host = NULL;
 	pot = new EmptyPotion;
@@ -40,8 +39,12 @@ void Character::heal(int amount){
 	}
 }
 
-bool Character::isDead(){
-	return hp <= 0; 
+bool Character::isSlain(Character *c){
+	if(hp == 0) {
+		onDeath(c);
+		return true;
+	}
+	return false; 
 }
 
 string Character::getRace(){

@@ -3,10 +3,10 @@
 #include "enemy.h"
 
 class Human: public Enemy {
+	void onDeath(Character *c);
+
 	public:
 	// Constructor
 	Human();
-	
-	bool onDeath(Character *c);
 };
 #endif

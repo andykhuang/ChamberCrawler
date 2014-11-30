@@ -4,14 +4,14 @@
 #include "player.h"
 
 class Drow: public Player {
-	// Private methods
-	// No longer need to have custom implementation for this in Drow
-	// bool use(std::string dir);
-	
 	public:
 	// Constructor
 	Drow();
 
+	int getAtk();
+	int getDef();
+
 	void heal(int amount);
+	std::string isAttacked(Character *c);
 };
 #endif

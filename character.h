@@ -11,8 +11,8 @@ class Character {
 	virtual bool move(std::string dir) = 0;
 	virtual std::string pickup(std::string dir) = 0;
 	virtual std::string use(std::string dir) = 0;
- 
-	virtual bool onDeath(Character *c) = 0;
+
+	virtual void onDeath(Character *c) = 0;
 
 	protected:
 	Tile *host;
@@ -21,7 +21,7 @@ class Character {
 
 	int maxhp, hp, atk, def;
 	AbstractPotion *pot;
-
+	
 	public:
 	// Constructor
 	Character();
@@ -34,13 +34,14 @@ class Character {
 	// Increments the Character's HP by the amount specified
 	// If the amount is negative, decrement the Character's HP instead
 	virtual void heal(int amount);
-	virtual bool isDead();
 
 	// Accessors
 	virtual std::string getRace();
 	virtual int gethp();
 	virtual int getatk();
 	virtual int getdef();
+
+	virtual bool isSlain(Character *c);
 
 	// Destructor
 	virtual ~Character();

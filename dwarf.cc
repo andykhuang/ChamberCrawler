@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Dwarf::Dwarf():Enemy("Dwarf", 100, 100, 20, 30){
+Dwarf::Dwarf(): Enemy("Dwarf", 100, 100, 20, 30){
 	// Assign hp and stuff
 	eTreasure = new Treasure(Floor::random(1,2));
 	// TODO: Change this back to 'D'
