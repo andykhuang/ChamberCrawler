@@ -64,13 +64,11 @@ string Player::performAction(string command, string dir){
 		return actionDesc;
 
 	}else if(command == "move"){
-                // TODO: move player
 		actionDesc = move(dir);
 		if(actionDesc == ""){	
 			return INVALID_COMMAND;
 		} 
         } else if(command == "use"){
-                // TODO: use in direction if possible
 		actionDesc = use(dir);
 		if(actionDesc == ""){
 			return INVALID_COMMAND;
@@ -119,10 +117,12 @@ string Player::move(string dir){
 			
 			if(tempPotDesc != ""){
 				if(numPotsSeen > 0){
-					moveDesc += " and " + tempPotDesc;
+					moveDesc += " and a(n) " + tempPotDesc;
+					numPotsSeen++;
 				}
 				else if(numPotsSeen == 0){
 					moveDesc += " and sees a(n) " + tempPotDesc;
+					numPotsSeen++;
 				}
 			}
 		}
