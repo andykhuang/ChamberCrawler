@@ -20,6 +20,7 @@ string Goblin::isAttacked(Character *c){
 		oss << "missed PC. ";
 	} else if(roll == 3) {	// Only possible if the attacker is an Elf
 		damage *= 2;
+		heal(-damage);
 		oss << "hits twice and deals " << " damage to PC. ";
 	} else {
 		// If the attacker is an Orc, take 50% more damage (1.5x rounded up)
@@ -27,9 +28,9 @@ string Goblin::isAttacked(Character *c){
 			// To maintain the integer-ness of the damage value
 			damage = ((15 * damage) + 9) / 10;		
 		}
+		heal(-damage);	
 		oss << "deals " << damage << " damage to PC. ";
 	}
 
-	heal(-damage);
 	return oss.str();
 }

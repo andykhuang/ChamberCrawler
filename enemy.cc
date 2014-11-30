@@ -3,6 +3,7 @@
 #include "character.h"
 #include "enemy.h"
 #include "player.h"
+#include "vampire.h"
 #include "treasure.h"
 #include "floor.h"
 #include "tile.h"
@@ -79,6 +80,11 @@ string Enemy::isAttacked(Character *c){
 	heal(-damage);
 	oss << "deals " << damage << " damage to " << *this;
 	oss << " (" << gethp() << " HP). ";
+	// If the attacker is a Vampire, they heal 5 HP from the attack
+	if(dynamic_cast<Vampire *>(c)) {
+		c->heal(5);
+		oss << "PC leeches 5 HP from " << *this << ". ";
+	}
 	return oss.str();
 }
 

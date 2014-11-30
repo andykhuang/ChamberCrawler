@@ -19,9 +19,10 @@ string Dwarf::isAttacked(Character *c){
 	heal(-damage);
 	oss << "deals " << damage << " damage to " << *this;
 	oss << " (" << gethp() << " HP). ";
-	// If the attacker is a Vampire, trigger its allergies to do 10 damage
+	// If the attacker is a Vampire, trigger its allergies to do 5 damage
 	if(dynamic_cast<Vampire *>(c)) {
-		c->heal(-10);
+		c->heal(-5);
+		oss << "PC suffers 5 damage from allergies. ";
 	}
 	return oss.str();
 }

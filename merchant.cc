@@ -2,6 +2,7 @@
 #include <sstream>
 #include "tile.h"
 #include "merchant.h"
+#include "vampire.h"
 #include "treasure.h"
 
 using namespace std;
@@ -36,5 +37,10 @@ string Merchant::isAttacked(Character *c){
 	heal(-damage);
 	oss << "deals " << damage << " damage to " << *this;
 	oss << " (" << gethp() << " HP). ";
+	// If the attacker is a Vampire, they heal 5 HP from the attack
+	if(dynamic_cast<Vampire *>(c)) {
+		c->heal(5);
+		oss << "PC leeches 5 HP from " << *this << ". ";
+	}
 	return oss.str();
 }

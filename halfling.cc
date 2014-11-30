@@ -1,6 +1,7 @@
 #include <string>
 #include <sstream>
 #include "halfling.h"
+#include "vampire.h"
 #include "enemy.h"
 #include "treasure.h"
 #include "floor.h"
@@ -22,6 +23,11 @@ string Halfling::isAttacked(Character *c){
 		heal(-damage);
 		oss << "deals " << damage << " damage to " << *this;
 		oss << " (" << gethp() << " HP). ";
+		// If the attacker is a Vampire, they heal 5 HP from the attack
+		if(dynamic_cast<Vampire *>(c)) {
+			c->heal(5);
+			oss << "PC leeches 5 HP from " << *this << ". ";
+		}
 	}
 	return oss.str();
 }

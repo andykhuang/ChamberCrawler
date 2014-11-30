@@ -46,12 +46,13 @@ string Player::isAttacked(Character *c){
 		oss << "missed PC. ";
 	} else if(roll == 3) {	// Only possible if the attacker is an Elf
 		damage *= 2;
+		heal(-damage);
 		oss << "hits twice and deals " << damage << " damage to PC. ";
 	} else {
+		heal(-damage);
 		oss << "deals " << damage << " damage to PC. ";
 	}
 
-	heal(-damage);
 	return oss.str();
 }
 
