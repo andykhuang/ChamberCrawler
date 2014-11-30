@@ -12,12 +12,14 @@ class DragonTreasure: public Treasure {
 	public:
 	// Constructor
 	DragonTreasure();
+	DragonTreasure(Tile *dHost, Tile *tHost);
 
 	bool isPickedUp(Player *p);
 	bool isPickedUp(Enemy *e);
 	bool canBeSteppedOn(Player *p);
 	bool canBeSteppedOn(Enemy *e);
 
+	void dualSetHost(Tile *dHost, Tile *tHost);
 	void setHost(Tile *t);
 
 	// Called by the Dragon when it is slain to remove the dragon guarding

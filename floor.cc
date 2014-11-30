@@ -87,7 +87,6 @@ Floor::Floor(int lvl):defaultFile("defaultLayout.txt"){
 	pSpawnProb["WA"] = 1;
 	pSpawnProb["WD"] = 1;
 	
-	// TODO: Seed with system time
 	srand(time(NULL));
 }
 
@@ -116,6 +115,216 @@ Floor::~Floor(){
 	delete [] tiles;
 	tiles = NULL;
 
+}
+
+void Floor::loadPreLoadedFloor(Player *p, Stairs *stairs, string fiveFloorFile){
+	ifstream f(fiveFloorFile.c_str());
+	string fLine;
+
+	char **preFloor = new char *[rSize];
+	for(int i = 0; i < rSize; i++){
+		preFloor[i] = new char[cSize];
+		for(int j = 0; j < cSize; j++){
+			preFloor[i][j] = ' ';
+		}
+	}
+
+	//Skip lines
+	for(int i = 0; i < rSize*(lvl-1); i++){
+		getline(f, fLine);
+	}
+
+	// Start reading
+	for(int i = 0; i < rSize; i++){
+		getline(f, fLine);
+		for(int j = 0; j < cSize; j++){
+			preFloor[i][j] = fLine[j];
+		}
+	}
+	
+	// Step 1: Construct a blank floor with only walls, doors, passages blanktiles, and floors (floor is everything that is not one of the 4 aforementioned things)
+	for(int i = 0; i < rSize; i++){
+		for(int j = 0; j < cSize; j++){
+			if(preFloor[i][j] == '|'){
+				tiles[i][j] = new Wall(true);
+			}
+			// Horizontal wall
+			else if(preFloor[i][j]  == '-'){
+				tiles[i][j] = new Wall(false);
+			}
+			
+			// Door
+			else if(preFloor[i][j] == '+'){
+				tiles[i][j] = new Doorway;
+			}
+
+			// Walkway
+			else if(preFloor[i][j]  == '#'){
+				tiles[i][j] = new Passage;
+			}
+			// Blank tiles
+			else if(preFloor[i][j]  == ' '){
+				tiles[i][j] = new BlankTile;
+			}
+
+			// Treat as floor tiles
+			else {
+				tiles[i][j] = new FloorTile;
+			}
+			
+		}
+	}
+	// Set neighbours for tiles
+	for(int r = 0; r < rSize; r++){
+		for(int c = 0; c < cSize; c++){
+			// Set neighbours here
+			// if it's a blank tile or walls don't add neighbours
+			// NORTHWEST Neighbour
+			if(validCheck(r-1, c-1)){
+				tiles[r][c]->addNeighbour(tiles[r-1][c-1]);
+			}
+
+			// NORTH
+			if(validCheck(r-1, c)){
+				tiles[r][c]->addNeighbour(tiles[r-1][c]);
+			}
+			
+			// NORTHEAST
+			if(validCheck(r-1, c+1)){
+				tiles[r][c]->addNeighbour(tiles[r-1][c+1]);
+			}
+
+			// WEST
+			if(validCheck(r, c-1)){
+				tiles[r][c]->addNeighbour(tiles[r][c-1]);
+			}
+
+			// EAST
+			if(validCheck(r, c+1)){
+				tiles[r][c]->addNeighbour(tiles[r][c+1]);
+			}
+
+			// SOUTHWEST
+			if(validCheck(r+1, c-1)){
+				tiles[r][c]->addNeighbour(tiles[r+1][c-1]);
+			}
+
+			// SOUTH
+			if(validCheck(r+1, c)){
+				tiles[r][c]->addNeighbour(tiles[r+1][c]);
+			}
+			
+			// SOUTHEAST
+			if(validCheck(r+1, c+1)){
+				tiles[r][c]->addNeighbour(tiles[r+1][c+1]);
+			}
+		}
+	}
+
+	// Note chambers are not necessary because be don't need random generation and placement
+	// Step 2: Load all potions
+
+	// Step 3: Load all Treasures, if a 9 (dragon hoard) is encountered, search the surrounding space for a D, set both the DragonTreasure tile and the dragon tile simultaneously
+	
+	// Step 4: Load the rest of the enemies
+	
+	for(int i = 0; i < rSize; i++){
+		for(int j = 0; j < cSize; j++){
+			char tmp = preFloor[i][j];
+			bool isDragon = false;
+			// Potions
+			Item *tmpItem = NULL;
+			Character *tmpChar = NULL;
+			if(tmp == '0') tmpItem = new RestoreHealth(NULL);
+			else if(tmp == '1') tmpItem = new BoostAtk(NULL);
+			else if(tmp == '2') tmpItem = new BoostDef(NULL);
+			else if(tmp == '3') tmpItem = new PoisonHealth(NULL);
+			else if(tmp == '4') tmpItem = new WoundAtk(NULL);
+			else if(tmp == '5') tmpItem = new WoundDef(NULL);
+			else if(tmp == '6') tmpItem = new Treasure(2);
+			else if(tmp == '7') tmpItem = new Treasure(1);
+			else if(tmp == '8') tmpItem = new Treasure(4);
+			else if(tmp == '9'){
+				isDragon = true;
+				Tile *dragonTile = NULL;
+				// NORTH WEST
+				if(validCheck(i-1, j-1)){
+					if(preFloor[i-1][j-1] == 'D') dragonTile = tiles[i-1][j-1];
+				}
+
+				// NORTH
+				if(validCheck(i-1, j)){
+					if(preFloor[i-1][j] == 'D') dragonTile = tiles[i-1][j];
+				}
+				
+				// NORTHEAST
+				if(validCheck(i-1, j+1)){
+					if(preFloor[i-1][j+1] == 'D') dragonTile = tiles[i-1][j+1];
+				}
+
+				// WEST
+				if(validCheck(i, j-1)){
+					if(preFloor[i][j-1] == 'D') dragonTile = tiles[i][j-1];
+				}
+
+				// EAST
+				if(validCheck(i, j+1)){
+					if(preFloor[i][j+1] == 'D') dragonTile = tiles[i][j+1];
+				}
+
+				// SOUTHWEST
+				if(validCheck(i+1, j-1)){
+					if(preFloor[i+1][j-1] == 'D') dragonTile = tiles[i+1][j-1];
+				}
+
+				// SOUTH
+				if(validCheck(i+1, j)){
+					if(preFloor[i+1][j] == 'D') dragonTile = tiles[i+1][j];
+				}
+				
+				// SOUTHEAST
+				if(validCheck(i+1, j+1)){
+					if(preFloor[i+1][j+1] == 'D') dragonTile = tiles[i+1][j+1];
+				}
+				
+				tmpItem = new DragonTreasure(dragonTile, tiles[i][j]);
+				tiles[i][j]->placeItem(tmpItem);
+			
+			}
+			// is actuaully a dwarf
+			else if(tmp == 'D'){
+				// if it's not occupied already then it's not a previously defined dragon
+				if(!tiles[i][j]->isOccupied()) tmpChar = new Dwarf;
+				else tmpChar = NULL;
+			}
+			else if(tmp == 'H') tmpChar = new Human;
+			else if(tmp == 'E') tmpChar = new Elf;
+			else if(tmp == 'O') tmpChar = new Orc;
+			else if(tmp == 'M') tmpChar = new Merchant;
+			else if(tmp == 'L') tmpChar = new Halfling;
+			else if(tmp == '@') tmpChar = p;
+			else if(tmp == '\\') tmpItem = stairs;
+
+			if(!isDragon && tmpItem != NULL){
+				tmpItem->setHost(tiles[i][j]);
+				tiles[i][j]->placeItem(tmpItem);
+			}
+			if(tmpChar != NULL){
+				tmpChar->setTile(tiles[i][j]);
+				tiles[i][j]->placeCharacter(tmpChar);
+			}
+			isDragon = false;
+		}
+	}
+
+	cout << "Actual Board" << endl;
+	
+	
+	// Free the preFloor 2D char array
+	for(int i = 0; i < rSize; i++){
+		delete [] preFloor[i];
+	}
+	delete [] preFloor;
 }
 
 void Floor::loadFloor(Player *p, Stairs *stairs){
@@ -166,7 +375,6 @@ void Floor::loadFloor(Player *p, Stairs *stairs, string fileName){
 		}
 	}
 
-	// TODO: Set Neighbours
 	for(int r = 0; r < rSize; r++){
 		for(int c = 0; c < cSize; c++){
 			// Set neighbours here

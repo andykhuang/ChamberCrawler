@@ -20,5 +20,7 @@ class Treasure: public Item {
 	// Called when the Teasure is picked up. Returns True if successfully picked
 	bool isPickedUp(Player *p);
 	bool isPickedUp(Enemy *e);
+
+	int getValue();
 };
 #endif

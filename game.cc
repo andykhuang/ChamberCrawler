@@ -14,12 +14,14 @@
 #include "drow.h"
 #include "troll.h"
 #include "goblin.h"
+#include "merchant.h"
 
 using namespace std;
 
 const string INVALID_COMMAND = "Invalid Command";
 bool toNextFloor = false;
 bool isQuit = false;
+bool isWin = false;
 Game *Game::instance = NULL;
 
 Game* Game::getInstance(){
@@ -37,6 +39,7 @@ void Game::cleanup(){
 Game::Game(){
 	gamePlayer = NULL;
 	gameFloor = NULL;
+	fiveFloorFile = "";
 
 	// Start at Floor 1
 	floorNum = 1;
@@ -59,6 +62,10 @@ void Game::displayHUD(string action){
 	cout << setw(5) << left << "Atk: " << gamePlayer->getatk() << endl;
 	cout << setw(5) << left << "Def: " << gamePlayer->getdef() << endl;
 	cout << "Action: " << action << endl;
+}
+
+void Game::setFloorFile(string fName){
+	fiveFloorFile = fName;
 }
 
 
@@ -131,20 +138,27 @@ void Game::playGame(){
 			// Response messages from the game
 			string response = "Player Character has spawned.";
 
+			bool isDead = false;
+
 			// Determines if the issued player command is valid first
 			bool isValidCommand = false;
 			// Initialize the floor
 			// Make a Stair for this floor
 			Stairs *tempStair = new Stairs(getInstance());
 			gameFloor = new Floor(floorNum);
-			gameFloor->loadFloor(gamePlayer, tempStair);
+			
+			if(fiveFloorFile == ""){
+				gameFloor->loadFloor(gamePlayer, tempStair);
+			} else {
+				gameFloor->loadPreLoadedFloor(gamePlayer, tempStair, fiveFloorFile);
+			}
 
 			// Output the Board and HUD
 			cout << *gameFloor << endl;
 			displayHUD(response);
 			
 			// Begin command parsing
-			while(!isQuit && !isRestart && !cin.eof()){
+			while(!isQuit && !isRestart && !isDead && !cin.eof()){
 				cout << "Command: ";
 				cin >> command;
 
@@ -208,7 +222,11 @@ void Game::playGame(){
 					gameFloor = new Floor(floorNum);
 					
 					// Load the floor
-					gameFloor->loadFloor(gamePlayer, tempStair);
+					if(fiveFloorFile == ""){
+						gameFloor->loadFloor(gamePlayer, tempStair);
+					} else {
+						gameFloor->loadPreLoadedFloor(gamePlayer, tempStair, fiveFloorFile);
+					}
 					toNextFloor = false;
 				}
 				// Enemy Perform action
@@ -220,7 +238,55 @@ void Game::playGame(){
 					cout << *gameFloor << endl;
 					displayHUD(response);
 					isValidCommand = false;
+					isDead = gamePlayer->gethp() <= 0;
 				}
+
+				if(isDead){
+					cout << endl;
+					cout << "You died" << endl;
+					displayScore();
+					cout << "Restart? (y/n)" << endl;
+					
+					while(cin >> command){
+						if(command == "y"){
+							isRestart = true;
+							isQuit = false;
+							break;
+						}
+						else if(command == "n"){
+							isQuit = true;
+							break;
+						}
+						else {
+							isQuit = true;
+							break;
+						}
+					}
+				}
+				
+				if(isWin){
+					cout << endl;
+					cout << "Congratulations! You WON!" << endl;
+					displayScore();
+					cout << "Do you want to play again? (y/n)" << endl;
+					
+					while(cin >> command){
+						if(command == "y"){
+							isRestart = true;
+							isQuit = false;
+							break;
+						}
+						else if(command == "n"){
+							isQuit = true;
+							break;
+						}
+						else {
+							isQuit = true;
+							break;
+						}
+					}
+				}
+				
 			}
 			
 			// TODO: Free everything that needs freeing here
@@ -231,6 +297,7 @@ void Game::playGame(){
 			gameFloor = NULL;
 		
 			// reset all the variables
+			isWin = false;
 			isRestart = false;
 			command = "";
 			cOption = "";
@@ -241,11 +308,19 @@ void Game::playGame(){
 	// End Restart While Loop
 }
 
+
+void Game::displayScore(){
+	cout << setfill('-') << setw(20) << "" << endl;
+	cout << "     " <<"Score: " << gamePlayer->getScore() << endl;
+	cout << setfill('-') << setw(20) << "";
+	cout << setfill(' ') << "" << endl;
+}
 void Game::descendFloor(){
 	floorNum++;
 
 	if(floorNum >= 6){
 		// TODO: Trigger game over win condition and tally scores
+		isWin = true;
 		isQuit = true;
 	}
 	else {

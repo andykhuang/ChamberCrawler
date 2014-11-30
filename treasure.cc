@@ -41,3 +41,7 @@ bool Treasure::isPickedUp(Player *p){
 bool Treasure::isPickedUp(Enemy *e){
 	return false;
 }
+
+int Treasure::getValue(){
+	return value;
+}
