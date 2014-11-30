@@ -6,7 +6,6 @@ using namespace std;
 
 Item::Item(){
 	host = NULL;
-	// TODO should we set other fields too?
 }
 
 void Item::setHost(Tile *t){

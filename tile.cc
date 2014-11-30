@@ -74,19 +74,15 @@ bool Tile::isSteppedOn(Player *p){
 	// You can never step on characters
 	if(character != NULL) return false;
 	else if(item != NULL){
-		// TODO: Do step mechanics
-		// Call can step on item or something
+		// Call canBeSteppedOn to check if the Item can be stepped on
 		// 	GOLD can be stepped on and will be picked up
 		//	STAIRS can be stepped on and will advance the floor
 		// 	Otherwise should return false
-
 		if(item->canBeSteppedOn(p)){
-			//TODO: Take the gold
 			delete item;
 			item = NULL;
 		} 
-		// Item can't be stepped on
-		else {
+		else {	// Item can't be stepped on
 			return false;
 		}
 		
@@ -153,7 +149,6 @@ Tile::~Tile(){
 }
 
 ostream &operator<<(ostream &out, const Tile &t){
-	// TODO: If an item or charcter exists print that
 	if(t.character != NULL){
 		out << *(t.character);
 	} else if (t.item != NULL){

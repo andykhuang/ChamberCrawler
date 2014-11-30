@@ -13,7 +13,6 @@ void Merchant::resetFriendliness() {
 }
 
 Merchant::Merchant():Enemy("Merchant", 30, 30, 70, 5){
-	// TODO: set stuff
 	eTreasure = new Treasure(4);
 	characterSymbol = 'M';
 }

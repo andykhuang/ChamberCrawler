@@ -35,7 +35,6 @@ void DragonTreasure::setHost(Tile *t) {
 	while(!dragonSet) {
 		int ind = Floor::random(0, 7);
 		if(!neighbours[ind]->isOccupied()) {
-			// TODO: increment the floor's enemy counter
 			d->setTile(neighbours[ind]);
 			dragonSet = true;
 		}
