@@ -20,7 +20,3 @@ bool Passage::isSteppedOn(Player *p){
 bool Passage::isSteppedOn(Enemy *e){
 	return false;
 }
-
-bool Passage::isOccupied(Enemy *e){
-	return true;
-}

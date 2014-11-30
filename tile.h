@@ -22,14 +22,9 @@ class Tile {
 	public:
 	// Constructors
 	Tile();
-	Tile(Character *c);
-	Tile(Item *i);
 
 	// Returns whether this Tile has something "on" it
 	virtual bool isOccupied();
-	// TODO: Remove this
-	virtual bool isOccupied(Player *p);
-	virtual bool isOccupied(Enemy *e);
 	// Tries to place a Character on this Tile and return whether it succeeded
 	virtual bool placeCharacter(Character *c);
 	// Tries to place an Item on this Tile and return whether it succeeded
@@ -46,11 +41,11 @@ class Tile {
 	virtual std::string isPickedUp(Player *p);
 
 	// Sets the Item and Character pointers to NULL (Does not delete)
-	/*virtual*/void clearTile();
+	void clearTile();
 
 	// Sets the Item pointer to NULL and called Delete on the Item
 	// This should only be called when picking up Treasure
-	/*virtual*/void removeTreasure();
+	void removeTreasure();
 
 	// Add Neighbours
 	void addNeighbour(Tile *neighbour);
@@ -68,11 +63,6 @@ class Tile {
 
 	// Destructor
 	virtual ~Tile() = 0;
-
-	// TODO: Remove this
-	void setTileSymbol(char s){
-		tileSymbol = s;
-	}
 
 	friend std::ostream &operator<<(std::ostream &out, const Tile &t);
 };

@@ -282,10 +282,8 @@ void Game::playGame(){
 				
 			}
 			
-			// TODO: Free everything that needs freeing here
 			delete gameFloor;
 			delete gamePlayer;
-			//delete gamePlayer;
 			gamePlayer = NULL;
 			gameFloor = NULL;
 		

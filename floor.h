@@ -58,7 +58,6 @@ class Floor {
 	public:
 	// Constructors
 	Floor(int lvl);
-	Floor(int lvl, int seed);
 	
 	// Static function for generating random numbers
 	static int random(int low, int high);
@@ -66,6 +65,7 @@ class Floor {
 	void loadFloor(Player *p, Stairs *s);
 	// Load the floor pattern from a specific input file
 	void loadFloor(Player *p, Stairs *s, std::string fileName);
+	// Load a floor that as all the entities and layout specified (ie no random generation required at all for this floor)
 	void loadPreLoadedFloor(Player *p, Stairs *s, std::string fiveFloorFile);
 	// Enemy Action
 	std::string enemyAction(Player *p);

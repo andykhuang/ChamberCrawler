@@ -13,9 +13,6 @@ class Wall: public Tile {
 
 	void addNeighbour(Tile *t);
 
-	// TODO: Remove these
-	bool isOccupied(Player *p);
-	bool isOccupied(Enemy *e);
 	// Overrides for the isSteppedOn methods in Tile
 	bool isSteppedOn(Player *p);
 	bool isSteppedOn(Enemy *e);

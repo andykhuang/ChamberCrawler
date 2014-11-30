@@ -51,7 +51,7 @@ Floor::Floor(int lvl):defaultFile("defaultLayout.txt"){
 	rSize = 25;
 	cSize = 79;
 	numChambers = 5;
-	
+
 	// Heap allocate a Floor of size rSize by cSize
 	tiles = new Tile **[rSize];
 	for(int i = 0; i < rSize; i++){

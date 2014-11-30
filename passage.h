@@ -10,8 +10,6 @@ class Passage: public Tile {
 	// Constructor
 	Passage();
 
-	// Override the isOccupied for Enemies to always return True
-	bool isOccupied(Enemy *e);
 	bool isSteppedOn(Player *p);
 	bool isSteppedOn(Enemy *e);
 };

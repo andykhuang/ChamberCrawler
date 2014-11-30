@@ -9,9 +9,6 @@ class Doorway: public Tile {
 	// Constructor
 	Doorway();
 
-	// Override the isOccupied method for Enemies to always return false
-	bool isOccupied(Enemy *c);
-
 	bool isSteppedOn(Player *p);
 	bool isSteppedOn(Enemy *e);
 };

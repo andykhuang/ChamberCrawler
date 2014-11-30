@@ -10,10 +10,6 @@ Doorway::Doorway(){
 	tileSymbol = '+';
 }
 
-bool Doorway::isOccupied(Enemy *c){
-	return true;
-}
-
 bool Doorway::isSteppedOn(Enemy *e){
 	return false;
 }
