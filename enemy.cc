@@ -10,7 +10,9 @@
 
 using namespace std;
 
-void Enemy::onDeath(Character *c){
+string Enemy::onDeath(Character *c){
+	ostringstream oss;
+	oss << *this << " has been slain. ";
 	Player *p = dynamic_cast<Player *>(c);
 	if(p) {
 		eTreasure->isPickedUp(p);
@@ -19,8 +21,13 @@ void Enemy::onDeath(Character *c){
 		// If the killer is a Goblin, give it an extra 5 gold
 		if(g) {
 			g->bank(5);
+			oss << 5 + eTreasure->getValue();
+		} else {
+			oss << eTreasure->getValue();
 		}
+		oss << " gold was looted. ";
 	}
+	return oss.str();
 }
 
 // Gets a direction based on number or randomly if none is provided
@@ -70,8 +77,8 @@ string Enemy::isAttacked(Character *c){
 	ostringstream oss;
 	int damage = ((100 * c->getatk()) + (100 + def - 1)) / (100 + def);
 	heal(-damage);
-	oss << "deals " << damage << " damage to " << characterSymbol;
-	oss << " (" << gethp() << " HP).";
+	oss << "deals " << damage << " damage to " << *this;
+	oss << " (" << gethp() << " HP). ";
 	return oss.str();
 }
 

@@ -21,9 +21,11 @@ string FloorTile::isAttacked(Player *p) {
 	// If the Character on this Tile is an Enemy, then attack it
 	else if(dynamic_cast<Enemy *>(character)) {
 		string response = character->isAttacked(p);
-		if(character->isSlain(p)) {
+		string deathRattle = character->isSlain(p);
+		if(deathRattle != "") {
 			delete character;
 			character = NULL;
+			response += deathRattle;
 		}
 		return response;
 	} else {
@@ -48,7 +50,7 @@ string FloorTile::isAttacked(Enemy *e) {
 string FloorTile::isUsed(Player *p){
 	if(item == NULL) return "";
 	if(item->isUsed(p)) {
-		string actionDesc = "uses " + item->getName() + ".";
+		string actionDesc = "uses " + item->getName() + ". ";
 		// If the item has been used, clear the item from the tile
 		clearTile();
 		return actionDesc;

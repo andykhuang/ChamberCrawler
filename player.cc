@@ -82,7 +82,7 @@ string Player::performAction(string command, string dir){
 	if(actionDesc != "") {
 		actionDesc = "PC " + actionDesc;
 		// At the end of an action, activate the Player's hidden power
-		actionDesc += " " + hiddenPower();
+		actionDesc += hiddenPower();
 	}
 	return actionDesc;
 }
@@ -133,7 +133,7 @@ string Player::move(string dir){
 			moveDesc += converter.str();
 		}
 		// Return moved
-		return moveDesc + ".";
+		return moveDesc + ". ";
 	}
 	return "";
 }
@@ -157,10 +157,14 @@ string Player::use(string dir){
 }
 
 // Players get no hidden powers by default :(
-string Player::hiddenPower() {}
+string Player::hiddenPower() {
+	return "";
+}
 
-void Player::onDeath(Character *c){
-	// End game and stuff
+string Player::onDeath(Character *c){
+	ostringstream oss;
+	oss << "PC has been slain by " << c << ". ";
+	return oss.str();	
 }
 
 int Player::getScore(){
