@@ -6,6 +6,10 @@ using namespace std;
 
 bool WoundAtk::hasEncountered = false;
 
+void WoundAtk::resetEncounters() {
+	hasEncountered = false;
+}
+
 WoundAtk::WoundAtk(AbstractPotion *p) : Potion(p){
 	desc = "Wound Attack Potion";
 	name = "WA";

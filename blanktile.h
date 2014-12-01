@@ -9,9 +9,6 @@ class Enemy;
 class BlankTile: public Tile {
 	public:
 	void addNeighbour(Tile *t);
-	// Overrides for the isOccupied methods in Tile
-	bool isOccupied(Player *p);
-	bool isOccupied(Enemy *e);
 	// Overrides for the isSteppedOn methods in Tile
 	bool isSteppedOn(Player *p);
 	bool isSteppedOn(Enemy *e);

@@ -9,6 +9,5 @@ class Vampire: public Player {
 	Vampire();
 
 	void heal(int amount);
-	std::string attack(std::string dir);
 };
 #endif

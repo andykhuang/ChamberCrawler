@@ -6,6 +6,10 @@ using namespace std;
 
 bool BoostAtk::hasEncountered = false;
 
+void BoostAtk::resetEncounters() {
+	hasEncountered = false;
+}
+
 BoostAtk::BoostAtk(AbstractPotion *p): Potion(p) {
 	desc = "Boost Attack Potion";
 	name = "BA";

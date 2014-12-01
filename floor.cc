@@ -579,7 +579,6 @@ Treasure* Floor::getTreasure(){
 	return toReturn;
 }
 
-// TODO: Decorate the potion
 AbstractPotion* Floor::getPotion(){
 	AbstractPotion *toReturn = NULL;
 	string potType = random(pSpawnProb);
