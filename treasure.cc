@@ -8,6 +8,7 @@ using namespace std;
 Treasure::Treasure(int value) : value(value){
 	itemSymbol = 'G';
 
+	// Determine the name and description of the Treasure based on its value
 	if(value == 1) {
 		name = "Small Treasure";
 		desc = "A small pile of gold. Probably worth a buck.";
@@ -25,7 +26,6 @@ Treasure::Treasure(int value) : value(value){
 
 bool Treasure::canBeSteppedOn(Player *p){
 	// Picks up the gold
-	// isPickedUp(p);
 	return isPickedUp(p);
 }
 

@@ -28,6 +28,8 @@ string Enemy::onDeath(Character *c){
 		}
 		oss << " gold was looted. ";
 	}
+
+	// Return a string detailing this death
 	return oss.str();
 }
 
@@ -53,13 +55,14 @@ string Enemy::performAction(string command, string dir){
 
 	actionResponse = attack();
 
-	// if the enemy did not make an attack then move
-	// Dragon's can't move
+	// If this Enemy did not make an attack then make a move
+	// NOTE: Dragons will try to move but not go anywhere
 	if(actionResponse == ""){
+		// Generate a random direction for this Enemy to move in
 		string direction = dirGet();
-		int tries = 0; // incase an enemy gets boxed in so no infinite loops
+		int tries = 0; // Incase an enemy gets boxed in so no infinite loops
 		while(move(direction) == "" && tries < 20){
-			// If i couldn't move in that direction, try to move in another 1
+			// If the move failed, try again
 			direction = dirGet();
 			tries++;
 		}
@@ -76,8 +79,10 @@ string Enemy::performAction(string command, string dir){
 
 string Enemy::isAttacked(Character *c){
 	ostringstream oss;
+	// Calculate the damage taken from the attack
 	int damage = ((100 * c->getatk()) + (100 + def - 1)) / (100 + def);
 	heal(-damage);
+
 	oss << "deals " << damage << " damage to " << *this;
 	oss << " (" << gethp() << " HP). ";
 	// If the attacker is a Vampire, they heal 5 HP from the attack
@@ -85,17 +90,23 @@ string Enemy::isAttacked(Character *c){
 		c->heal(5);
 		oss << "PC leeches 5 HP from " << *this << ". ";
 	}
+
+	// Return a string detailing the attack
 	return oss.str();
 }
 
 string Enemy::move(string dir){
-	// Get tile to step on
+	// Get Tile to move to
 	Tile *dest = host->getNeighbour(dir);
+	// Try to step on that Tile
 	if(dest->isSteppedOn(this)){
+		// If the Tile can be stepped on, move to that Tile
 		host->clearTile();
 		host = dest;
+		// Return a string saying the move was successful
 		return "Moved";
 	}
+	// If the move failed, return an empty string
 	return "";
 }
 

@@ -10,6 +10,8 @@ using namespace std;
 Vampire::Vampire(): Player("Vampire", -1, 50, 25, 25){}
 
 void Vampire::heal(int amount){
+	// Ensure that the updated hp value is non-negative
+	// NOTE: Vampires do not have a "maxhp" so they can gain infinite hp
 	if(hp + amount < 0) {
 		hp = 0;
 	} else {

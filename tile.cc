@@ -20,7 +20,7 @@ Tile::Tile(){
 }
 
 void Tile::addNeighbour(Tile *neighbour){
-	// Safety
+	// Safety.
 	if(numNeighbours >= MAX_NEIGHBOURS) return;
 	
 	neighbours[numNeighbours] = neighbour;
@@ -28,6 +28,7 @@ void Tile::addNeighbour(Tile *neighbour){
 }
 
 Tile *Tile::getNeighbour(string dir){
+	// Parses the direction commands and returns the appropriate neighbour
 	if(dir == "nw") return neighbours[0];
 	else if(dir == "no") return neighbours[1];
 	else if(dir == "ne") return neighbours[2];
@@ -53,19 +54,24 @@ bool Tile::isOccupied(){
 }
 
 bool Tile::placeCharacter(Character *c){
+	// Check if the Tile is occupied
+	// If false, place the specified Character onto it and return true
 	if(!isOccupied()){
 		character = c;
 		return true;
 	}
-	// Placement failed
+	// Otherwise return false
 	return false;
 }
 
 bool Tile::placeItem(Item *i){
+	// Check if the Tile is occupied
+	// If false, place the specified Item onto it and return true
 	if(!isOccupied()){
 		item = i;
 		return true;
 	}
+	// Otherwise return false
 	return false;
 }
 
@@ -94,11 +100,12 @@ bool Tile::isSteppedOn(Player *p){
 }
 
 bool Tile::isSteppedOn(Enemy *e){
+	// If the Tile contains a Character, return false
 	if(character != NULL) return false;
-	// Unlike players enemies can't step on items either
+	// If the Tile contains an Item, return false (Enemy can't step on Items)
 	else if(item != NULL) return false;
 
-	// Otherwise you can move to here
+	// Otherwise move the specified Enemy onto this Tile and return true
 	character = e;
 	return true;
 }
@@ -120,6 +127,8 @@ string Tile::isPickedUp(Player *p) {
 }
 
 void Tile::clearTile() {
+	// Clears the Tile of occupants by setting the pointers to NULL
+	// NOTE: This does not delete the occupants from memory
 	item = NULL;
 	character = NULL;
 }
@@ -139,9 +148,13 @@ void Tile::removeTreasure() {
 
 // Virtual Tile Destructor implementation
 Tile::~Tile(){
-	// A Tile should not delete its neighbours as that is handled by the floor
+	// A Tile should not delete its neighbours as that is handled by Floor
+
+	// Delete the Item that is occupying this Tile
 	delete item;
 	item = NULL;
+
+	// Delete the Character that is occupying this Tile if it's not a Player
 	if(character != NULL && !character->isPlayer()){
 		delete character;
 	}
@@ -149,12 +162,13 @@ Tile::~Tile(){
 }
 
 ostream &operator<<(ostream &out, const Tile &t){
+	// If the Tile has an occupant, ouput the occupant
 	if(t.character != NULL){
 		out << *(t.character);
 	} else if (t.item != NULL){
 		out << *(t.item);
 	} else {
-	// Otherwise
+	// Otherwise output the tileSymbol
 		out << t.tileSymbol;
 	}
 	return out;

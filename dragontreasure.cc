@@ -11,11 +11,13 @@ DragonTreasure::DragonTreasure():Treasure(/*value*/6){
 	d = new Dragon(this);
 }
 
+// Used during file parsing to set the host of the DragonTreasure and its Dragon
 DragonTreasure::DragonTreasure(Tile *dHost, Tile *tHost):Treasure(6){
 	d = new Dragon(this);
 	dualSetHost(dHost, tHost);
 }
 
+// Clears the Dragon guarding this DragonTreasure allowing it to be picked up
 void DragonTreasure::clearDragon() {
 	d = NULL;
 }
@@ -33,7 +35,9 @@ void DragonTreasure::setHost(Tile *t) {
 	bool dragonSet = false;
 	Tile **neighbours = t->getNeighbour();
 	while(!dragonSet) {
+		// Randomly choose a neighbouring Tile for the Dragon to occupy
 		int ind = Floor::random(0, 7);
+		// If the Tile is unoccupied, let the Dragon occupy it
 		if(!neighbours[ind]->isOccupied()) {
 			d->setTile(neighbours[ind]);
 			dragonSet = true;
@@ -42,8 +46,9 @@ void DragonTreasure::setHost(Tile *t) {
 }
 
 bool DragonTreasure::canBeSteppedOn(Player *p){
-	// Picks up the gold only if the Dragon guarding it is slain
+	// DragonTreasure can only be stepped on once its Dragon has been slain
 	if(d != NULL) return false;
+	// If the Dragon has been slain, stepping on the DragonTreasure picks it up
 	isPickedUp(p);
 	return true;
 }
@@ -53,6 +58,7 @@ bool DragonTreasure::canBeSteppedOn(Enemy *e){
 }
 
 bool DragonTreasure::isPickedUp(Player *p){
+	// Only pick up the DragonTreasure if the Dragon has been slain
 	if(d == NULL) {
 		p->bank(value);
 		return true;
