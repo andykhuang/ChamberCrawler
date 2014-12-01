@@ -245,44 +245,69 @@ void Floor::loadPreLoadedFloor(Player *p, Stairs *stairs, string fiveFloorFile){
 			else if(tmp == '9'){
 				isDragon = true;
 				Tile *dragonTile = NULL;
+				bool foundDrag = false;
 				// NORTH WEST
-				if(validCheck(i-1, j-1)){
-					if(preFloor[i-1][j-1] == 'D') dragonTile = tiles[i-1][j-1];
+				if(!foundDrag && validCheck(i-1, j-1)){
+					if(preFloor[i-1][j-1] == 'D' && !tiles[i-1][j-1]->isOccupied()){
+						dragonTile = tiles[i-1][j-1];
+						foundDrag = true;
+					}
 				}
 
 				// NORTH
-				if(validCheck(i-1, j)){
-					if(preFloor[i-1][j] == 'D') dragonTile = tiles[i-1][j];
+				if(!foundDrag && validCheck(i-1, j)){
+					if(preFloor[i-1][j] == 'D' && !tiles[i-1][j]->isOccupied()){
+						dragonTile = tiles[i-1][j];
+						foundDrag = true;
+					}
 				}
 				
 				// NORTHEAST
-				if(validCheck(i-1, j+1)){
-					if(preFloor[i-1][j+1] == 'D') dragonTile = tiles[i-1][j+1];
+				if(!foundDrag && validCheck(i-1, j+1)){
+					if(preFloor[i-1][j+1] == 'D' && !tiles[i-1][j+1]->isOccupied()){
+						dragonTile = tiles[i-1][j+1];
+						foundDrag = true;
+					}
 				}
 
 				// WEST
-				if(validCheck(i, j-1)){
-					if(preFloor[i][j-1] == 'D') dragonTile = tiles[i][j-1];
+				if(!foundDrag && validCheck(i, j-1)){
+					if(preFloor[i][j-1] == 'D' && !tiles[i][j-1]->isOccupied()){
+						dragonTile = tiles[i][j-1];
+						foundDrag = true;
+					}
 				}
 
 				// EAST
-				if(validCheck(i, j+1)){
-					if(preFloor[i][j+1] == 'D') dragonTile = tiles[i][j+1];
+				if(!foundDrag && validCheck(i, j+1)){
+					if(preFloor[i][j+1] == 'D' && !tiles[i][j+1]->isOccupied()){
+						dragonTile = tiles[i][j+1];
+						foundDrag = true;
+					}
 				}
 
 				// SOUTHWEST
-				if(validCheck(i+1, j-1)){
-					if(preFloor[i+1][j-1] == 'D') dragonTile = tiles[i+1][j-1];
+				if(!foundDrag && validCheck(i+1, j-1)){
+					if(preFloor[i+1][j-1] == 'D' && !tiles[i+1][j-1]->isOccupied()){
+						dragonTile = tiles[i+1][j-1];
+						foundDrag = true;
+					}
 				}
 
 				// SOUTH
-				if(validCheck(i+1, j)){
-					if(preFloor[i+1][j] == 'D') dragonTile = tiles[i+1][j];
+				if(!foundDrag && validCheck(i+1, j)){
+					if(preFloor[i+1][j] == 'D' && !tiles[i+1][j]->isOccupied()){
+						dragonTile = tiles[i+1][j];
+						foundDrag = true;
+					}
 				}
 				
 				// SOUTHEAST
-				if(validCheck(i+1, j+1)){
-					if(preFloor[i+1][j+1] == 'D') dragonTile = tiles[i+1][j+1];
+				if(!foundDrag && validCheck(i+1, j+1)){
+					if(preFloor[i+1][j+1] == 'D' && !tiles[i+1][j+1]->isOccupied()){
+						dragonTile = tiles[i+1][j+1];
+						foundDrag = true;
+					}
 				}
 				
 				tmpItem = new DragonTreasure(dragonTile, tiles[i][j]);
