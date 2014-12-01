@@ -38,30 +38,39 @@ Player::Player(string race, int maxhp, int hp, int atk, int def) : Character(rac
 
 string Player::isAttacked(Character *c){
 	ostringstream oss;
+	// Determine the roll range based on whether the attacker is an Elf
 	int rollRange = dynamic_cast<Elf *>(c) ? 4 : 2;
 	int roll = rand() % rollRange;
+	// Calculate the damage taken from the attack
 	int damage = ((100 * c->getatk()) + (100 + def - 1)) / (100 + def);
 	
 	if(roll == 0) {
+		// All enemies have 50% chance to miss the Player
+		// NOTE: Elves have a 25% chance to miss both attacks
 		oss << "missed PC. ";
 	} else if(roll == 3) {	// Only possible if the attacker is an Elf
+		// If the Elf lands both attacks, the Player takes double damage
 		damage *= 2;
 		heal(-damage);
 		oss << "hits twice and deals " << damage << " damage to PC. ";
 	} else {
+		// Only take damage if the attack succeeds
 		heal(-damage);
 		oss << "deals " << damage << " damage to PC. ";
 	}
 
+	// Return a string detailing this attack
 	return oss.str();
 }
 
+// Called at the end of every floor to remove the Player's buffs
 void Player::flushPot() {
 	delete pot;
 	pot = new EmptyPotion;
 }
 
 void Player::bank(int amount) {
+	// Ensure the updated value for moneyCoins is non-negative
 	if(moneyCoins + amount < 0) {
 		moneyCoins = 0;
 	} else {
@@ -204,7 +213,7 @@ void Player::setPotion(AbstractPotion *p) {
 	pot = p;
 }
 
-// converts shortform to long form or vice versa
+// Converts short form to long form for directions or vice versa
 string Player::convertDirection(string dir){
 	map<string, string>dirMap;
 	dirMap["nw"] = "North West";

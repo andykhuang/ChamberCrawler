@@ -28,19 +28,3 @@ bool Stairs::canBeSteppedOn(Player *p){
 bool Stairs::canBeSteppedOn(Enemy *e){
 	return false;
 }
-/*
-bool Stairs::isSteppedOn(Player *p){
-	return false;
-}
-
-bool Stairs::isOccupied(){
-	return true;
-}
-
-bool Stairs::isOccupied(Player *p){
-	return false;
-}
-
-bool Stairs::isOccupied(Enemy *e){
-	return true;
-}*/

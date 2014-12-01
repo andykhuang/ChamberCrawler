@@ -20,6 +20,7 @@ Character::Character(string race, int maxhp, int hp, int atk, int def):race(race
 }
 
 Character::~Character(){
+	// Does not delete the host Tile since Floor deletes all Tiles
 	host = NULL;
 	delete pot;
 	pot = NULL;
@@ -30,6 +31,7 @@ void Character::setTile(Tile *t){
 }
 
 void Character::heal(int amount){
+	// Ensure the hp value does not exceed maxhp or go lower than 0
 	if(hp + amount > maxhp) {
 		hp = maxhp;
 	} else if(hp + amount < 0) {
@@ -40,10 +42,12 @@ void Character::heal(int amount){
 }
 
 string Character::isSlain(Character *c){
+	// Check if this Character is "dead" (hp == 0)
+	// If true, return a message about its death
 	if(hp == 0) {
-		//onDeath(c);
 		return onDeath(c);
 	}
+	// Otherwise return an empty string
 	return ""; 
 }
 

@@ -17,7 +17,7 @@ string Human::onDeath(Character *c){
 	oss << *this << " has been slain. ";
 	Player *p = dynamic_cast<Player *>(c);
 	if(p) {
-		// On Death, "drops" 2 piles of gold (Gold is picked up twice to compensate)
+		// On Death, "drops" 2 piles of gold (Gold is picked up twice)
 		eTreasure->isPickedUp(p);
 		eTreasure->isPickedUp(p);
 		// Check if the killer is a Goblin
@@ -31,5 +31,6 @@ string Human::onDeath(Character *c){
 		}
 		oss << " gold was looted. ";
 	}
+	// Return a string detailing this death
 	return oss.str();
 }

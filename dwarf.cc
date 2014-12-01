@@ -15,14 +15,19 @@ Dwarf::Dwarf(): Enemy("Dwarf", 100, 100, 20, 30){
 
 string Dwarf::isAttacked(Character *c){
 	ostringstream oss;
+	// Calculate the damage from the attack
 	int damage = ((100 * c->getatk()) + (100 + def - 1)) / (100 + def);
 	heal(-damage);
+
 	oss << "deals " << damage << " damage to " << *this;
 	oss << " (" << gethp() << " HP). ";
+
 	// If the attacker is a Vampire, trigger its allergies to do 5 damage
 	if(dynamic_cast<Vampire *>(c)) {
 		c->heal(-5);
 		oss << "PC suffers 5 damage from allergies. ";
 	}
+	
+	// Return a string detailing the attack
 	return oss.str();
 }

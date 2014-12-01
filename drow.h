@@ -8,8 +8,8 @@ class Drow: public Player {
 	// Constructor
 	Drow();
 
-	int getAtk();
-	int getDef();
+	int getatk();
+	int getdef();
 
 	void heal(int amount);
 	std::string isAttacked(Character *c);
