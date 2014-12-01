@@ -161,7 +161,6 @@ void Game::playGame(){
 			while(!isQuit && !isRestart && !isDead && !cin.eof()){
 				cout << "Command: ";
 				cin >> command;
-
 				// USE Command performed
 				if(command == "u"){
 					cin >> cOption;
@@ -317,12 +316,5 @@ void Game::descendFloor(){
 	}
 	else {
 		toNextFloor = true;
-		/*Stairs *newStairs = new Stairs(getInstance());
-		delete gameFloor;
-		gameFloor = new Floor(floorNum);
-		gameFloor->loadFloor(gamePlayer, newStairs);*/
 	}
-	// delete gameFloor
-	// makes a new floor
-	// increments the floor lvl
 }
