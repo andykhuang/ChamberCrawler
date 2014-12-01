@@ -39,6 +39,8 @@
 
 using namespace std;
 
+
+// Floor constructor
 Floor::Floor(int lvl):defaultFile("defaultLayout.txt"){
 	this->lvl = lvl;
 	maxEnemies = 20;
@@ -539,6 +541,7 @@ void Floor::loadFloor(Player *p, Stairs *stairs, string fileName){
 	
 }
 
+// Randomly Returns an Enemy Pointer
 Enemy* Floor::getEnemy(){
 	Enemy *toReturn;
 	string eType = random(eSpawnProb);
@@ -561,6 +564,7 @@ Enemy* Floor::getEnemy(){
 	return toReturn;
 }
 
+// Randomly returns a type of Treasure Pointer
 Treasure* Floor::getTreasure(){
 	Treasure *toReturn;
 	string tType = random(tSpawnProb);
@@ -579,6 +583,8 @@ Treasure* Floor::getTreasure(){
 	return toReturn;
 }
 
+
+// Randomly returns a type of Potion Pointer
 AbstractPotion* Floor::getPotion(){
 	AbstractPotion *toReturn = NULL;
 	string potType = random(pSpawnProb);
@@ -627,6 +633,8 @@ string Floor::random(map<string, int> &prob){
 	return "";
 }
 
+
+// Tells all enemies on the map to perform the appropriate action
 string Floor::enemyAction(Player *p){
 	string actionDesc = "";
 	vector<Character *> characterArray;
@@ -654,6 +662,8 @@ int Floor::random(int low, int high){
 	return (rand() % (high-low + 1)) + low;
 }
 
+
+// Recursive function to associate all the appropriate tiles to a given chamber
 void Floor::setChamber(int r, int c, vector<Tile *> &chamberTiles, bool **trackerGrid){
 	// If it's not a valid coordinate or not a floor type tile then return
 	if(!validCheck(r,c)|| trackerGrid[r][c] || tiles[r][c]->getTileSymbol() != '.'){
@@ -669,7 +679,7 @@ void Floor::setChamber(int r, int c, vector<Tile *> &chamberTiles, bool **tracke
 	}
 }
 
-
+// Check if the given (r, c) is in range of the board
 bool Floor::validCheck(int r, int c){
 	if(r >= 0 && r < rSize && c >= 0 && c < cSize){
 		return true;
@@ -677,6 +687,7 @@ bool Floor::validCheck(int r, int c){
 	return false;
 }
 
+// << overload
 ostream &operator<<(ostream &out, const Floor &f){
 	for(int i = 0; i < f.rSize; i++){
 		for(int j = 0 ; j < f.cSize; j++){

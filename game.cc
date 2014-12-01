@@ -24,6 +24,8 @@ bool isQuit = false;
 bool isWin = false;
 Game *Game::instance = NULL;
 
+
+// Get the instance of the game
 Game* Game::getInstance(){
 	if(!instance){
 		instance = new Game();
@@ -32,10 +34,14 @@ Game* Game::getInstance(){
 	return instance;
 }
 
+
+// Cleans up the game
 void Game::cleanup(){
 	delete instance;
 }
 
+
+// Game Ctor
 Game::Game(){
 	gamePlayer = NULL;
 	gameFloor = NULL;
@@ -45,6 +51,8 @@ Game::Game(){
 	floorNum = 1;
 }
 
+
+// Game dtor
 Game::~Game(){
 	delete gamePlayer;
 	delete gameFloor;
@@ -53,6 +61,8 @@ Game::~Game(){
 	gameFloor = NULL;
 }
 
+
+// Display the HUD (player information with the given action)
 void Game::displayHUD(string action){
 	cout << "Race: " << gamePlayer->getRace() << " ";
 	cout << "Gold: " << setw(48) << left << gamePlayer->getGold();
@@ -64,11 +74,14 @@ void Game::displayHUD(string action){
 	cout << "Action: " << action << endl;
 }
 
+
+// Set the file that contains all 5 floor preloaded layouts if there exists one
 void Game::setFloorFile(string fName){
 	fiveFloorFile = fName;
 }
 
 
+// Sets the Race of the player
 bool Game::setGamePlayer(string race){
 	if(race == "s" || race == "S"){
 		gamePlayer = new Shade;
@@ -91,6 +104,8 @@ bool Game::setGamePlayer(string race){
 	}
 }
 
+
+// Check if the given direction is valid
 bool isValidDirection(string dir){
 	if(dir == "no" || dir == "so" || dir == "ea" || dir == "we" || dir == "ne" || dir == "nw" || dir == "se" || dir == "sw"){
 		return true;
@@ -240,7 +255,8 @@ void Game::playGame(){
 					isValidCommand = false;
 					isDead = gamePlayer->gethp() <= 0;
 				}
-
+				
+				// If you died display message and prompt restart
 				if(isDead){
 					cout << endl;
 					cout << "You died" << endl;
@@ -260,6 +276,7 @@ void Game::playGame(){
 					}
 				}
 				
+				// If you won display congrats and prompt restart
 				if(isWin){
 					cout << endl;
 					cout << "Congratulations! You WON!" << endl;
@@ -280,7 +297,8 @@ void Game::playGame(){
 				}
 				
 			}
-			
+
+			// Cleans up the variables for next floor/restart			
 			delete gameFloor;
 			delete gamePlayer;
 			gamePlayer = NULL;
@@ -300,17 +318,20 @@ void Game::playGame(){
 }
 
 
+// Displays the score the player earned
 void Game::displayScore(){
 	cout << setfill('-') << setw(20) << "" << endl;
 	cout << "     " <<"Score: " << gamePlayer->getScore() << endl;
 	cout << setfill('-') << setw(20) << "";
 	cout << setfill(' ') << "" << endl;
 }
+
+// Go to the next floor
 void Game::descendFloor(){
 	floorNum++;
-
+	
+	// Reached the end of floor 5
 	if(floorNum >= 6){
-		// TODO: Trigger game over win condition and tally scores
 		isWin = true;
 		isQuit = true;
 	}
